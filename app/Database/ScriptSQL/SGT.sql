@@ -12,7 +12,6 @@ CREATE TABLE "Tache" (
   "description" text,
   "echeance" datetime NOT NULL,
   "priorite" varchar NOT NULL,
-  "commentaire" Commentaire,
   "creePar" Utilisateur NOT NULL,
   "dateCreation" datetime NOT NULL
 );
