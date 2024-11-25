@@ -8,6 +8,8 @@ class CommentaireSeeder extends Seeder
 {
     public function run()
     {
+		$this->db->query('TRUNCATE TABLE commentaire RESTART IDENTITY CASCADE');
+
         $data = [
             [
                 'commentaire' => 'La réunion est bien planifiée, tout le monde sera informé.',

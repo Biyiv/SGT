@@ -8,6 +8,8 @@ class TacheSeeder extends Seeder
 {
     public function run()
     {
+		$this->db->query('TRUNCATE TABLE tache RESTART IDENTITY CASCADE');
+
         $data = [
             [
                 'titre'       => 'Réunion d\'équipe',
@@ -15,6 +17,7 @@ class TacheSeeder extends Seeder
                 'creepar'     => 'Biyiv',
                 'echeance'    => date('Y-m-d H:i:s', strtotime('+1 week')),
                 'priorite'    => 'importante',
+				'statut'      => 'en attente',
             ],
             [
                 'titre'       => 'Mise à jour du site web',
@@ -22,6 +25,7 @@ class TacheSeeder extends Seeder
                 'creepar'     => 'Frizoks',
                 'echeance'    => date('Y-m-d H:i:s', strtotime('+2 days')),
                 'priorite'    => 'neutre',
+				'statut'      => 'en cours',
             ],
             [
                 'titre'       => 'Correction de bug',
@@ -29,6 +33,7 @@ class TacheSeeder extends Seeder
                 'creepar'     => 'Biyiv',
                 'echeance'    => date('Y-m-d H:i:s', strtotime('+3 days')),
                 'priorite'    => 'faible',
+				'statut'      => 'en attente',
             ],
         ];
 
