@@ -40,10 +40,10 @@ body {
     transition: transform 0.8s ease-in-out; /* Animation de "scroll" */
 }
 
-#login, #register {
+#login, #register, #forgotpwd {
     width: 100%;
     padding: 20px;
-    margin: 65% 0 0 0;
+    margin: 65% 0 45% 0;
     box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 8px;

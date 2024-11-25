@@ -34,21 +34,8 @@
 					<?= form_submit('submit', 'Se connecter') ?>
 				<?= form_close() ?>
 				<div class="center-container">
-					<button id="show-register">S'inscrire</button>
-					<a href="/sendLink" id="show-register">Mot de passe oublié</a>
-				</div>
-			</div>
-
-			<div id="login">
-				<h1>Réinitialisation du mot de passe</h1>
-				<?= form_open('sendLink') ?>
-					<?= form_label('Identifiant', 'identifiant') ?>
-					<?= form_input('identifiant', '', ['placeholder' => 'Email ou nom d\'utilisateur']) ?>
-					<br>
-					<?= form_submit('submit', 'Envoyer un lien de réinitialisation') ?>
-				<?= form_close() ?>
-				<div class="center-container">
-					<a href="/login" id="show-login">Se connecter</a>
+					<button class="show-register">S'inscrire</button>
+					<button class="show-forgotpwd">Mot de passe oublié</button>
 				</div>
 			</div>
 
@@ -76,7 +63,20 @@
 					<?= form_submit('submit', 'S\'inscrire') ?>
 				<?= form_close() ?>
 				<div class="center-container">
-					<button id="show-login">Se connecter</button>
+					<button class="show-login">Se connecter</button>
+				</div>
+			</div>
+
+			<div id="forgotpwd">
+				<h1>Réinitialisation du mot de passe</h1>
+				<?= form_open('sendLink') ?>
+					<?= form_label('Identifiant', 'identifiant') ?>
+					<?= form_input('identifiant', '', ['placeholder' => 'Email ou nom d\'utilisateur']) ?>
+					<br>
+					<?= form_submit('submit', 'Envoyer un lien de réinitialisation') ?>
+				<?= form_close() ?>
+				<div class="center-container">
+					<button class="show-login">Se connecter</button>
 				</div>
 			</div>
 		</div>
