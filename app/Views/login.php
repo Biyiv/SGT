@@ -35,6 +35,20 @@
 				<?= form_close() ?>
 				<div class="center-container">
 					<a href="/register" id="show-register">S'inscrire</a>
+					<a href="/sendLink" id="show-register">Mot de passe oublié</a>
+				</div>
+			</div>
+
+			<div id="login">
+				<h1>Réinitialisation du mot de passe</h1>
+				<?= form_open('sendLink') ?>
+					<?= form_label('Identifiant', 'identifiant') ?>
+					<?= form_input('identifiant', '', ['placeholder' => 'Email ou nom d\'utilisateur']) ?>
+					<br>
+					<?= form_submit('submit', 'Envoyer un lien de réinitialisation') ?>
+				<?= form_close() ?>
+				<div class="center-container">
+					<a href="/login" id="show-login">Envoyer le lien</a>
 				</div>
 			</div>
 

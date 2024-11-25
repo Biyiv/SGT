@@ -75,41 +75,45 @@ class LoginController extends BaseController {
 		return redirect()->to('/login');
 	}
 
-	public function sendResetLink()
+	public function sendLink()
 	{
-		$utilisateurModel = new UtilisateurModel();
+		if($this->request->getMethod() == 'POST') {
+			$utilisateurModel = new UtilisateurModel();
 
-		$utilisateur = $utilisateurModel->where('mail', $this->request->getVar('identifiant'))->first();
+			$utilisateur = $utilisateurModel->where('mail', $this->request->getVar('identifiant'))->first();
 
-		if (!$utilisateur) {
-			$utilisateur = $utilisateurModel->where('username', $this->request->getVar('identifiant'))->first();
-		}
-		$user = $utilisateurModel->getUserByEmail($utilisateur);
+			if (!$utilisateur) {
+				$utilisateur = $utilisateurModel->where('username', $this->request->getVar('identifiant'))->first();
+			}
+			$user = $utilisateurModel->getUserByEmail($utilisateur);
 
-		if ($user) {
-			// Générer un jeton de réinitialisation de MDP et enregistrer-le dans BD
-			$token = bin2hex(random_bytes(16));
-			$expiration = date('Y-m-d H:i:s', strtotime('+1 hour'));
-			$utilisateurModel->set('reset_token', $token)->set('reset_token_expiration', $expiration)->update($user['id']);
-			// Envoyer l'e-mail avec le lien de réinitialisation
-			$resetLink = site_url("resetpassword/$token");
-			$message = "Cliquez sur le lien suivant pour réinitialiser votre MDP: $resetLink";
-			// Utilisez la classe Email de CodeIgniter pour envoyer l'e-mail
-			$emailService = \Config\Services::email();
-			//envoi du mail
-			$emailService->setTo($email);
-			$emailService->setFrom('luc.lecarpentier5@gmail.com');
-			$emailService->setSubject('Réinitialisation du mot de passe');
-			$emailService->setMessage($message);
-			if ($emailService->send()) {
-				echo 'E-mail envoyé avec succès. (' . $email . ')';
-				echo "<p>Se connecter ? <a href=" . site_url('signin') . ">Cliquez ici</a></p>";
+			if ($user) {
+				// Générer un jeton de réinitialisation de MDP et enregistrer-le dans BD
+				$token = bin2hex(random_bytes(16));
+				$expiration = date('Y-m-d H:i:s', strtotime('+1 hour'));
+				$utilisateurModel->set('reset_token', $token)->set('reset_token_expiration', $expiration)->update($user['id']);
+				// Envoyer l'e-mail avec le lien de réinitialisation
+				$resetLink = site_url("resetpassword/$token");
+				$message = "Cliquez sur le lien suivant pour réinitialiser votre MDP: $resetLink";
+				// Utilisez la classe Email de CodeIgniter pour envoyer l'e-mail
+				$emailService = \Config\Services::email();
+				//envoi du mail
+				$emailService->setTo($email);
+				$emailService->setFrom('luc.lecarpentier5@gmail.com');
+				$emailService->setSubject('Réinitialisation du mot de passe');
+				$emailService->setMessage($message);
+				if ($emailService->send()) {
+					echo 'E-mail envoyé avec succès. (' . $email . ')';
+					echo "<p>Se connecter ? <a href=" . site_url('signin') . ">Cliquez ici</a></p>";
+				} else {
+					echo $emailService->printDebugger();
+				}
 			} else {
-				echo $emailService->printDebugger();
+				echo 'Adresse e-mail non valide.';
+				echo "<p>Se connecter ? <a href=" . site_url('signin') . ">Cliquez ici</a></p>";
 			}
 		} else {
-			echo 'Adresse e-mail non valide.';
-			echo "<p>Se connecter ? <a href=" . site_url('signin') . ">Cliquez ici</a></p>";
+			return view('login');
 		}
 	}
 

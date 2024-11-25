@@ -10,6 +10,8 @@ $routes->get('/', 'LoginController::login');
 
 $routes->get('/login', 'LoginController::login');
 $routes->post('/login', 'LoginController::login');
+$routes->get('/sendLink', 'LoginController::sendLink');
+$routes->post('/sendLink', 'LoginController::sendLink');
 $routes->get('/register', 'LoginController::login');
 $routes->post('/register', 'LoginController::register');
 $routes->get('/logout', 'LoginController::logout');
