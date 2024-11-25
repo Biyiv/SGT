@@ -5,7 +5,7 @@ body {
     padding: 0;
     height: 100vh;
     overflow: hidden; /* Empêche le défilement réel */
-    background: linear-gradient(45deg, #e6e6e6, #087CA7);
+    background: linear-gradient(45deg, #033860, #087CA7);
     background-size: 400% 400%;
     animation: gradientAnimation 10s ease infinite; /* Animation du fond */
     display: flex;
