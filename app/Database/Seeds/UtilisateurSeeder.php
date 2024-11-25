@@ -20,7 +20,7 @@ class UtilisateurSeeder extends Seeder
                 'username' => 'Biyiv',
                 'nom'      => 'Hay',
                 'prenom'   => 'Baptiste',
-                'mail'     => 'hay.baptiste@gmail.com',
+                'mail'     => 'baptiste.hay@hotmail.fr',
                 'mdp'      => password_hash('MaisTesPasNet', PASSWORD_DEFAULT),
             ],
         ];
