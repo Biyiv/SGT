@@ -8,10 +8,11 @@ class UserModelB extends Model
 	protected $allowedFields = [
 		'titre',
 		'description',
+		'creerpar',
+		'debut',
 		'echeance',
 		'priorite',
-		'creerpar',
-		'datecreation',
+		'statut',
 	];
 	
 	
