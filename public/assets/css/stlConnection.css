@@ -5,7 +5,7 @@ body {
     padding: 0;
     height: 100vh;
     overflow: hidden; /* Empêche le défilement réel */
-    background: linear-gradient(45deg, #e6e6e6, #087CA7);
+    background: linear-gradient(45deg, #033860, #087CA7);
     background-size: 400% 400%;
     animation: gradientAnimation 10s ease infinite; /* Animation du fond */
     display: flex;
@@ -37,13 +37,37 @@ body {
     position: absolute;
     width: 100%;
     height: fit-content; /* Contient les deux formulaires */
-    transition: transform 0.8s ease; /* Animation de "scroll" */
+    transition: transform 0.8s ease-in-out; /* Animation de "scroll" */
 }
 
-#login, #register {
+#login {
     width: 100%;
     padding: 20px;
-    margin: 65% 0 0 0;
+    margin: 65% 0 45% 0;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 50%; /* Chaque div prend 50% de la hauteur */
+}
+
+#register {
+    width: 100%;
+    padding: 20px;
+    margin: 85% 0 45% 0;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 50%; /* Chaque div prend 50% de la hauteur */
+}
+
+#forgotpwd {
+    width: 100%;
+    padding: 20px;
+    margin: 65% 0 45% 0;
     box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 8px;
