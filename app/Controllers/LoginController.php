@@ -29,6 +29,7 @@ class LoginController extends BaseController {
 				return redirect()->to('/login');
 			}
 		} else {
+			session()->setFlashdata('error', 'Identifiant incorrect');
 			return view('login');
 		}
 	}
