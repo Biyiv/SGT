@@ -34,7 +34,7 @@
 					<?= form_submit('submit', 'Se connecter') ?>
 				<?= form_close() ?>
 				<div class="center-container">
-					<a href="/register" id="show-register">S'inscrire</a>
+					<button id="show-register">S'inscrire</button>
 				</div>
 			</div>
 
@@ -62,7 +62,7 @@
 					<?= form_submit('submit', 'S\'inscrire') ?>
 				<?= form_close() ?>
 				<div class="center-container">
-					<a href="/login" id="show-login">Se connecter</a>
+					<button id="show-login">Se connecter</button>
 				</div>
 			</div>
 		</div>

@@ -37,7 +37,7 @@ body {
     position: absolute;
     width: 100%;
     height: fit-content; /* Contient les deux formulaires */
-    transition: transform 0.8s ease; /* Animation de "scroll" */
+    transition: transform 0.8s ease-in-out; /* Animation de "scroll" */
 }
 
 #login, #register {
