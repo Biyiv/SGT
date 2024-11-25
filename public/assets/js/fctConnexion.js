@@ -2,13 +2,14 @@ const formWrapper = document.querySelector('.form-wrapper');
 const showRegisterButton = document.getElementById('show-register');
 const showLoginButton = document.getElementById('show-login');
 
-showRegisterButton.addEventListener('click', () => {
-	formWrapper.style.transform = 'translateY(-50%)'; // Descend vers le formulaire d'inscription
-});
+// Récupère l'url
+var url = window.location.href;
 
-showLoginButton.addEventListener('click', () => {
+if (url.includes("/login")) {
 	formWrapper.style.transform = 'translateY(0)'; // Remonte vers le formulaire de connexion
-});
+} else {
+	formWrapper.style.transform = 'translateY(-50%)'; // Descend vers le formulaire d'inscription
+}
 
 document.addEventListener("DOMContentLoaded", () => {
 	const modal = document.getElementById("error-modal");

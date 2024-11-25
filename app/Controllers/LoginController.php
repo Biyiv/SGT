@@ -11,25 +11,27 @@ class LoginController extends BaseController {
 	}
 
 	public function login() {
-		$utilisateurModel = new UtilisateurModel();
-		$utilisateur = $utilisateurModel->where('mail', $this->request->getVar('identifiant'))->first();
+		if($this->request->getMethod() == 'POST') {
+			$utilisateurModel = new UtilisateurModel();
+			$utilisateur = $utilisateurModel->where('mail', $this->request->getVar('identifiant'))->first();
 
-		if (!$utilisateur) {
-			$utilisateur = $utilisateurModel->where('username', $this->request->getVar('identifiant'))->first();
-		}
+			if (!$utilisateur) {
+				$utilisateur = $utilisateurModel->where('username', $this->request->getVar('identifiant'))->first();
+			}
 
-
-		if ($utilisateur) {
-			if (password_verify($this->request->getVar('password'), $utilisateur['mdp'])) {
-				session()->set('utilisateur', $utilisateur);
-				return redirect()->to('/dashboard');
+			if ($utilisateur) {
+				if (password_verify($this->request->getVar('password'), $utilisateur['mdp'])) {
+					session()->set('utilisateur', $utilisateur);
+					return redirect()->to('/dashboard');
+				} else {
+					session()->setFlashdata('error', 'Mot de passe incorrect');
+					return redirect()->to('/login');
+				}
 			} else {
-				dd($utilisateur);
-				session()->setFlashdata('error', 'Mot de passe incorrect');
+				session()->setFlashdata('error', 'Identifiant incorrect');
 				return redirect()->to('/login');
 			}
 		} else {
-			session()->setFlashdata('error', 'Identifiant incorrect');
 			return view('login');
 		}
 	}
@@ -38,13 +40,13 @@ class LoginController extends BaseController {
 		$utilisateurModel = new UtilisateurModel();
 
 		//Vérification de l'unicité du nom d'utilisateur
-		if ($utilisateurModel->where('username', $this->request->getVar('username'))->first()) {
+		if ($utilisateurModel->where('username', $this->request->getVar('username'))->first() && $this->request->getVar('username') != "") {
 			session()->setFlashdata('error', 'Ce nom d\'utilisateur est déjà utilisé');
 			return redirect()->to('/register');
 		}
 
 		//Vérification de l'unicité de l'adresse mail
-		if ($utilisateurModel->where('mail', $this->request->getVar('email'))->first()) {
+		if ($utilisateurModel->where('mail', $this->request->getVar('email'))->first() && $this->request->getVar('email') != "") {
 			session()->setFlashdata('error', 'Cette adresse mail est déjà utilisée');
 			return redirect()->to('/register');
 		}

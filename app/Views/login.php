@@ -9,24 +9,23 @@
 </head>
 <body>
 	<div id="app">
+		<div id="error-modal" class="modal">
+			<div class="modal-content">
+				<span class="close-btn">&times;</span>
+				<p>
+					<?php 
+						if(session()->getFlashdata('error')) {
+							echo session()->getFlashdata('error');
+						}
+					?>
+				</p>
+			</div>
+		</div>
 		<div class="form-wrapper">
-			<div id="login">
-				<div id="error-modal" class="modal">
-					<div class="modal-content">
-						<span class="close-btn">&times;</span>
-						<p>
-							<?php 
-								if(session()->getFlashdata('error')) {
-									echo session()->getFlashdata('error');
-								}
-							?>
-						</p>
-					</div>
-				</div>
-				
+			<div id="login">				
 				<h1>Se Connecter</h1>
 				<?= form_open('login') ?>
-					<?= form_label('Email ou nom d\'utilisateur', 'identifiant') ?>
+					<?= form_label('Identifiant', 'identifiant') ?>
 					<?= form_input('identifiant', '', ['placeholder' => 'Email ou nom d\'utilisateur']) ?>
 					<br>
 					<?= form_label('Mot de passe', 'password') ?>
@@ -35,24 +34,11 @@
 					<?= form_submit('submit', 'Se connecter') ?>
 				<?= form_close() ?>
 				<div class="center-container">
-					<button id="show-register">S'inscrire</button>
+					<a href="/register" id="show-register">S'inscrire</a>
 				</div>
 			</div>
 
 			<div id="register">
-				<div id="error-modal" class="modal">
-					<div class="modal-content">
-						<span class="close-btn">&times;</span>
-						<p>
-							<?php 
-								if(session()->getFlashdata('error')) {
-									echo session()->getFlashdata('error');
-								}
-							?>
-						</p>
-					</div>
-				</div>
-
 				<h1>S'inscrire</h1>
 				<?= form_open('register') ?>
 					<?= form_label('Nom d\'utilisateur', 'username') ?>
@@ -76,7 +62,7 @@
 					<?= form_submit('submit', 'S\'inscrire') ?>
 				<?= form_close() ?>
 				<div class="center-container">
-					<button id="show-login">Se connecter</button>
+					<a href="/login" id="show-login">Se connecter</a>
 				</div>
 			</div>
 		</div>
