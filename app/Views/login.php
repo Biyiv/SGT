@@ -25,7 +25,7 @@
 			<div id="login">				
 				<h1>Se Connecter</h1>
 				<?= form_open('login') ?>
-					<?= form_label('Email ou nom d\'utilisateur', 'identifiant') ?>
+					<?= form_label('Identifiant', 'identifiant') ?>
 					<?= form_input('identifiant', '', ['placeholder' => 'Email ou nom d\'utilisateur']) ?>
 					<br>
 					<?= form_label('Mot de passe', 'password') ?>
