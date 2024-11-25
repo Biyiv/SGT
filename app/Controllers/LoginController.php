@@ -5,13 +5,18 @@ namespace App\Controllers;
 use App\Models\UtilisateurModel;
 
 class LoginController extends BaseController {
-	public function index() {
-		return view('login');
+
+	public function __construct() {
+		helper('form');
 	}
 
 	public function login() {
 		$utilisateurModel = new UtilisateurModel();
-		$utilisateur = $utilisateurModel->where('email', $this->request->getVar('email'))->first();
+		$utilisateur = $utilisateurModel->where('email', $this->request->getVar('identifiant'))->first();
+
+		if (!$utilisateur) {
+			$utilisateur = $utilisateurModel->where('username', $this->request->getVar('identifiant'))->first();
+		}
 
 		if ($utilisateur) {
 			if (password_verify($this->request->getVar('password'), $utilisateur['password'])) {
@@ -22,7 +27,7 @@ class LoginController extends BaseController {
 				return redirect()->to('/login');
 			}
 		} else {
-			return redirect()->to('/login');
+			return view('login');
 		}
 	}
 
