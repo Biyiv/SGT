@@ -8,6 +8,11 @@
 </head>
 <body>
 	<div id="login">
+		<?php 
+			if(session()->getFlashdata('error')) {
+				echo session()->getFlashdata('error');
+			}
+		?>
 		<?= form_open('login') ?>
 			<?= form_label('Email ou nom d\'utilisateur', 'identifiant') ?>
 			<?= form_input('identifiant', '', ['placeholder' => 'Email ou nom d\'utilisateur']) ?>
