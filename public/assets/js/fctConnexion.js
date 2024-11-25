@@ -5,7 +5,7 @@ const showForgotpwdButtons = document.querySelectorAll('.show-forgotpwd');
 
 // Position initiale en fonction de l'URL
 if (window.location.href.includes("/register")) {
-    formWrapper.style.transform = 'translateY(-50%)'; // Descend vers le formulaire d'inscription
+    formWrapper.style.transform = 'translateY(-37%)'; // Descend vers le formulaire d'inscription
 } else if (window.location.href.includes("/forgotpwd")) {
     formWrapper.style.transform = 'translateY(-70%)'; // Descend vers le formulaire "mot de passe oublié"
 }
