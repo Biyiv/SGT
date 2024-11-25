@@ -1,0 +1,74 @@
+CRITICAL - 2024-11-25 07:55:39 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "login.php"
+[Method: GET, Route: /]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 41.
+ 1 SYSTEMPATH/View/View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/Common.php(1169): CodeIgniter\View\View->render()
+ 3 APPPATH/Controllers/LoginController.php(9): view()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\LoginController->index()
+ 5 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/public/index.php')
+ERROR - 2024-11-25 08:06:05 --> Error connecting to the database: mysqli_sql_exception: No such file or directory in /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Database/MySQLi/Connection.php:186
+Stack trace:
+#0 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Database/MySQLi/Connection.php(186): mysqli->real_connect()
+#1 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#4 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/app/Controllers/LoginController.php(15): CodeIgniter\BaseModel->first()
+#7 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/CodeIgniter.php(933): App\Controllers\LoginController->login()
+#8 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#9 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#13 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/rewrite.php(44): require_once('...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No such file or directory in /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+#3 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/app/Controllers/LoginController.php(15): CodeIgniter\BaseModel->first()
+#6 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/CodeIgniter.php(933): App\Controllers\LoginController->login()
+#7 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+#8 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2024-11-25 08:06:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+[Method: GET, Route: /]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Controllers/LoginController.php(15): CodeIgniter\BaseModel->first()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\LoginController->login()
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/public/index.php')
+CRITICAL - 2024-11-25 08:48:40 --> ErrorException: Undefined property: App\Controllers\LoginController::$load
+[Method: POST, Route: login]
+in APPPATH/Controllers/LoginController.php on line 11.
+ 1 APPPATH/Controllers/LoginController.php(11): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\LoginController->__construct()
+ 3 SYSTEMPATH/CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/public/index.php')
