@@ -61,3 +61,14 @@ in SYSTEMPATH/Database/BaseConnection.php on line 467.
 10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
 11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
 12 SYSTEMPATH/rewrite.php(44): require_once('/home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/public/index.php')
+CRITICAL - 2024-11-25 08:48:40 --> ErrorException: Undefined property: App\Controllers\LoginController::$load
+[Method: POST, Route: login]
+in APPPATH/Controllers/LoginController.php on line 11.
+ 1 APPPATH/Controllers/LoginController.php(11): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(903): App\Controllers\LoginController->__construct()
+ 3 SYSTEMPATH/CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/etudiant/hb220678/TP/s5/r5.05_prog_avancee/SGT/public/index.php')

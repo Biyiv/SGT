@@ -21,7 +21,7 @@ class LoginController extends BaseController {
 		if ($utilisateur) {
 			if (password_verify($this->request->getVar('password'), $utilisateur['password'])) {
 				session()->set('utilisateur', $utilisateur);
-				return redirect()->to('/home');
+				return redirect()->to('/dashboard');
 			} else {
 				session()->setFlashdata('error', 'Mot de passe incorrect');
 				return redirect()->to('/login');
