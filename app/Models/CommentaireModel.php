@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 use CodeIgniter\Model;
-class UserModelB extends Model
+class CommentaireModel extends Model
 {
 	protected $table = 'commentaire';
 	protected $primaryKey = 'id';
