@@ -80,18 +80,14 @@ class LoginController extends BaseController {
 		if($this->request->getMethod() == 'POST') {
 			$utilisateurModel = new UtilisateurModel();
 
-			$utilisateur = $utilisateurModel->where('mail', $this->request->getVar('identifiant'))->first();
+			$mail = $utilisateurModel->where('mail', $this->request->getVar('identifiant'))->first();
+			$utilisateur = $utilisateurModel->getUserByEmail($mail);
 
-			if (!$utilisateur) {
-				$utilisateur = $utilisateurModel->where('username', $this->request->getVar('identifiant'))->first();
-			}
-			$user = $utilisateurModel->getUserByEmail($utilisateur);
-
-			if ($user) {
+			if ($utilisateur) {
 				// Générer un jeton de réinitialisation de MDP et enregistrer-le dans BD
 				$token = bin2hex(random_bytes(16));
 				$expiration = date('Y-m-d H:i:s', strtotime('+1 hour'));
-				$utilisateurModel->set('reset_token', $token)->set('reset_token_expiration', $expiration)->update($user['id']);
+				$utilisateurModel->set('reset_token', $token)->set('reset_token_expiration', $expiration)->update($utilisateur['username']);
 				// Envoyer l'e-mail avec le lien de réinitialisation
 				$resetLink = site_url("resetpassword/$token");
 				$message = "Cliquez sur le lien suivant pour réinitialiser votre MDP: $resetLink";

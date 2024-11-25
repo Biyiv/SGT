@@ -48,7 +48,7 @@
 					<?= form_submit('submit', 'Envoyer un lien de réinitialisation') ?>
 				<?= form_close() ?>
 				<div class="center-container">
-					<a href="/login" id="show-login">Envoyer le lien</a>
+					<a href="/login" id="show-login">Se connecter</a>
 				</div>
 			</div>
 
