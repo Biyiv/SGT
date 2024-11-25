@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class UpdateTacheTable extends Migration
+class UpdateCommentaireTable extends Migration
 {
     public function up()
     {
