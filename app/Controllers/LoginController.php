@@ -24,13 +24,12 @@ class LoginController extends BaseController {
 					session()->set('utilisateur', $utilisateur);
 					return redirect()->to('/dashboard');
 				} else {
-					dd($utilisateur);
 					session()->setFlashdata('error', 'Mot de passe incorrect');
 					return redirect()->to('/login');
 				}
 			} else {
 				session()->setFlashdata('error', 'Identifiant incorrect');
-				return view('login');
+				return redirect()->to('/login');
 			}
 		} else {
 			return view('login');
