@@ -8,7 +8,7 @@ class UpdateTacheTable extends Migration
 {
     public function up()
     {
-		$this->db->query("ALTER TABLE commentaire ALTER COLUMN datecreation SET DEFAULT CURRENT_TIMESTAMP"); 
+		$this->db->query("ALTER TABLE commentaire ALTER COLUMN datecreation SET DEFAULT CURRENT_TIMESTAMP");
     }
 
     public function down()

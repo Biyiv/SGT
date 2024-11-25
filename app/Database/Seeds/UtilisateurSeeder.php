@@ -8,6 +8,8 @@ class UtilisateurSeeder extends Seeder
 {
     public function run()
     {
+		$this->db->query('TRUNCATE TABLE utilisateur RESTART IDENTITY CASCADE');
+
         $data = [
             [
                 'username' => 'Frizoks',
