@@ -25,6 +25,14 @@ class LoginController extends BaseController {
 					return redirect()->to('/dashboard');
 				} else {
 					session()->setFlashdata('error', 'Mot de passe incorrect');
+
+					// Si l'utilisateur a coché la case "Se souvenir de moi", on garde l'identifiant en cookie
+					if($this->request->getVar('remember')) {
+						setcookie('identifiant', $this->request->getVar('identifiant'), time() + 3600 * 24 * 30);
+					} else {
+						setcookie('identifiant', '', time() - 3600);
+					}
+
 					return redirect()->to('/login');
 				}
 			} else {
