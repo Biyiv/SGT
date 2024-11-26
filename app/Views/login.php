@@ -31,14 +31,14 @@
 				<h1>Se Connecter</h1>
 				<?= form_open('login') ?>
 					<?= form_label('Identifiant', 'identifiant') ?>
-					<?= form_input('identifiant', '', ['placeholder' => 'Email ou nom d\'utilisateur', 'required' => 'required']) ?>
+					<?= form_input('identifiant', isset($_COOKIE['identifiant']) ? $_COOKIE['identifiant'] : '', ['placeholder' => 'Email ou nom d\'utilisateur', 'required' => 'required']) ?>
 					<br>
 					<?= form_label('Mot de passe', 'password') ?>
 					<?= form_password('password', '', ['placeholder' => 'Mot de passe', 'required' => 'required']) ?>
 					<br>
 					<div class="remember-wrapper">
 						<?= form_label('Se souvenir de moi', 'remember') ?>
-						<?= form_checkbox('remember', '1', false, ['id' => 'remember']) ?>
+						<?= form_checkbox('remember', '1', isset($_COOKIE['identifiant']) && !empty($_COOKIE['identifiant']), ['id' => 'remember']) ?>
 					</div>
 					<br>
 					<?= form_submit('submit', 'Se connecter') ?>
