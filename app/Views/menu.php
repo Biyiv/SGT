@@ -12,7 +12,7 @@
 <?= form_open('/setTriPreference', ['method' => 'post']); ?>
 <!-- CSRF Protection -->
 <?= csrf_field() ?>
-
+<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
 <!-- Liste déroulante pour le tri -->
 <?= form_label('Trier par :', 'tri'); ?>
 <?= form_dropdown(
@@ -34,7 +34,7 @@
 			<p>Créé par : <?= esc($tache['creepar']) ?></p>
 			<p>Début : <?= esc($tache['debut']) ?></p>
 			<p>Echéance : <?= esc($tache['echeance']) ?></p>
-			<p>Priorité : <?= esc($tache['priorite']) ?></p>
+			<p>Priorité : <?= esc($prioriteLst[$tache['priorite']]) ?></p>
 			<p>Statut : <?= esc($tache['statut']) ?></p>
 
 		</div>
@@ -71,7 +71,7 @@
         <br>
         
         <?= form_label('Priorité :', 'priorite'); ?>
-        <?= form_dropdown('priorite', ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'], '1', ['id' => 'priorite']); ?>
+        <?= form_dropdown('priorite', $prioriteLst, '1', ['id' => 'priorite']); ?>
         <br>
         
         <?= form_submit('submit', 'Créer la tâche'); ?>
