@@ -64,16 +64,14 @@ class TacheController extends BaseController
             'debut' => $this->request->getPost('debut'),
             'echeance' => $this->request->getPost('echeance'),
             'priorite' => $this->request->getPost('priorite'),
-            'creepar' => $utilisateur,
-            'statut' => 'En attente'
+            'creepar' => $utilisateur['username'],
+            'statut' => 'en attente'
         ];
 
         if (!$data['creepar']) {
             return redirect()->back()->with('error', 'Problème avec l\'utilisateur connecté.');
         }
 
-        dd($data);  
-    
         $tacheModel->insert($data);
 
         return redirect()->to('/dashboard')->with('success', 'Tâche ajoutée avec succès');

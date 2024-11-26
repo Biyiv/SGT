@@ -77,11 +77,11 @@
                 <br>
                 
                 <?= form_label('Début :', 'debut'); ?>
-                <?= form_input(['type' => 'date', 'name' => 'debut', 'id' => 'debut']); ?>
+                <?= form_input(['type' => 'datetime-local', 'name' => 'debut', 'id' => 'debut', 'value' => date('Y-m-d\TH:i')]); ?>
                 <br>
                 
                 <?= form_label('Échéance :', 'echeance'); ?>
-                <?= form_input(['type' => 'date', 'name' => 'debut', 'id' => 'debut', 'required' => 'required']); ?>
+                <?= form_input(['type' => 'datetime-local', 'name' => 'echeance', 'id' => 'echeance', 'value' => date('Y-m-d\TH:i')]); ?>
                 <br>
                 
                 <?= form_label('Priorité :', 'priorite'); ?>

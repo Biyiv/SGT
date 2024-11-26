@@ -8,7 +8,7 @@ class TacheModel extends Model
 	protected $allowedFields = [
 		'titre',
 		'description',
-		'creerpar',
+		'creepar',
 		'debut',
 		'echeance',
 		'priorite',
