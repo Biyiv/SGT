@@ -15,12 +15,12 @@ class TacheModel extends Model
 		'statut',
 	];
 	
-	public function getTaches($user=null,$sort = "echeance"): array
+	public function getTaches($user=null, $sort = "echeance", $direction = "ASC"): array
 	{
 		/*if ($user == null) {
 			return [];
 		}*/
-		return $this->orderBy($sort, 'ASC')->findAll();
+		return $this->orderBy($sort, $direction)->findAll();
 	}
 
 	

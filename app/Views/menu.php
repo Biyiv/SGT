@@ -37,6 +37,7 @@
             [
                 'echeance' => 'Échéance',
                 'priorite' => 'Priorité',
+                'retard' => 'Retard'
             ],
             $tri,
             ['id' => 'tri', 'onchange' => 'this.form.submit()']

@@ -24,8 +24,28 @@ class TacheController extends BaseController
 
         $tri = $this->session->get('tri') == null ? "" : $this->session->get('tri');
         // Récupérer toutes les tâches, triées par échéance
-        $data['taches'] = $model->getTaches($this->session->get('user'), $tri);
-		$data['tri'] = $tri;
+        if ($tri !== 'retard'){
+            if($tri == 'echeance') {
+                $data['taches'] = $model->getTaches($this->session->get('user'), $tri);
+            } elseif ($tri == 'priorite') {
+                $data['taches'] = $model->getTaches($this->session->get('user'), $tri, 'DESC');
+            }
+            $data['tri'] = $tri;
+        } else {
+            $data['taches'] = $model->findAll();
+            //Tri les taches par leur retard c'est à dire la date actuelle moins leur echeance
+            usort($data['taches'], function($a, $b) {
+                $dateA = new \DateTime($a['echeance']);
+                $dateB = new \DateTime($b['echeance']);
+                $now = new \DateTime();
+
+                $diffA = $now->diff($dateA)->days;
+                $diffB = $now->diff($dateB)->days;
+
+                return $diffB - $diffA;
+            });
+            $data['tri'] = $tri;
+        }
 
         // Charger la vue avec les données
         return view('menu', $data);
