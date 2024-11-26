@@ -53,16 +53,18 @@ class LoginController extends BaseController {
 
 	public function register() {
 		$utilisateurModel = new UtilisateurModel();
+		$username = trim($this->request->getVar('username'));
+		$mail = trim($this->request->getVar('email'));
 
 		//Vérification de l'unicité du nom d'utilisateur
-		if ($utilisateurModel->where('username', $this->request->getVar('username'))->first() && $this->request->getVar('username') != "") {
-			session()->setFlashdata('error', 'Ce nom d\'utilisateur est déjà utilisé');
+		if ($utilisateurModel->where('username', $username)->first() || $username == "") {
+			session()->setFlashdata('error', 'Ce nom d\'utilisateur est déjà utilisé ou invalide');
 			return redirect()->to('/register');
 		}
 
-		//Vérification de l'unicité de l'adresse mail
-		if ($utilisateurModel->where('mail', $this->request->getVar('email'))->first() && $this->request->getVar('email') != "") {
-			session()->setFlashdata('error', 'Cette adresse mail est déjà utilisée');
+		//Vérification de l'unicité et de la qualité de l'adresse mail
+		if ($utilisateurModel->where('mail', $mail)->first() || !filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+			session()->setFlashdata('error', 'Cette adresse mail est déjà utilisée ou invalide');
 			return redirect()->to('/register');
 		}
 
@@ -99,7 +101,21 @@ class LoginController extends BaseController {
 		$activeLink = site_url("active/$token");
 		$utilisateurModel = new UtilisateurModel();
 		$utilisateurModel->set('active_token', $token)->update($utilisateur['username']);
-		$message = "Cliquez sur le lien suivant pour activer votre compte : $activeLink";
+		$message = 
+"Bonjour ".$utilisateur['username'].",
+
+Merci de vous être inscrit sur SGT BALM. ! Nous avons besoin que vous activiez votre compte avant de pouvoir l'utiliser.
+
+Cliquez sur le lien ci-dessous pour activer votre compte :
+
+$activeLink
+
+Si vous n'avez pas demandé à créer un compte, ignorez simplement ce message.
+
+Merci et à bientôt !
+
+Cordialement,
+L'équipe de SGT BALM.";
 		$emailService = \Config\Services::email();
 		//envoi du mail
 		$emailService->setTo($utilisateur['mail']);
@@ -139,18 +155,28 @@ class LoginController extends BaseController {
 				// Générer un jeton de réinitialisation de MDP et enregistrer-le dans BD
 				$token = bin2hex(random_bytes(16));
 				$expiration = date('Y-m-d H:i:s', strtotime('+1 hour'));
-				//var_dump($utilisateur);
-				//exit;
 				$utilisateurModel->set('reset_token', $token)->set('reset_token_expiration', $expiration)->update($utilisateur['username']);
 				// Envoyer l'e-mail avec le lien de réinitialisation
 				$resetLink = site_url("resetpwd/$token");
-				$message = "Cliquez sur le lien suivant pour réinitialiser votre MDP: $resetLink";
+				$message = 
+"Bonjour ".$utilisateur['username'].",
+
+Vous avez demandé à réinitialiser votre mot de passe sur SGT BALM. Cliquez sur le lien ci-dessous pour choisir un nouveau mot de passe :
+
+$resetLink
+
+Si vous n'avez pas demandé la réinitialisation de votre mot de passe, veuillez ignorer ce message. Votre mot de passe restera inchangé.
+
+Pour des raisons de sécurité, ce lien expirera dans 1 heure.
+
+Cordialement,
+L'équipe d'SGT BALM ";
 				// Utilisez la classe Email de CodeIgniter pour envoyer l'e-mail
 				$emailService = \Config\Services::email();
 				//envoi du mail
 				$emailService->setTo($mail);
 				$emailService->setFrom('sgt.balm.projetsynthese@gmail.com');
-				$emailService->setSubject('Réinitialisation du mot de passe');
+				$emailService->setSubject('Réinitialisez votre mot de passe');
 				$emailService->setMessage($message);
 				if ($emailService->send()) {
 					session()->setFlashdata('success', 'E-mail envoyé avec succès. (' . $mail . ')');
