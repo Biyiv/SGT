@@ -20,7 +20,6 @@
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     max-width: 500px;
-    width: 90%;
     text-align: left;
     position: relative;
     animation: slideInFromTop 0.5s ease-out; /* Animation de l'entrée du contenu du modal */
@@ -61,12 +60,16 @@
 }
 
 .modal form input, .modal form textarea, .modal form select {
-    width: 100%;
+    width: 94%;
     padding: 12px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
+}
+
+.modal form select {
+    width: 100%;
 }
 
 .modal form input:focus, .modal form textarea:focus, .modal form select:focus {
