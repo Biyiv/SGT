@@ -111,6 +111,9 @@
 .cours{
     color: green;
 }
+.retard{
+    color: red;
+}
 .termine{
     color: purple;
 }
