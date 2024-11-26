@@ -121,3 +121,21 @@
     width: 50px;
     height: 50px;
 }
+
+  
+.conteneur-taches {
+display: flex;
+flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
+}
+
+.tache {
+display: inline-block; /* Affichage en bloc */
+vertical-align: top; /* Alignement en haut */
+margin: 10px; /* Marge autour de chaque bloc */
+padding: 10px; /* Espacement interne pour le contenu */
+border: 2px solid #007BFF; /* Bordure bleue de 2 pixels */
+border-radius: 5px; /* Coins arrondis pour un aspect plus doux */
+background-color: #f9f9f9; /* Couleur de fond légère */
+}
+
+  
