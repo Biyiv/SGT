@@ -26,25 +26,45 @@
 			</p>
 		</div>
 	</div>
-	<h1>Liste des tâches</h1>
 
-	<?= form_open('/setTriPreference', ['method' => 'post']); ?>
-		<!-- CSRF Protection -->
-		<?= csrf_field() ?>
-		<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
-		<!-- Liste déroulante pour le tri -->
-		<?= form_label('Trier par :', 'tri'); ?>
-		<?= form_dropdown(
-			'tri',
-			[
-				'echeance' => 'Échéance',
-				'priorite' => 'Priorité',
-				'retard' => 'Retard'
-			],
-			$tri,
-			['id' => 'tri', 'onchange' => 'this.form.submit()']
-		); ?>
-	<?= form_close(); ?>
+	<nav class="navbar">
+		<div class="left-section">
+			<div>
+				<?= form_open('/setTriPreference', ['method' => 'post']); ?>
+					<!-- CSRF Protection -->
+					<?= csrf_field() ?>
+					<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
+					<!-- Liste déroulante pour le tri -->
+					<?= form_label('Trier par :', 'tri'); ?>
+					<?= form_dropdown(
+						'tri',
+						[
+							'echeance' => 'Échéance',
+							'priorite' => 'Priorité',
+							'retard' => 'Retard'
+						],
+						$tri,
+						['id' => 'tri', 'onchange' => 'this.form.submit()']
+					); ?>
+				<?= form_close(); ?>
+			</div>
+			<div>
+				<hr>
+			</div>
+			<div>
+				<!-- Modal Trigger Button -->
+				<button id="openModalBtn">Créer une Tâche</button>
+			</div>
+		</div>
+		<div class="right-section">
+			<div>
+				<h1><?= esc(session()->get('utilisateur')['username']) ?></h1>
+			</div>
+			<div>
+				<img src="/assets/images/poisson.png" alt="Image de profil">
+			</div>
+		</div>
+	</nav>
 
 	<div class="conteneur-taches">
 		<?php if (!empty($taches) && is_array($taches)): ?>
@@ -149,6 +169,40 @@
 			<?= form_close(); ?>
 		</div>
 	</div>
+
+
+	<div id="bandeau-droit">
+		<button id="fermer-bandeau">Fermer</button>
+		<h2 id="bandeau-titre"></h2>
+		<p id="bandeau-description"></p>
+		<p><strong>Créé par :</strong> <span id="bandeau-creepar"></span></p>
+		<p><strong>Début :</strong> <span id="bandeau-debut"></span></p>
+		<p><strong>Échéance :</strong> <span id="bandeau-echeance"></span></p>
+		<p><strong>Priorité :</strong>
+			<span id="bandeau-priorite">
+				<select name="select-priorite" id="select-priorite">
+					<option value="faible">Faible</option>
+					<option value="moyenne">Moyenne</option>
+					<option value="importante">Importante</option>
+				</select>
+			</span>
+		</p>
+		<p><strong>Statut :</strong>
+			<span id="bandeau-statut">
+				<select name="select-statut" id="select-statut">
+					<option value="en attente">En attente</option>
+					<option value="en cours">En cours</option>
+					<option value="terminee">Terminée</option>
+				</select>
+			</span>
+		</p>
+
+		<div class="commentaire">
+
+		</div>
+	</div>
+
+
 
 	<!-- Script JS pour ouvrir et fermer le modal -->
 	<script src="/assets/js/fctMenu.js"></script>

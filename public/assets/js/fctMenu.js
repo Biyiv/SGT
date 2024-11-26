@@ -55,4 +55,62 @@ document.addEventListener("DOMContentLoaded", () => {
 			modal.style.display = "none";
 		}
 	});
+
+
+	// Sélectionner les tâches et le bandeau
+	const taches = document.querySelectorAll('.tache');
+	const bandeau = document.getElementById('bandeau-droit');
+	const fermerBandeauBtn = document.getElementById('fermer-bandeau');
+
+	// Champs du bandeau
+	const bandeauTitre = document.getElementById('bandeau-titre');
+	const bandeauDescription = document.getElementById('bandeau-description');
+	const bandeauCreepar = document.getElementById('bandeau-creepar');
+	const bandeauDebut = document.getElementById('bandeau-debut');
+	const bandeauEcheance = document.getElementById('bandeau-echeance');
+
+	// Listes déroulantes
+	const prioriteSelect = document.getElementById('select-priorite');
+	const statutSelect = document.getElementById('select-statut');
+
+	// Fonction pour ouvrir le bandeau avec les détails d'une tâche
+	function afficherDetailsTache(tache) {
+		const titre = tache.querySelector('h2').textContent;
+		const description = tache.querySelector('p:nth-child(2)').textContent;
+		const creepar = tache.querySelector('p:nth-child(3)').textContent.split(': ')[1];
+		const debut = tache.querySelector('p:nth-child(4)').textContent.split(': ')[1];
+		const echeance = tache.querySelector('p:nth-child(5)').textContent.split(': ')[1];
+		const priorite = tache.querySelector('p:nth-child(6) b').textContent.toLowerCase();
+		const statut = tache.querySelector('p:nth-child(7) b').textContent.toLowerCase();
+
+		// Remplir les champs statiques
+		bandeauTitre.textContent = titre;
+		bandeauDescription.textContent = description;
+		bandeauCreepar.textContent = creepar;
+		bandeauDebut.textContent = debut;
+		bandeauEcheance.textContent = echeance;
+
+		// Afficher le bandeau
+		bandeau.style.display = 'block';
+	}
+
+	// Ajouter des événements aux tâches
+	taches.forEach((tache) => {
+		tache.addEventListener('click', () => afficherDetailsTache(tache));
+		tache.addEventListener('click', () => {
+			afficherBandeau();
+		});
+	});
+
+	// Fermer le bandeau
+	fermerBandeauBtn.addEventListener('click', () => {
+		bandeau.style.display = 'none';
+		document.body.classList.remove('bandeau-visible');
+	});
+
+
+	// Ouvrir le bandeau
+	function afficherBandeau() {
+		document.body.classList.add('bandeau-visible');
+	}
 });
