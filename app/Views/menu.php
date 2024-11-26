@@ -9,6 +9,21 @@
 </head>
 
 <body>
+        <div id="error-modal" class="modal">
+			<div class="modal-content">
+				<span class="close-btn">&times;</span>
+				<p>
+					<?php 
+						if(session()->getFlashdata('error')) {
+							echo session()->getFlashdata('error');
+						}
+						if(session()->getFlashdata('success')) {
+							echo session()->getFlashdata('success');
+						}
+					?>
+				</p>
+			</div>
+		</div>
     <h1>Liste des tâches</h1>
 
     <?= form_open('/setTriPreference', ['method' => 'post']); ?>
