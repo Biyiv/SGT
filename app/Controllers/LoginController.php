@@ -10,6 +10,10 @@ class LoginController extends BaseController {
 		helper('form');
 	}
 
+	public function redirect() {
+		return redirect()->to('/login');
+	}
+
 	public function login() {
 		if($this->request->getMethod() == 'POST') {
 			$utilisateurModel = new UtilisateurModel();
