@@ -18,3 +18,26 @@ window.addEventListener('click', (event) => {
 		modal.style.display = 'none';
 	}
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+	const modal = document.getElementById("error-modal");
+	const closeBtn = document.querySelector(".close-btn");
+
+	// Si un message d'erreur existe, affiche le modal
+	if (modal.querySelector("p").innerText.trim() !== "") {
+		modal.style.display = "flex";
+	}
+
+	// Ferme le modal au clic sur le bouton de fermeture
+	closeBtn.addEventListener("click", () => {
+		modal.style.display = "none";
+	});
+
+	// Ferme le modal en cliquant à l'extérieur du contenu
+	modal.addEventListener("click", (e) => {
+		if (e.target === modal) {
+			modal.style.display = "none";
+		}
+	});
+});
