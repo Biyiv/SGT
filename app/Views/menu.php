@@ -48,7 +48,7 @@
 					<?= csrf_field() ?>
 					<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
 					<!-- Liste déroulante pour le tri -->
-					<?= form_label('Trier par :', 'tri'); ?>
+					<?= form_label('<h3>Trier par :</h3>', 'tri'); ?>
 					<?= form_dropdown(
 						'tri',
 						[
@@ -88,22 +88,26 @@
 					<p>Créé par : <?= esc($tache['creepar']) ?></p>
 					<p>Début : <?= esc($tache['debut']) ?></p>
 					<p>Échéance : <?= esc($tache['echeance']) ?></p>
-					<p>
-						Priorité : 
-						<b class="<?= esc($prioriteLst[$tache['priorite']]) ?>">
-							<?= esc($prioriteLst[$tache['priorite']]) ?>
-						</b>
-					</p>
-					<?php $statut = explode(' ', $tache['statut']) ?>
-					<p>
-						Statut : 
-						<b class="<?= esc(end($statut)) ?>">
-							<?= esc($tache['statut']) ?>
-						</b>
-					</p>
-					<?php if ($tache['statut'] == "en retard"): ?>
-						<img class="panneauDanger" src="/assets/images/Danger.png" alt="Panneau de danger">
-					<?php endif; ?>
+					<div class="task-info">
+						<div>
+							<p>
+								Priorité : 
+								<b class="<?= esc($prioriteLst[$tache['priorite']]) ?>">
+									<?= esc($prioriteLst[$tache['priorite']]) ?>
+								</b>
+							</p>
+							<?php $statut = explode(' ', $tache['statut']) ?>
+							<p>
+								Statut : 
+								<b class="<?= esc(end($statut)) ?>">
+									<?= esc($tache['statut']) ?>
+								</b>
+							</p>
+						</div>
+						<?php if ($tache['statut'] == "en retard"): ?>
+							<img class="panneauDanger" src="/assets/images/Danger.png" alt="Panneau de danger">
+						<?php endif; ?>
+					</div>
 				</div>
 			<?php endforeach; ?>
 		<?php else: ?>
@@ -180,11 +184,14 @@
 
 	<div id="bandeau-droit">
 		<button id="fermer-bandeau">Fermer</button>
-		<h2 id="bandeau-titre"></h2>
-		<p id="bandeau-description"></p>
-		<p><strong>Créé par :</strong> <span id="bandeau-creepar"></span></p>
-		<p><strong>Début :</strong> <span id="bandeau-debut"></span></p>
-		<p><strong>Échéance :</strong> <span id="bandeau-echeance"></span></p>
+		<img src="/assets/images/crayon.png" alt="modificaation" id="crayon">
+		<div id="donnees">
+			<h2 id="bandeau-titre"></h2>
+			<p id="bandeau-description"></p>
+			<p><strong>Créé par :</strong> <span id="bandeau-creepar"></span></p>
+			<p><strong>Début :</strong> <span id="bandeau-debut"></span></p>
+			<p><strong>Échéance :</strong> <span id="bandeau-echeance"></span></p>
+		</div>
 		<p><strong>Priorité :</strong>
 			<span id="bandeau-priorite">
 				<select name="select-priorite" id="select-priorite">
@@ -213,6 +220,7 @@
 
 	<!-- Script JS pour ouvrir et fermer le modal -->
 	<script src="/assets/js/fctMenu.js"></script>
+	<script src="/assets/js/fctBandeau.js"></script>
 </body>
 
 </html>
