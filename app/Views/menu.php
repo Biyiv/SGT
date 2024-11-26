@@ -45,9 +45,10 @@
         ); ?>
     <?= form_close(); ?>
 
+    <div class="conteneur-taches">
     <?php if (!empty($taches) && is_array($taches)): ?>
         <?php foreach ($taches as $tache): ?>
-            <div id="<?= esc($tache['id']) ?>">
+            <div class="tache" id="<?= esc($tache['id']) ?>">
                 <h2><?= esc($tache['titre']) ?></h2>
                 <p><?= esc($tache['description']) ?></p>
                 <p>Créé par : <?= esc($tache['creepar']) ?></p>
@@ -74,6 +75,7 @@
     <?php else: ?>
         <p>Aucune tâche trouvée.</p>
     <?php endif; ?>
+    </div>
 
     <!-- Modal Trigger Button -->
     <button id="openModalBtn">Créer une Tâche</button>
