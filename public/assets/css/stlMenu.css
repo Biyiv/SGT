@@ -13,6 +13,56 @@
     animation: fadeIn 0.4s ease-in-out; /* Animation du modal lors de l'ouverture */
 }
 
+/* Conteneur principal de la barre de navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 0 10%;
+}
+
+/* Section gauche avec les éléments tri et bouton */
+.left-section {
+    display: flex;
+    align-items: center;
+}
+
+/* Espacement entre les éléments dans la section gauche */
+.left-section > div {
+    margin-left: 20px;
+}
+
+/* Style de la ligne hr */
+.left-section hr {
+    border:         none;
+    border-left:    1px solid hsla(200, 10%, 50%,100);
+    height:         50px;
+    width:          1px;    
+}
+
+/* Section droite avec le titre et l'image */
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+/* Espacement entre le titre et l'image */
+.right-section > div {
+    margin-left: 10px;
+}
+
+/* Style de l'image (ajustement de la taille) */
+.right-section img {
+    height: 40px;
+    width: auto;
+}
+
+/* Style du titre */
+.right-section h1 {
+    margin: 0;
+}
+
 /* Contenu du modal */
 .modal-content {
     background: #fff;
