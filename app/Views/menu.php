@@ -34,8 +34,9 @@
 			<p>Créé par : <?= esc($tache['creepar']) ?></p>
 			<p>Début : <?= esc($tache['debut']) ?></p>
 			<p>Echéance : <?= esc($tache['echeance']) ?></p>
-			<p>Priorité : <?= esc($prioriteLst[$tache['priorite']]) ?></p>
-			<p>Statut : <?= esc($tache['statut']) ?></p>
+			<p>Priorité : <b class=<?= esc($prioriteLst[$tache['priorite']]) ?>><?= esc($prioriteLst[$tache['priorite']]) ?></b></p>
+			<?php $statut = explode(' ', $tache['statut']) ?>
+			<p>Statut : <b class=<?= esc(end($statut))?>><?= esc($tache['statut']) ?></b></p>
 
 		</div>
 	<?php endforeach; ?>

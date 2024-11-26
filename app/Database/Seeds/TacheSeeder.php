@@ -33,7 +33,7 @@ class TacheSeeder extends Seeder
                 'creepar'     => 'Biyiv',
                 'echeance'    => date('Y-m-d H:i:s', strtotime('+3 days')),
                 'priorite'    => 1,
-				'statut'      => 'en attente',
+				'statut'      => 'termine',
             ],
         ];
 
