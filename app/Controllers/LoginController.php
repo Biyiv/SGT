@@ -71,7 +71,7 @@ class LoginController extends BaseController {
 		}
 
 		// Vérification que le mot de passe fasse au moins 8 caractères, contienne une majuscule, une minuscule et un chiffre
-		if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', $this->request->getVar('mdp'))) {
+		if (!preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/', $this->request->getVar('mdp'))) {
 			$this->session->setFlashdata('error', 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre');
 			return redirect()->to('/register');
 		}
@@ -103,21 +103,7 @@ class LoginController extends BaseController {
 		$activeLink = site_url("active/$token");
 		$utilisateurModel = new UtilisateurModel();
 		$utilisateurModel->set('active_token', $token)->update($utilisateur['username']);
-		$message = 
-"Bonjour ".$utilisateur['username'].",
-
-Merci de vous être inscrit sur SGT BALM. ! Nous avons besoin que vous activiez votre compte avant de pouvoir l'utiliser.
-
-Cliquez sur le lien ci-dessous pour activer votre compte :
-
-$activeLink
-
-Si vous n'avez pas demandé à créer un compte, ignorez simplement ce message.
-
-Merci et à bientôt !
-
-Cordialement,
-L'équipe de SGT BALM.";
+		$message =  "Bonjour ".$utilisateur['username'].",\n\nMerci de vous être inscrit sur SGT BALM !!! Nous avons besoin que vous activiez votre compte avant de pouvoir l'utiliser.\n\nCliquez sur le lien ci-dessous pour activer votre compte :\n$activeLink \n\nSi vous n'avez pas demandé à créer un compte, ignorez simplement ce message.\n\nMerci et à bientôt !\n\nCordialement, \n\nL'équipe de SGT BALM.";
 		$emailService = \Config\Services::email();
 		//envoi du mail
 		$emailService->setTo($utilisateur['mail']);
@@ -151,7 +137,7 @@ L'équipe de SGT BALM.";
 			$utilisateurModel = new UtilisateurModel();
 
 			$mail = $this->request->getVar('mail');
-			$utilisateur = $utilisateurModel->getUserByEmail($mail);
+			$utilisateur = $utilisateurModel->where('mail', $mail)->first();
 
 			if ($utilisateur) {
 				// Générer un jeton de réinitialisation de MDP et enregistrer-le dans BD
@@ -160,19 +146,7 @@ L'équipe de SGT BALM.";
 				$utilisateurModel->set('reset_token', $token)->set('reset_token_expiration', $expiration)->update($utilisateur['username']);
 				// Envoyer l'e-mail avec le lien de réinitialisation
 				$resetLink = site_url("resetpwd/$token");
-				$message = 
-"Bonjour ".$utilisateur['username'].",
-
-Vous avez demandé à réinitialiser votre mot de passe sur SGT BALM. Cliquez sur le lien ci-dessous pour choisir un nouveau mot de passe :
-
-$resetLink
-
-Si vous n'avez pas demandé la réinitialisation de votre mot de passe, veuillez ignorer ce message. Votre mot de passe restera inchangé.
-
-Pour des raisons de sécurité, ce lien expirera dans 1 heure.
-
-Cordialement,
-L'équipe d'SGT BALM ";
+				$message = "Bonjour ".$utilisateur['username'].",\n\nVous avez demandé à réinitialiser votre mot de passe sur SGT BALM. \n\nCliquez sur le lien ci-dessous pour choisir un nouveau mot de passe :\n$resetLink \n\nSi vous n'avez pas demandé la réinitialisation de votre mot de passe, veuillez ignorer ce message. Votre mot de passe restera inchangé.\n\nPour des raisons de sécurité, ce lien expirera dans 1 heure.\n\nCordialement,\n\nL'équipe d'SGT BALM ";
 				// Utilisez la classe Email de CodeIgniter pour envoyer l'e-mail
 				$emailService = \Config\Services::email();
 				//envoi du mail
@@ -215,7 +189,7 @@ L'équipe d'SGT BALM ";
 			}
 
 			// Vérification que le mot de passe fasse au moins 8 caractères, contienne une majuscule, une minuscule et un chiffre
-			if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', $this->request->getVar('mdp'))) {
+			if (!preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/', $this->request->getVar('mdp'))) {
 				$this->session->setFlashdata('error', 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre');
 				return redirect()->to("/resetpwd/$token");
 			}
