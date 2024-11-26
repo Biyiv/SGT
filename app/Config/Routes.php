@@ -11,8 +11,8 @@ $routes->get('/', 'LoginController::redirect');
 $routes->get('/login', 'LoginController::login');
 $routes->post('/login', 'LoginController::login');
 
-$routes->get('/forgotpwd', 'LoginController::sendLink');
-$routes->post('/forgotpwd', 'LoginController::sendLink');
+$routes->get('/forgotpwd', 'LoginController::forgotpwd');
+$routes->post('/forgotpwd', 'LoginController::forgotpwd');
 
 $routes->get('/resetpwd/(:any)', 'LoginController::resetpwd/$1');
 $routes->post('/resetpwd/(:any)', 'LoginController::resetpwd/$1');
