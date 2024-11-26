@@ -27,28 +27,28 @@ class LoginController extends BaseController {
 
 
 			if ($utilisateur) {
-                if ($utilisateur['active'] == 'f') {
-                    $this->sendActiveMail($utilisateur);
-                    $this->session->setFlashdata('error', "Votre compte n'est pas activé, un mail viens de partir");
-                    return redirect()->to('/login');
-                } else if (password_verify($this->request->getVar('password'), $utilisateur['mdp'])) {
-                    // Si l'utilisateur a coché la case "Se souvenir de moi", on garde l'identifiant en cookie
-                    if($this->request->getVar('remember')) {
-                        setcookie('identifiant', $this->request->getVar('identifiant'), time() + 3600 * 24 * 30);
-                    } else {
-                        setcookie('identifiant', '', time() - 3600);
-                    }
+				if ($utilisateur['active'] == 'f') {
+					$this->sendActiveMail($utilisateur);
+					$this->session->setFlashdata('error', "Votre compte n'est pas activé, un mail viens de partir");
+					return redirect()->to('/login');
+				} else if (password_verify($this->request->getVar('password'), $utilisateur['mdp'])) {
+					// Si l'utilisateur a coché la case "Se souvenir de moi", on garde l'identifiant en cookie
+					if($this->request->getVar('remember')) {
+						setcookie('identifiant', $this->request->getVar('identifiant'), time() + 3600 * 24 * 30);
+					} else {
+						setcookie('identifiant', '', time() - 3600);
+					}
 
-                    $this->session->set('utilisateur', $utilisateur);
-                    return redirect()->to('/dashboard');
-                } else {
-                    $this->session->setFlashdata('error', 'Mot de passe incorrect');
-                    return redirect()->to('/login');
-                }
-            } else {
-                $this->session->setFlashdata('error', 'Identifiant incorrect');
-                return redirect()->to('/login');
-            }
+					$this->session->set('utilisateur', $utilisateur);
+					return redirect()->to('/dashboard');
+				} else {
+					$this->session->setFlashdata('error', 'Mot de passe incorrect');
+					return redirect()->to('/login');
+				}
+			} else {
+				$this->session->setFlashdata('error', 'Identifiant incorrect');
+				return redirect()->to('/login');
+			}
 		} else {
 			return view('login');
 		}
@@ -95,6 +95,54 @@ class LoginController extends BaseController {
 		$this->sendActiveMail($utilisateur);
 
 		return redirect()->to('/login')->with('success', 'Utilisateur créé avec succès');
+	}
+
+	public function modifProfil($usernameBase)
+	{
+		$utilisateurModel = new UtilisateurModel();
+		$username = trim($this->request->getVar('username'));
+		$mail = trim($this->request->getVar('email'));
+
+		//Vérification de l'unicité du nom d'utilisateur
+		if ($utilisateurModel->where('username', $this->request->getVar('username'))->first() && $this->request->getVar('username') != "") {
+			$this->session->setFlashdata('error', 'Ce nom d\'utilisateur est déjà utilisé');
+			return redirect()->to('/register');
+		}
+
+		//Vérification de l'unicité de l'adresse mail
+		if ($utilisateurModel->where('mail', $this->request->getVar('email'))->first() && $this->request->getVar('email') != "") {
+			$this->session->setFlashdata('error', 'Cette adresse mail est déjà utilisée');
+			return redirect()->to('/register');
+		}
+
+		// Vérification que le mot de passe fasse au moins 8 caractères, contienne une majuscule, une minuscule et un chiffre
+		if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', $this->request->getVar('mdp'))) {
+			$this->session->setFlashdata('error', 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre');
+			return redirect()->to('/register');
+		}
+
+		//Vérification du mot de passe
+		if ($this->request->getVar('mdp') != $this->request->getVar('mdp_confirm')) {
+			$this->session->setFlashdata('error', 'Les mots de passe ne correspondent pas');
+			return redirect()->to('/register');
+		}
+
+		$utilisateur = [
+			'username' => $this->request->getVar('username'),
+			'nom' => $this->request->getVar('nom'),
+			'prenom' => $this->request->getVar('prenom'),
+			'mail' => $this->request->getVar('email'),
+			'mdp' => password_hash($this->request->getVar('mdp'), PASSWORD_DEFAULT)
+		];
+
+		$utilisateurModel->update($usernameBase, $utilisateur);
+
+		if($this->request->getVar('mdp_actuel') != "" || $this->request->getVar('ancien_mdp') != "" || $this->request->getVar('mdp_confirm') != "")
+		{
+			
+		}
+
+		//return redirect()->to('/login')->with('success', 'Utilisateur modif avec succès');
 	}
 
 	public function forgotpwd()

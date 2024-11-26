@@ -53,12 +53,12 @@
 			</div>
 			<div>
 				<!-- Modal Trigger Button -->
-				<button id="openModalBtn">Créer une Tâche</button>
+				<button id="openModalBtnTache">Créer une Tâche</button>
 			</div>
 		</div>
 		<div class="right-section">
 			<div>
-				<h1><?= esc(session()->get('utilisateur')['username']) ?></h1>
+				<button id="openModalBtnProfil"><h1><?= esc(session()->get('utilisateur')['username']) ?></h1></button>
 			</div>
 			<div>
 				<img src="/assets/images/poisson.png" alt="Image de profil">
@@ -98,9 +98,6 @@
 		<?php endif; ?>
 	</div>
 
-	<!-- Modal Trigger Button -->
-	<button id="openModalBtnTache">Créer une Tâche</button>
-
 	<!-- Modal -->
 	<div id="creationTacheModal" class="modal">
 		<div class="modal-content">
@@ -133,9 +130,6 @@
 			<?= form_close(); ?>
 		</div>
 	</div>
-
-	<!-- Modal Trigger Button -->
-	<button id="openModalBtnProfil">Profil</button>
 
 	<!-- Modal -->
 	<div id="creationProfilModal" class="modal">
