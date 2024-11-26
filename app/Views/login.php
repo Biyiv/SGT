@@ -31,10 +31,10 @@
 				<h1>Se Connecter</h1>
 				<?= form_open('login') ?>
 					<?= form_label('Identifiant', 'identifiant') ?>
-					<?= form_input('identifiant', '', ['placeholder' => 'Email ou nom d\'utilisateur']) ?>
+					<?= form_input('identifiant', '', ['placeholder' => 'Email ou nom d\'utilisateur', 'required' => 'required']) ?>
 					<br>
 					<?= form_label('Mot de passe', 'password') ?>
-					<?= form_password('password', '', ['placeholder' => 'Mot de passe']) ?>
+					<?= form_password('password', '', ['placeholder' => 'Mot de passe', 'required' => 'required']) ?>
 					<br>
 					<div class="remember-wrapper">
 						<?= form_label('Se souvenir de moi', 'remember') ?>
@@ -53,22 +53,22 @@
 				<h1>S'inscrire</h1>
 				<?= form_open('register') ?>
 					<?= form_label('Nom d\'utilisateur', 'username') ?>
-					<?= form_input('username', '', ['placeholder' => 'Nom d\'utilisateur']) ?>
+					<?= form_input('username', '', ['placeholder' => 'Nom d\'utilisateur', 'required' => 'required']) ?>
 					<br>
 					<?= form_label('Nom', 'nom') ?>
-					<?= form_input('nom', '', ['placeholder' => 'Nom']) ?>
+					<?= form_input('nom', '', ['placeholder' => 'Nom', 'required' => 'required']) ?>
 					<br>
 					<?= form_label('Prénom', 'prenom') ?>
-					<?= form_input('prenom', '', ['placeholder' => 'Prénom']) ?>
+					<?= form_input('prenom', '', ['placeholder' => 'Prénom', 'required' => 'required']) ?>
 					<br>
 					<?= form_label('Email', 'email') ?>
-					<?= form_input('email', '', ['placeholder' => 'Email']) ?>
+					<?= form_input('email', '', ['placeholder' => 'Email', 'required' => 'required']) ?>
 					<br>
 					<?= form_label('Mot de passe', 'mdp') ?>
-					<?= form_password('mdp', '', ['placeholder' => 'Mot de passe']) ?>
+					<?= form_password('mdp', '', ['placeholder' => 'Mot de passe', 'required' => 'required']) ?>
 					<br>
 					<?= form_label('Confirmer le mot de passe', 'mdp_confirm') ?>
-					<?= form_password('mdp_confirm', '', ['placeholder' => 'Confirmer le mot de passe']) ?>
+					<?= form_password('mdp_confirm', '', ['placeholder' => 'Confirmer le mot de passe', 'required' => 'required']) ?>
 					<br>
 					<?= form_submit('submit', 'S\'inscrire') ?>
 				<?= form_close() ?>
@@ -81,7 +81,7 @@
 				<h1>Réinitialisation du mot de passe</h1>
 				<?= form_open('forgotpwd') ?>
 					<?= form_label('Email', 'mail') ?>
-					<?= form_input('mail', '', ['placeholder' => 'Email']) ?>
+					<?= form_input('mail', '', ['placeholder' => 'Email', 'required' => 'required']) ?>
 					<br>
 					<?= form_submit('submit', 'Envoyer un lien de réinitialisation') ?>
 				<?= form_close() ?>
