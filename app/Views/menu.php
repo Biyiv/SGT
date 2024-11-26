@@ -102,7 +102,7 @@
                 <br>
                 
                 <?= form_label('Échéance :', 'echeance'); ?>
-                <?= form_input(['type' => 'datetime-local', 'name' => 'echeance', 'id' => 'echeance', 'value' => date('Y-m-d\TH:i')]); ?>
+                <?= form_input(['type' => 'datetime-local', 'name' => 'echeance', 'id' => 'echeance', 'value' => date('Y-m-d\TH:i', strtotime('+1 day'))]); ?> 
                 <br>
                 
                 <?= form_label('Priorité :', 'priorite'); ?>
