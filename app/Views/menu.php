@@ -35,7 +35,7 @@
 					<?= csrf_field() ?>
 					<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
 					<!-- Liste déroulante pour le tri -->
-					<?= form_label('Trier par :', 'tri'); ?>
+					<?= form_label('<h3>Trier par :</h3>', 'tri'); ?>
 					<?= form_dropdown(
 						'tri',
 						[
@@ -75,22 +75,26 @@
 					<p>Créé par : <?= esc($tache['creepar']) ?></p>
 					<p>Début : <?= esc($tache['debut']) ?></p>
 					<p>Échéance : <?= esc($tache['echeance']) ?></p>
-					<p>
-						Priorité : 
-						<b class="<?= esc($prioriteLst[$tache['priorite']]) ?>">
-							<?= esc($prioriteLst[$tache['priorite']]) ?>
-						</b>
-					</p>
-					<?php $statut = explode(' ', $tache['statut']) ?>
-					<p>
-						Statut : 
-						<b class="<?= esc(end($statut)) ?>">
-							<?= esc($tache['statut']) ?>
-						</b>
-					</p>
-					<?php if ($tache['statut'] == "en retard"): ?>
-						<img class="panneauDanger" src="/assets/images/Danger.png" alt="Panneau de danger">
-					<?php endif; ?>
+					<div class="task-info">
+						<div>
+							<p>
+								Priorité : 
+								<b class="<?= esc($prioriteLst[$tache['priorite']]) ?>">
+									<?= esc($prioriteLst[$tache['priorite']]) ?>
+								</b>
+							</p>
+							<?php $statut = explode(' ', $tache['statut']) ?>
+							<p>
+								Statut : 
+								<b class="<?= esc(end($statut)) ?>">
+									<?= esc($tache['statut']) ?>
+								</b>
+							</p>
+						</div>
+						<?php if ($tache['statut'] == "en retard"): ?>
+							<img class="panneauDanger" src="/assets/images/Danger.png" alt="Panneau de danger">
+						<?php endif; ?>
+					</div>
 				</div>
 			<?php endforeach; ?>
 		<?php else: ?>
