@@ -17,6 +17,9 @@
 						if(session()->getFlashdata('error')) {
 							echo session()->getFlashdata('error');
 						}
+						if(session()->getFlashdata('success')) {
+							echo session()->getFlashdata('success');
+						}
 					?>
 				</p>
 			</div>
@@ -72,9 +75,9 @@
 
 			<div id="forgotpwd">
 				<h1>Réinitialisation du mot de passe</h1>
-				<?= form_open('sendLink') ?>
-					<?= form_label('Identifiant', 'identifiant') ?>
-					<?= form_input('identifiant', '', ['placeholder' => 'Email ou nom d\'utilisateur']) ?>
+				<?= form_open('forgotpwd') ?>
+					<?= form_label('Email', 'mail') ?>
+					<?= form_input('mail', '', ['placeholder' => 'Email']) ?>
 					<br>
 					<?= form_submit('submit', 'Envoyer un lien de réinitialisation') ?>
 				<?= form_close() ?>

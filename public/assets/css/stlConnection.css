@@ -40,7 +40,7 @@ body {
     transition: transform 0.8s ease-in-out; /* Animation de "scroll" */
 }
 
-#login {
+#login, #resetpwd {
     width: 100%;
     padding: 20px;
     margin: 65% 0 45% 0;
