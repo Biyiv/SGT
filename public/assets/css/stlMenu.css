@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 /* Modal Styles */
 .modal {
     display: none; /* Caché par défaut */
@@ -16,11 +20,21 @@
 /* Conteneur principal de la barre de navigation */
 .navbar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 10px;
     margin: 0 10%;
     transition: width 0.5s ease-in-out; /* Animation pour un effet fluide */
+}
+
+.navbar button {
+    border: none;
+    background-color: white;
+}
+
+.navbar select {
+    background-color: white;
+    border: 1px solid #0056b3;
+    border-radius: 5px;
 }
 
 /* Section gauche avec les éléments tri et bouton */
@@ -67,7 +81,7 @@
 /* Contenu du modal */
 .modal-content {
     background: #fff;
-    padding: 30px 40px;
+    padding: 15px 30px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     max-width: 500px;
@@ -212,25 +226,41 @@
 .termine{
     color: purple;
 }
-.panneauDanger{
-    width: 50px;
-    height: 50px;
+
+/* Conteneur principal pour la tâche */
+.task-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-  
+/* Panneau de danger à droite */
+.panneauDanger {
+    margin-left: 20px;
+    width: 50px; /* Ajuster la taille si nécessaire */
+    height: auto;
+}
+
+/* Style pour les paragraphes */
+.task-info p {
+    margin: 0;
+}
+ 
 .conteneur-taches {
     display: flex;
     flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
-    }
+    margin-left: 4%;
+}
 
 .tache {
     display: inline-block; /* Affichage en bloc */
     vertical-align: top; /* Alignement en haut */
     margin: 10px; /* Marge autour de chaque bloc */
-    padding: 10px; /* Espacement interne pour le contenu */
+    padding: 10px 25px 10px 25px; /* Espacement interne pour le contenu */
     border: 2px solid #007BFF; /* Bordure bleue de 2 pixels */
     border-radius: 5px; /* Coins arrondis pour un aspect plus doux */
     background-color: #f9f9f9; /* Couleur de fond légère */
+    width: 22%;
 }
 
 
@@ -266,9 +296,11 @@
 /* Réduction de la largeur quand le bandeau est visible */
 .bandeau-visible .conteneur-taches {
     width: 70%;
+    margin-left: 2%;
 }
 
 .bandeau-visible .navbar {
+    margin-left: 5%;
     margin-right: 40%;
 }
 

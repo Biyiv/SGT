@@ -35,7 +35,7 @@
 					<?= csrf_field() ?>
 					<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
 					<!-- Liste déroulante pour le tri -->
-					<?= form_label('Trier par :', 'tri'); ?>
+					<?= form_label('<h3>Trier par :</h3>', 'tri'); ?>
 					<?= form_dropdown(
 						'tri',
 						[
@@ -53,12 +53,12 @@
 			</div>
 			<div>
 				<!-- Modal Trigger Button -->
-				<button id="openModalBtn">Créer une Tâche</button>
+				<button id="openModalBtnTache">Créer une Tâche</button>
 			</div>
 		</div>
 		<div class="right-section">
 			<div>
-				<h1><?= esc(session()->get('utilisateur')['username']) ?></h1>
+				<button id="openModalBtnProfil"><h1><?= esc(session()->get('utilisateur')['username']) ?></h1></button>
 			</div>
 			<div>
 				<img src="/assets/images/poisson.png" alt="Image de profil">
@@ -75,31 +75,32 @@
 					<p>Créé par : <?= esc($tache['creepar']) ?></p>
 					<p>Début : <?= esc($tache['debut']) ?></p>
 					<p>Échéance : <?= esc($tache['echeance']) ?></p>
-					<p>
-						Priorité : 
-						<b class="<?= esc($prioriteLst[$tache['priorite']]) ?>">
-							<?= esc($prioriteLst[$tache['priorite']]) ?>
-						</b>
-					</p>
-					<?php $statut = explode(' ', $tache['statut']) ?>
-					<p>
-						Statut : 
-						<b class="<?= esc(end($statut)) ?>">
-							<?= esc($tache['statut']) ?>
-						</b>
-					</p>
-					<?php if ($tache['statut'] == "en retard"): ?>
-						<img class="panneauDanger" src="/assets/images/Danger.png" alt="Panneau de danger">
-					<?php endif; ?>
+					<div class="task-info">
+						<div>
+							<p>
+								Priorité : 
+								<b class="<?= esc($prioriteLst[$tache['priorite']]) ?>">
+									<?= esc($prioriteLst[$tache['priorite']]) ?>
+								</b>
+							</p>
+							<?php $statut = explode(' ', $tache['statut']) ?>
+							<p>
+								Statut : 
+								<b class="<?= esc(end($statut)) ?>">
+									<?= esc($tache['statut']) ?>
+								</b>
+							</p>
+						</div>
+						<?php if ($tache['statut'] == "en retard"): ?>
+							<img class="panneauDanger" src="/assets/images/Danger.png" alt="Panneau de danger">
+						<?php endif; ?>
+					</div>
 				</div>
 			<?php endforeach; ?>
 		<?php else: ?>
 			<p>Aucune tâche trouvée.</p>
 		<?php endif; ?>
 	</div>
-
-	<!-- Modal Trigger Button -->
-	<button id="openModalBtnTache">Créer une Tâche</button>
 
 	<!-- Modal -->
 	<div id="creationTacheModal" class="modal">
@@ -133,9 +134,6 @@
 			<?= form_close(); ?>
 		</div>
 	</div>
-
-	<!-- Modal Trigger Button -->
-	<button id="openModalBtnProfil">Profil</button>
 
 	<!-- Modal -->
 	<div id="creationProfilModal" class="modal">
