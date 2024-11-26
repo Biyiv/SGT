@@ -11,16 +11,18 @@
 	<div id="app">
 		<div id="error-modal" class="modal">
 			<div class="modal-content">
-				<span class="close-btn">&times;</span>
+				<div class="modal-header">
+					<h2>
+						<?= session()->getFlashdata('error') 
+							? 'Erreur' 
+							: (session()->getFlashdata('success') ? 'Succès' : 'Information') ?>
+					</h2>
+					<button class="close-btn">&times;</button>
+				</div>
 				<p>
-					<?php 
-						if(session()->getFlashdata('error')) {
-							echo session()->getFlashdata('error');
-						}
-						if(session()->getFlashdata('success')) {
-							echo session()->getFlashdata('success');
-						}
-					?>
+					<?= session()->getFlashdata('error') 
+						? session()->getFlashdata('error') 
+						: session()->getFlashdata('success') ?>
 				</p>
 			</div>
 		</div>
