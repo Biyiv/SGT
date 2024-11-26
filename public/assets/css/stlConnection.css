@@ -55,7 +55,7 @@ body {
 #register {
     width: 100%;
     padding: 20px;
-    margin: 85% 0 45% 0;
+    margin: 85% 0 65% 0;
     box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -109,6 +109,21 @@ form button:hover, form input[type="submit"]:hover {
     background-color: #031A6B;
     color: whitesmoke;
     transition: 0.5s;
+}
+
+.remember-wrapper {
+    display: flex;
+    align-items: center; /* Aligne verticalement le texte et la checkbox */
+    gap: 40%;
+}
+
+#remember {
+    padding-left: 5%;
+    width: fit-content;
+}
+
+form input[type="checkbox"] {
+    margin-top: 12px;
 }
 
 /* Links and Buttons Styling */

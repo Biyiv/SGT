@@ -34,8 +34,10 @@
 					<?= form_label('Mot de passe', 'password') ?>
 					<?= form_password('password', '', ['placeholder' => 'Mot de passe']) ?>
 					<br>
-					<?= form_checkbox('remember', '1', false, ['id' => 'remember']) ?>
-					<?= form_label('Se souvenir de moi', 'remember') ?>
+					<div class="remember-wrapper">
+						<?= form_label('Se souvenir de moi', 'remember') ?>
+						<?= form_checkbox('remember', '1', false, ['id' => 'remember']) ?>
+					</div>
 					<br>
 					<?= form_submit('submit', 'Se connecter') ?>
 				<?= form_close() ?>
