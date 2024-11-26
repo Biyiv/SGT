@@ -116,6 +116,7 @@ form button:hover, form input[type="submit"]:hover {
 .remember-wrapper {
     position: relative;
     top: -10px;
+    margin-bottom: -5%;
     display: flex;
     align-items: center; /* Aligne verticalement le texte et la checkbox */
     gap: 10%;
@@ -134,20 +135,21 @@ form input[type="checkbox"] {
     position: relative;
     display: flex;
     align-items: center;
+    margin-bottom: -7%;
 }
 
-.toggle-password {
+.password-container .toggle-password {
     position: absolute;
-    top: -15px;
+    right: 10px; /* Positionne à droite à l'intérieur du conteneur */
+    top: -10px;
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.2rem;
     color: #333;
+    line-height: 1; /* Assure que le bouton ne perturbe pas la hauteur */
     width: 10%;
     margin-left: 85%;
-    outline: none;
-    box-shadow: none;
 }
 
 .toggle-password:focus {
