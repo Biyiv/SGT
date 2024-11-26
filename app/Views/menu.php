@@ -8,6 +8,19 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
+<?php if (session()->getFlashdata('show_modal')): ?>
+	<script>
+		// Afficher le modal correspondant au flashdata
+		window.addEventListener("DOMContentLoaded", function() {
+			let modalName = "<?= session()->getFlashdata('show_modal'); ?>";
+			let modal = document.getElementById(modalName); // Récupérer le modal en utilisant le nom
+			if (modal) {
+				modal.style.display = "flex"; // Afficher le modal
+			}
+		});
+	</script>
+<?php endif; ?>
+
 <body>
 	<div id="error-modal" class="modal">
 		<div class="modal-content">
@@ -136,8 +149,8 @@
 		<div class="modal-content">
 			<span class="close-btn" id="closeModalBtnProfil">&times;</span>
 			
-			<!-- Formulaire de création de tâche -->
-			<?= form_open('/modifProfil'); ?>
+			<!-- Formulaire de modification de profil -->
+			<?= form_open("/modifProfil/" . session()->get('utilisateur')['username']); ?>
 				<?= form_label('Nom d\'utilisateur', 'username') ?>
 				<?= form_input('username', session()->get('utilisateur')['username'], ['placeholder' => 'Nom d\'utilisateur', 'required' => 'required']) ?>
 				<br>
