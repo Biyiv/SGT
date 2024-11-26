@@ -33,8 +33,19 @@
 					<?= form_label('Identifiant', 'identifiant') ?>
 					<?= form_input('identifiant', '', ['placeholder' => 'Email ou nom d\'utilisateur', 'required' => 'required']) ?>
 					<br>
-					<?= form_label('Mot de passe', 'password') ?>
-					<?= form_password('password', '', ['placeholder' => 'Mot de passe', 'required' => 'required']) ?>
+					<div class="password-wrapper">
+						<?= form_label('Mot de passe', 'password') ?>
+						<div class="password-container">
+							<?= form_password('password', '', [
+								'placeholder' => 'Mot de passe',
+								'required' => 'required',
+								'id' => 'password1'
+							]) ?>
+							<button type="button" id="toggle-password" class="toggle-password">
+								👁️
+							</button>
+						</div>
+					</div>
 					<br>
 					<div class="remember-wrapper">
 						<?= form_label('Se souvenir de moi', 'remember') ?>
@@ -64,11 +75,33 @@
 					<?= form_label('Email', 'email') ?>
 					<?= form_input('email', '', ['placeholder' => 'Email', 'required' => 'required']) ?>
 					<br>
-					<?= form_label('Mot de passe', 'mdp') ?>
-					<?= form_password('mdp', '', ['placeholder' => 'Mot de passe', 'required' => 'required']) ?>
+					<div class="password-wrapper">
+						<?= form_label('Mot de passe', 'mdp') ?>
+						<div class="password-container">
+							<?= form_password('mdp', '', [
+								'placeholder' => 'Mot de passe',
+								'required' => 'required',
+								'id' => 'password1'
+							]) ?>
+							<button type="button" id="toggle-password" class="toggle-password">
+								👁️
+							</button>
+						</div>
+					</div>
 					<br>
-					<?= form_label('Confirmer le mot de passe', 'mdp_confirm') ?>
-					<?= form_password('mdp_confirm', '', ['placeholder' => 'Confirmer le mot de passe', 'required' => 'required']) ?>
+					<div class="password-wrapper">
+						<?= form_label('Confirmer le mot de passe', 'mdp_confirm') ?>
+						<div class="password-container">
+							<?= form_password('mdp_confirm', '', [
+								'placeholder' => 'Confirmer le mot de passe',
+								'required' => 'required',
+								'id' => 'password1'
+							]) ?>
+							<button type="button" id="toggle-password" class="toggle-password">
+								👁️
+							</button>
+						</div>
+					</div>
 					<br>
 					<?= form_submit('submit', 'S\'inscrire') ?>
 				<?= form_close() ?>
