@@ -39,6 +39,6 @@ class TacheController extends BaseController
             $session->set('tri', $tri);
         }
 
-        return redirect()->to('/');
+        return redirect()->to('/dashboard');
     }
 }

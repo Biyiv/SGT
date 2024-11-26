@@ -17,7 +17,7 @@ class TacheSeeder extends Seeder
                 'creepar'     => 'Biyiv',
                 'echeance'    => date('Y-m-d H:i:s', strtotime('+1 week')),
                 'priorite'    => 3,
-				'statut'      => 'en attente',
+				'statut'      => 'en retard',
             ],
             [
                 'titre'       => 'Mise à jour du site web',

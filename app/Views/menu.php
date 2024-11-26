@@ -49,6 +49,9 @@
                         <?= esc($tache['statut']) ?>
                     </b>
                 </p>
+				<?php if ($tache['statut'] == "en retard"): ?>
+					<img class="panneauDanger" src="/assets/images/Danger.png" alt="Panneau de danger">
+				<?php endif; ?>
             </div>
         <?php endforeach; ?>
     <?php else: ?>
