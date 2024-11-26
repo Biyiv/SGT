@@ -16,7 +16,6 @@
 /* Conteneur principal de la barre de navigation */
 .navbar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 10px;
     margin: 0 10%;
@@ -221,7 +220,7 @@
 .conteneur-taches {
     display: flex;
     flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
-    }
+}
 
 .tache {
     display: inline-block; /* Affichage en bloc */
@@ -269,6 +268,7 @@
 }
 
 .bandeau-visible .navbar {
+    margin-left: 5%;
     margin-right: 40%;
 }
 
