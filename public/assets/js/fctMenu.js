@@ -90,6 +90,26 @@ document.addEventListener("DOMContentLoaded", () => {
 		bandeauDebut.textContent = debut;
 		bandeauEcheance.textContent = echeance;
 
+		
+		
+		//Pour chaque value de la liste déroulante priorité, on vérifie si la priorité de la tâche est égale à la value
+		//Si c'est le cas, on sélectionne l'option
+		for (let i = 0; i < prioriteSelect.options.length; i++) {
+			if (prioriteSelect.options[i].value.trim() == priorite.trim()) {
+				console.log(prioriteSelect.options[i].value);
+				prioriteSelect.options[i].selected = true;
+			}
+		}
+
+		//Pour chaque value de la liste déroulante statut, on vérifie si le statut de la tâche est égale à la value
+		//Si c'est le cas, on sélectionne l'option
+		for (let i = 0; i < statutSelect.options.length; i++) {
+			console.log(statutSelect.options[i].value);
+			if (statutSelect.options[i].value.trim() == statut.trim()) {
+				statutSelect.options[i].selected = true;
+			}
+		}
+
 		// Afficher le bandeau
 		bandeau.style.display = 'block';
 	}
