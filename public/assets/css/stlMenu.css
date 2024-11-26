@@ -20,6 +20,7 @@
     align-items: center;
     padding: 10px;
     margin: 0 10%;
+    transition: width 0.5s ease-in-out; /* Animation pour un effet fluide */
 }
 
 /* Section gauche avec les éléments tri et bouton */
@@ -259,12 +260,16 @@
 /* Conteneur par défaut */
 .conteneur-taches {
     width: 100%;
-    transition: width 0.3s ease-in-out; /* Animation pour un effet fluide */
+    transition: width 0.5s ease-in-out; /* Animation pour un effet fluide */
 }
 
 /* Réduction de la largeur quand le bandeau est visible */
 .bandeau-visible .conteneur-taches {
     width: 70%;
+}
+
+.bandeau-visible .navbar {
+    margin-right: 40%;
 }
 
 /* Style pour le bandeau */
@@ -280,7 +285,7 @@
     overflow-y: auto; /* Activer le défilement vertical si nécessaire */
     padding: 20px;
     z-index: 1000;
-    transition: transform 0.3s ease-in-out; /* Animation pour apparaître */
+    transition: transform 0.5s ease-in-out; /* Animation pour apparaître */
     transform: translateX(100%); /* Position hors de la vue */
 }
 
