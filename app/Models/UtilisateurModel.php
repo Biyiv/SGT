@@ -7,9 +7,7 @@ use CodeIgniter\Model;
 class UtilisateurModel extends Model {
 	protected $table = 'utilisateur';
 	protected $primaryKey = 'username';
-	protected $allowedFields = ['username', 'nom', 'prenom', 'email', 'mdp'];
+	protected $allowedFields = ['username', 'nom', 'prenom', 'mail', 'mdp'];
 
-	public function getUtilisateur($username) {
-		return $this->where('username', $username)->first();
-	}
+	protected $useAutoIncrement = false;
 }
