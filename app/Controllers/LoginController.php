@@ -28,7 +28,7 @@ class LoginController extends BaseController {
 			if ($utilisateur) {
                 if ($utilisateur['active'] == 'f') {
                     $this->sendActiveMail($utilisateur);
-                    $this->session->setFlashdata('error', "Votre compte n'est pas activé, un mail viens de partir");
+                    $this->session->setFlashdata('error', "Votre compte n'est pas activé, un mail viens de vous être envoyé (" . $utilisateur['mail'] . ") afin d'activer votre compte");
                     return redirect()->to('/login');
                 } else if (password_verify($this->request->getVar('password'), $utilisateur['mdp'])) {
                     // Si l'utilisateur a coché la case "Se souvenir de moi", on garde l'identifiant en cookie
