@@ -6,13 +6,17 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-$routes->get('/', 'LoginController::login');
+$routes->get('/', 'LoginController::redirect');
 
 $routes->get('/login', 'LoginController::login');
 $routes->post('/login', 'LoginController::login');
 
-$routes->get('/forgotpwd', 'LoginController::sendLink');
-$routes->post('/forgotpwd', 'LoginController::sendLink');
+
+$routes->get('/sendActiveMail', 'LoginController::sendActiveMail');
+$routes->get('/active/(:any)', 'LoginController::activation/$1');
+
+$routes->get('/forgotpwd', 'LoginController::forgotpwd');
+$routes->post('/forgotpwd', 'LoginController::forgotpwd');
 
 $routes->get('/resetpwd/(:any)', 'LoginController::resetpwd/$1');
 $routes->post('/resetpwd/(:any)', 'LoginController::resetpwd/$1');

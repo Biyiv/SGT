@@ -40,7 +40,7 @@ body {
     transition: transform 0.8s ease-in-out; /* Animation de "scroll" */
 }
 
-#login, #resetpwd {
+#login, #forgotpwd, #resetpwd {
     width: 100%;
     padding: 20px;
     margin: 65% 0 45% 0;
@@ -55,19 +55,7 @@ body {
 #register {
     width: 100%;
     padding: 20px;
-    margin: 85% 0 45% 0;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 50%; /* Chaque div prend 50% de la hauteur */
-}
-
-#forgotpwd {
-    width: 100%;
-    padding: 20px;
-    margin: 65% 0 45% 0;
+    margin: 85% 0 65% 0;
     box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -123,6 +111,21 @@ form button:hover, form input[type="submit"]:hover {
     transition: 0.5s;
 }
 
+.remember-wrapper {
+    display: flex;
+    align-items: center; /* Aligne verticalement le texte et la checkbox */
+    gap: 40%;
+}
+
+#remember {
+    padding-left: 5%;
+    width: fit-content;
+}
+
+form input[type="checkbox"] {
+    margin-top: 12px;
+}
+
 /* Links and Buttons Styling */
 a, button {
     display: inline-block; /* Pour un style similaire aux boutons */
@@ -174,23 +177,47 @@ a:focus, button:focus {
 /* Contenu du modal */
 .modal-content {
     background: #fff;
-    padding: 20px;
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 80%;
+    max-width: 450px;
+    width: 90%;
     text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
+    position: relative;
+}
+
+/* En-tête du modal */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Réduit l'espace en dessous */
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0; /* Réduit l'espace vertical dans le header */
+}
+
+/* Titre du modal */
+.modal-header h2 {
+    padding-top: 14px;
+    font-size: 1.2rem; /* Réduit légèrement la taille du titre */
+    color: #333;
+    margin: 0; /* Supprime les marges par défaut */
+}
+
+.modal p {
+    padding-top: 10px;
 }
 
 /* Bouton de fermeture */
 .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 20px;
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
     cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 .close-btn:hover {
@@ -205,8 +232,4 @@ a:focus, button:focus {
     to {
         opacity: 1;
     }
-}
-
-.modal-content {
-    animation: fadeIn 0.3s ease-in-out;
 }

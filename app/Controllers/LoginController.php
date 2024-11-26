@@ -12,6 +12,10 @@ class LoginController extends BaseController {
 		$this->session = session();
 	}
 
+	public function redirect() {
+		return redirect()->to('/login');
+	}
+
 	public function login() {
 		if($this->request->getMethod() == 'POST') {
 			$utilisateurModel = new UtilisateurModel();
@@ -34,7 +38,11 @@ class LoginController extends BaseController {
 					} else {
 						setcookie('identifiant', '', time() - 3600);
 					}
-
+					
+					session()->set('utilisateur', $utilisateur);
+					return redirect()->to('/dashboard');
+				} else {
+					session()->setFlashdata('error', 'Mot de passe incorrect');
 					return redirect()->to('/login');
 				}
 			} else {
@@ -82,10 +90,47 @@ class LoginController extends BaseController {
 		];
 
 		$utilisateurModel->insert($utilisateur);
+		$this->sendActiveMail($utilisateur);
+
+		session()->setFlashdata('success', 'Votre compte a été crée avec succès. Un email vous a été envoyer pour valider votre compte, afin de pouvoir vous connecter.');
 		return redirect()->to('/login');
 	}
 
-	public function sendLink()
+	public function sendActiveMail($utilisateur)
+	{
+		$token = bin2hex(random_bytes(16));
+		$activeLink = site_url("active/$token");
+		$utilisateurModel = new UtilisateurModel();
+		$utilisateurModel->set('active_token', $token)->update($utilisateur['username']);
+		$message = "Cliquez sur le lien suivant pour activer votre compte : $activeLink";
+		$emailService = \Config\Services::email();
+		//envoi du mail
+		$emailService->setTo($utilisateur['mail']);
+		$emailService->setFrom('sgt.balm.projetsynthese@gmail.com');
+		$emailService->setSubject('Activation de votre compte');
+		$emailService->setMessage($message);
+		if (!$emailService->send()) {
+			echo $emailService->printDebugger();
+		}
+	}
+
+	public function activation($token)
+	{
+		$utilisateurModel = new UtilisateurModel();
+
+		// Valider et traiter les données du formulaire
+		$utilisateur = $utilisateurModel->where('active_token', $token)->first();
+		if (!$utilisateur) {
+			session()->setFlashdata('error', "Le lien d'activation est invalide ou à déja été utilisé.");
+			return redirect()->to('/login');
+		}
+
+		$utilisateurModel->set('active', true)->set('active_token', null)->update($utilisateur['username']);
+		session()->setFlashdata('success', 'Votre compte a été activé avec succès. Vous pouvez maintenant vous connecter.');
+		return redirect()->to('/login');
+	}
+
+	public function forgotpwd()
 	{
 		if($this->request->getMethod() == 'POST') {
 			$utilisateurModel = new UtilisateurModel();
@@ -107,7 +152,7 @@ class LoginController extends BaseController {
 				$emailService = \Config\Services::email();
 				//envoi du mail
 				$emailService->setTo($mail);
-				$emailService->setFrom('luc.lecarpentier5@gmail.com');
+				$emailService->setFrom('sgt.balm.projetsynthese@gmail.com');
 				$emailService->setSubject('Réinitialisation du mot de passe');
 				$emailService->setMessage($message);
 				if ($emailService->send()) {
@@ -130,6 +175,20 @@ class LoginController extends BaseController {
 		if($this->request->getMethod() == 'POST') {
 			$utilisateurModel = new UtilisateurModel();
 
+			// Valider et traiter les données du formulaire
+			$utilisateur = $utilisateurModel->where('reset_token', $token)->where('reset_token_expiration >', date('Y-m-d H:i:s'))->first();
+
+			if (!$utilisateur) {
+				$utilisateur = $utilisateurModel->where('reset_token', $token)->first();
+				if ($utilisateur) {
+					$utilisateurModel->set('reset_token', null)->set('reset_token_expiration', null)->update($utilisateur['username']);
+					session()->setFlashdata('error', 'Le lien de réinitialisation est expiré.');
+					return redirect()->to('/login');
+				}
+				session()->setFlashdata('error', 'Le lien de réinitialisation est invalide ou à déja été utilisé.');
+				return redirect()->to('/login');
+			}
+
 			// Vérification que le mot de passe fasse au moins 8 caractères, contienne une majuscule, une minuscule et un chiffre
 			if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', $this->request->getVar('mdp'))) {
 				$this->session->setFlashdata('error', 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre');
@@ -146,7 +205,7 @@ class LoginController extends BaseController {
 			$utilisateur = $utilisateurModel->where('reset_token', $token)->where('reset_token_expiration >', date('Y-m-d H:i:s'))->first();
 
 			if (!$utilisateur) {
-				$this->session->setFlashdata('error', 'Le lien de réinitialisation est invalide ou expiré.');
+				session()->setFlashdata('error', 'Le lien de réinitialisation est invalide ou expiré.');
 				return redirect()->to('/login');
 			}
 
