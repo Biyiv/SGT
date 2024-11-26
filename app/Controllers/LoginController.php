@@ -26,29 +26,28 @@ class LoginController extends BaseController {
 			}
 
 			if ($utilisateur) {
-				if (password_verify($this->request->getVar('password'), $utilisateur['mdp'])) {
-					$this->session->set('utilisateur', $utilisateur);
-					return redirect()->to('/dashboard');
-				} else {
-					$this->session->setFlashdata('error', 'Mot de passe incorrect');
+                if ($utilisateur['active'] == 'f') {
+                    $this->sendActiveMail($utilisateur);
+                    $this->session->setFlashdata('error', "Votre compte n'est pas activé, un mail viens de partir");
+                    return redirect()->to('/login');
+                } else if (password_verify($this->request->getVar('password'), $utilisateur['mdp'])) {
+                    // Si l'utilisateur a coché la case "Se souvenir de moi", on garde l'identifiant en cookie
+                    if($this->request->getVar('remember')) {
+                        setcookie('identifiant', $this->request->getVar('identifiant'), time() + 3600 * 24 * 30);
+                    } else {
+                        setcookie('identifiant', '', time() - 3600);
+                    }
 
-					// Si l'utilisateur a coché la case "Se souvenir de moi", on garde l'identifiant en cookie
-					if($this->request->getVar('remember')) {
-						setcookie('identifiant', $this->request->getVar('identifiant'), time() + 3600 * 24 * 30);
-					} else {
-						setcookie('identifiant', '', time() - 3600);
-					}
-					
-					$this->session->set('utilisateur', $utilisateur);
-					return redirect()->to('/dashboard');
-				} else {
-					$this->session->setFlashdata('error', 'Mot de passe incorrect');
-					return redirect()->to('/login');
-				}
-			} else {
-				$this->session->setFlashdata('error', 'Identifiant incorrect');
-				return redirect()->to('/login');
-			}
+                    $this->session->set('utilisateur', $utilisateur);
+                    return redirect()->to('/dashboard');
+                } else {
+                    $this->session->setFlashdata('error', 'Mot de passe incorrect');
+                    return redirect()->to('/login');
+                }
+            } else {
+                $this->session->setFlashdata('error', 'Identifiant incorrect');
+                return redirect()->to('/login');
+            }
 		} else {
 			return view('login');
 		}
