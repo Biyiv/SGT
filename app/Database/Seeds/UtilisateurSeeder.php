@@ -17,6 +17,7 @@ class UtilisateurSeeder extends Seeder
                 'prenom'   => 'Luc',
                 'mail'     => 'luc.lecarpentier5@gmail.com',
                 'mdp'      => password_hash('pwdLuc', PASSWORD_DEFAULT),
+                'active'   => true, 
             ],
             [
                 'username' => 'Biyiv',
@@ -24,6 +25,7 @@ class UtilisateurSeeder extends Seeder
                 'prenom'   => 'Baptiste',
                 'mail'     => 'baptiste.hay@hotmail.fr',
                 'mdp'      => password_hash('MaisTesPasNet', PASSWORD_DEFAULT),
+                'active'   => true,
             ],
         ];
 
