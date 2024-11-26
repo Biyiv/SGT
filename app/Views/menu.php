@@ -173,11 +173,14 @@
 
 	<div id="bandeau-droit">
 		<button id="fermer-bandeau">Fermer</button>
-		<h2 id="bandeau-titre"></h2>
-		<p id="bandeau-description"></p>
-		<p><strong>Créé par :</strong> <span id="bandeau-creepar"></span></p>
-		<p><strong>Début :</strong> <span id="bandeau-debut"></span></p>
-		<p><strong>Échéance :</strong> <span id="bandeau-echeance"></span></p>
+		<img src="/assets/images/crayon.png" alt="modificaation" id="crayon">
+		<div id="donnees">
+			<h2 id="bandeau-titre"></h2>
+			<p id="bandeau-description"></p>
+			<p><strong>Créé par :</strong> <span id="bandeau-creepar"></span></p>
+			<p><strong>Début :</strong> <span id="bandeau-debut"></span></p>
+			<p><strong>Échéance :</strong> <span id="bandeau-echeance"></span></p>
+		</div>
 		<p><strong>Priorité :</strong>
 			<span id="bandeau-priorite">
 				<select name="select-priorite" id="select-priorite">
@@ -206,6 +209,7 @@
 
 	<!-- Script JS pour ouvrir et fermer le modal -->
 	<script src="/assets/js/fctMenu.js"></script>
+	<script src="/assets/js/fctBandeau.js"></script>
 </body>
 
 </html>

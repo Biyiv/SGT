@@ -94,4 +94,21 @@ class TacheController extends BaseController
 
 		return redirect()->to('/dashboard')->with('success', 'Tâche ajoutée avec succès');
 	}
+
+	public function modifierTache($id) {
+		$tacheModel = new TacheModel();
+		$tache = $tacheModel->find($id);
+	
+		if (!$tache) {
+			return $this->response->setStatusCode(404)->setJSON(['error' => 'Tâche non trouvée']);
+		}
+	
+		// Récupérer les données JSON
+		$data = $this->request->getJSON(true);
+	
+		$tacheModel->update($id, $data);
+	
+		return $this->response->setJSON(['success' => 'Tâche modifiée avec succès']);
+	}
+	
 }
