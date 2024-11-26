@@ -52,22 +52,22 @@
         <span class="close-btn" id="closeModalBtn">&times;</span>
         
         <!-- Formulaire de création de tâche -->
-        <?= form_open('/creationTache'); ?>
+        <?= form_open('/ajouterTache'); ?>
         
         <?= form_label('Titre :', 'titre'); ?>
-        <?= form_input('titre', '', ['id' => 'titre']); ?>
+        <?= form_input('titre', '', ['id' => 'titre', 'required' => 'required']); ?>
         <br>
         
         <?= form_label('Description :', 'description'); ?>
-        <?= form_textarea('description', '', ['id' => 'description']); ?>
+        <?= form_textarea('description', '', ['id' => 'description', 'required' => 'required']); ?>
         <br>
         
         <?= form_label('Début :', 'debut'); ?>
-        <?= form_input(['type' => 'date', 'name' => 'debut', 'id' => 'debut']); ?>
+        <?= form_input(['type' => 'date', 'name' => 'debut', 'id' => 'debut', 'required' => 'required']); ?>
         <br>
         
         <?= form_label('Echéance :', 'echeance'); ?>
-        <?= form_input(['type' => 'date', 'name' => 'echeance', 'id' => 'echeance']); ?>
+        <?= form_input(['type' => 'date', 'name' => 'echeance', 'id' => 'echeance', 'required' => 'required']); ?>
         <br>
         
         <?= form_label('Priorité :', 'priorite'); ?>

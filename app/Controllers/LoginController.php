@@ -24,7 +24,6 @@ class LoginController extends BaseController {
 				session()->set('utilisateur', $utilisateur);
 				return redirect()->to('/dashboard');
 			} else {
-				dd($utilisateur);
 				session()->setFlashdata('error', 'Mot de passe incorrect');
 				return redirect()->to('/login');
 			}
@@ -69,7 +68,7 @@ class LoginController extends BaseController {
 		];
 
 		$utilisateurModel->insert($utilisateur);
-		return redirect()->to('/login');
+		return redirect()->to('/login')->with('success', 'Utilisateur créé avec succès');
 	}
 
 	public function logout() {
