@@ -11,6 +11,10 @@ $routes->get('/', 'LoginController::redirect');
 $routes->get('/login', 'LoginController::login');
 $routes->post('/login', 'LoginController::login');
 
+
+$routes->get('/sendActiveMail', 'LoginController::sendActiveMail');
+$routes->get('/active/(:any)', 'LoginController::activation/$1');
+
 $routes->get('/forgotpwd', 'LoginController::forgotpwd');
 $routes->post('/forgotpwd', 'LoginController::forgotpwd');
 
