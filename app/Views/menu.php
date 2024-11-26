@@ -26,25 +26,45 @@
 			</p>
 		</div>
 	</div>
-	<h1>Liste des tâches</h1>
 
-	<?= form_open('/setTriPreference', ['method' => 'post']); ?>
-		<!-- CSRF Protection -->
-		<?= csrf_field() ?>
-		<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
-		<!-- Liste déroulante pour le tri -->
-		<?= form_label('Trier par :', 'tri'); ?>
-		<?= form_dropdown(
-			'tri',
-			[
-				'echeance' => 'Échéance',
-				'priorite' => 'Priorité',
-				'retard' => 'Retard'
-			],
-			$tri,
-			['id' => 'tri', 'onchange' => 'this.form.submit()']
-		); ?>
-	<?= form_close(); ?>
+	<nav class="navbar">
+		<div class="left-section">
+			<div>
+				<?= form_open('/setTriPreference', ['method' => 'post']); ?>
+					<!-- CSRF Protection -->
+					<?= csrf_field() ?>
+					<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
+					<!-- Liste déroulante pour le tri -->
+					<?= form_label('Trier par :', 'tri'); ?>
+					<?= form_dropdown(
+						'tri',
+						[
+							'echeance' => 'Échéance',
+							'priorite' => 'Priorité',
+							'retard' => 'Retard'
+						],
+						$tri,
+						['id' => 'tri', 'onchange' => 'this.form.submit()']
+					); ?>
+				<?= form_close(); ?>
+			</div>
+			<div>
+				<hr>
+			</div>
+			<div>
+				<!-- Modal Trigger Button -->
+				<button id="openModalBtn">Créer une Tâche</button>
+			</div>
+		</div>
+		<div class="right-section">
+			<div>
+				<h1><?= esc(session()->get('utilisateur')['username']) ?></h1>
+			</div>
+			<div>
+				<img src="/assets/images/poisson.png" alt="Image de profil">
+			</div>
+		</div>
+	</nav>
 
 	<div class="conteneur-taches">
 		<?php if (!empty($taches) && is_array($taches)): ?>
@@ -77,9 +97,6 @@
 			<p>Aucune tâche trouvée.</p>
 		<?php endif; ?>
 	</div>
-
-	<!-- Modal Trigger Button -->
-	<button id="openModalBtn">Créer une Tâche</button>
 
 	<!-- Modal -->
 	<div id="creationTacheModal" class="modal">
