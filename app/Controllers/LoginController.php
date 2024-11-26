@@ -247,7 +247,7 @@ L'équipe d'SGT BALM ";
 
 	public function logout() {
 		$this->session->remove('utilisateur');
-		return redirect()->to('/login');
+		return redirect()->to('/login')->with('success', 'Vous avez été déconnecté avec succès');
 	}
 
 }
