@@ -98,10 +98,13 @@
 		<?php endif; ?>
 	</div>
 
+	<!-- Modal Trigger Button -->
+	<button id="openModalBtnTache">Créer une Tâche</button>
+
 	<!-- Modal -->
 	<div id="creationTacheModal" class="modal">
 		<div class="modal-content">
-			<span class="close-btn" id="closeModalBtn">&times;</span>
+			<span class="close-btn" id="closeModalBtnTache">&times;</span>
 			
 			<!-- Formulaire de création de tâche -->
 			<?= form_open('/ajouterTache'); ?>
@@ -127,6 +130,42 @@
 				<br>
 				
 				<?= form_submit('submit', 'Créer la tâche'); ?>
+			<?= form_close(); ?>
+		</div>
+	</div>
+
+	<!-- Modal Trigger Button -->
+	<button id="openModalBtnProfil">Profil</button>
+
+	<!-- Modal -->
+	<div id="creationProfilModal" class="modal">
+		<div class="modal-content">
+			<span class="close-btn" id="closeModalBtnProfil">&times;</span>
+			
+			<!-- Formulaire de création de tâche -->
+			<?= form_open('/modifProfil'); ?>
+				<?= form_label('Nom d\'utilisateur', 'username') ?>
+				<?= form_input('username', session()->get('utilisateur')['username'], ['placeholder' => 'Nom d\'utilisateur', 'required' => 'required']) ?>
+				<br>
+				<?= form_label('Nom', 'nom') ?>
+				<?= form_input('nom', session()->get('utilisateur')['nom'], ['placeholder' => 'Nom', 'required' => 'required']) ?>
+				<br>
+				<?= form_label('Prénom', 'prenom') ?>
+				<?= form_input('prenom', session()->get('utilisateur')['prenom'], ['placeholder' => 'Prénom', 'required' => 'required']) ?>
+				<br>
+				<?= form_label('Email', 'email') ?>
+				<?= form_input('email', session()->get('utilisateur')['mail'], ['placeholder' => 'Email', 'required' => 'required']) ?>
+				<br>
+				<?= form_label('Mot de passe actuel', 'mdp_actuel') ?>
+				<?= form_password('mdp_actuel', '', ['placeholder' => 'Mot de passe actuel']) ?>
+				<br>
+				<?= form_label('Nouveau mot de passe', 'nouveau_mdp') ?>
+				<?= form_password('nouveau_mdp', '', ['placeholder' => 'Nouveau mot de passe']) ?>
+				<br>
+				<?= form_label('Confirmer le nouveau mot de passe', 'mdp_confirm') ?>
+				<?= form_password('mdp_confirm', '', ['placeholder' => 'Confirmer le nouveau mot de passe']) ?>
+				<br>
+				<?= form_submit('submit', 'Sauvegarder') ?>
 			<?= form_close(); ?>
 		</div>
 	</div>
