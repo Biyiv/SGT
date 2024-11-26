@@ -26,7 +26,7 @@
 
 <?php if (!empty($taches) && is_array($taches)): ?>
 	<?php foreach ($taches as $tache): ?>
-		<div>
+		<div id=<?= esc($tache['id']) ?>>
 			<h2><?= esc($tache['titre']) ?></h2>
 			<p><?= esc($tache['description']) ?></p>
 			<p>Créé par : <?= esc($tache['creepar']) ?></p>
