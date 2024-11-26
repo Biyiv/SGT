@@ -16,15 +16,15 @@ class TacheSeeder extends Seeder
                 'description' => 'Réunion hebdomadaire pour discuter des projets en cours.',
                 'creepar'     => 'Biyiv',
                 'echeance'    => date('Y-m-d H:i:s', strtotime('+1 week')),
-                'priorite'    => 'importante',
-				'statut'      => 'en attente',
+                'priorite'    => 3,
+				'statut'      => 'en retard',
             ],
             [
                 'titre'       => 'Mise à jour du site web',
                 'description' => 'Apporter des modifications et des mises à jour au site web de l\'entreprise.',
                 'creepar'     => 'Frizoks',
                 'echeance'    => date('Y-m-d H:i:s', strtotime('+2 days')),
-                'priorite'    => 'neutre',
+                'priorite'    => 2,
 				'statut'      => 'en cours',
             ],
             [
@@ -32,8 +32,8 @@ class TacheSeeder extends Seeder
                 'description' => 'Réparer les bugs signalés dans l\'application.',
                 'creepar'     => 'Biyiv',
                 'echeance'    => date('Y-m-d H:i:s', strtotime('+3 days')),
-                'priorite'    => 'faible',
-				'statut'      => 'en attente',
+                'priorite'    => 1,
+				'statut'      => 'termine',
             ],
         ];
 

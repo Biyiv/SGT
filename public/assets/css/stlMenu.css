@@ -94,3 +94,26 @@
 .modal form button:hover, .modal form input[type="submit"]:hover {
     background-color: #031A6B;
 }
+
+.Faible {
+    color: green;
+}
+.Moyenne {
+    color: orange;
+}
+.Importante {
+    color: red;
+}
+
+.attente{
+    color: blue;
+}
+.cours{
+    color: green;
+}
+.retard{
+    color: red;
+}
+.termine{
+    color: purple;
+}
