@@ -113,6 +113,25 @@ body {
     position: relative;
 }
 
+#error-modal {
+    z-index: 1100;
+}
+
+#fermer-bandeau {
+    background-color: #f8f9fa;
+    border: none;
+    font-size: 2.5em;
+    margin: 2%;
+}
+
+#crayon {
+    position: relative;
+    left: 80%;
+    top: -1%;
+    width: 25px;
+    height: auto;
+}
+
 /* En-tête du modal */
 .modal-header {
     display: flex;
