@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Sélectionner les tâches et le bandeau
 	const taches = document.querySelectorAll('.tache');
 	const bandeau = document.getElementById('bandeau-droit');
-	const divDonnees = document.getElementById('donnees');
 	const fermerBandeauBtn = document.getElementById('fermer-bandeau');
 
 	// Champs du bandeau
@@ -36,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		bandeauEcheance.textContent = echeance;
 		bandeauId.textContent = id;
 
-		
 		//Pour chaque value de la liste déroulante priorité, on vérifie si la priorité de la tâche est égale à la value
 		//Si c'est le cas, on sélectionne l'option
 		for (let i = 0; i < prioriteSelect.options.length; i++) {
