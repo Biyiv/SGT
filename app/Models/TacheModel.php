@@ -25,7 +25,7 @@ class TacheModel extends Model
 		return $this->where('id', $id)->first();
 	}
 
-	public function getPaginatedAllTaches(int $perPage, ?string $keyword = null): array
+	public function getPaginatedAllTaches(int $perPage = 8, ?string $keyword = null): array
 	{
 		// Appliquer la recherche par mot-clé si fourni
 		if ($keyword) {
@@ -34,7 +34,7 @@ class TacheModel extends Model
 		return $this->paginate($perPage, 'default');
 	}
 
-	public function getPaginatedTaches(int $perPage, string $sortField = 'echeance', string $sortOrder = 'asc', ?string $keyword = null): array
+	public function getPaginatedTaches(int $perPage = 8, string $sortField = 'echeance', string $sortOrder = 'asc', ?string $keyword = null): array
 	{
 		// Appliquer la recherche par mot-clé si fourni
 		if ($keyword) {
