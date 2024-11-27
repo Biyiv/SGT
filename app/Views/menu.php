@@ -220,24 +220,11 @@
 			<p><span id="bandeau-id"></span></p>
 		</div>
 
-		<div class="commentaire">
-			<?php if (!empty($commentaires) && is_array($commentaires)): ?>
-				<?php foreach ($commentaires as $commentaire): ?>
-					<?php echo $commentaire['tache']; ?>
-					<?php if ($commentaire['tache'] === 11): ?>
-						<div class="commentaire" id="<?= esc($commentaire['id']) ?>">
-							<p><?= esc($commentaire['commentaire']) ?></p>
-						</div>
-					<?php endif; ?>
-				<?php endforeach; ?>
-			<?php else: ?>
-				<p>Aucun commentaire.</p>
-			<?php endif; ?>
+		<div class="commentaires">
+			
 		</div>
 		<!-- Affichage des liens de pagination -->
-		<div>
-			<?= $pagerCommentaires->links('Commentaire', 'custom') ?>
-		</div>
+		
 
 		<p><strong>Priorité :</strong>
 			<span id="bandeau-priorite">

@@ -58,6 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		}
 
+		//Récupérer les commentaires de la tâche
+		getCommentaires(id);
+
 		// Afficher le bandeau
 		bandeau.style.display = 'block';
 	}
@@ -248,6 +251,88 @@ document.addEventListener("DOMContentLoaded", () => {
 		taches.forEach(t => {
 			t.style.backgroundColor = '';
 			t.style.color = 'black';
+		});
+	}
+
+	//Fonction pour récupérer les commentaires grâce à l'id de la tache
+	function getCommentaires(id) {
+		fetch(`/taches/${id}/commentaires`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		})
+		.then(response => {
+			return response.json();
+		})
+		.then(data => {
+			const divCommentaires = document.querySelector('.commentaires');
+
+			divCommentaires.innerHTML = '';
+
+			if(data.length === 0) {
+				const divCommentaire = document.createElement('div');
+				divCommentaire.classList.add('commentaire');
+				divCommentaire.innerHTML = `
+					<h5>Aucun commentaire</h5>
+				`;
+
+				divCommentaires.appendChild(divCommentaire);
+			} else {
+				cpt = 0;
+				data.forEach(commentaire => {
+					const divCommentaire = document.createElement('div');
+					divCommentaire.classList.add('commentaire');
+					if(cpt > 0) {
+						divCommentaire.style.display = 'none';
+					}
+					else {
+						divCommentaire.style.display = 'block';
+					}
+					divCommentaire.id = cpt++;
+					divCommentaire.innerHTML = `
+						<h5>${commentaire.creepar}</h5>
+						<p>${commentaire.commentaire}</p>
+					`;
+	
+					divCommentaires.appendChild(divCommentaire);
+				})
+
+				if(cpt > 0) {
+					const divBtns = document.createElement('div');
+					divBtns.classList.add('btns');
+					divBtns.innerHTML = `
+						<button id="btn-precedent" class="btn btn-primary btn-sm">Précédent</button>
+						<button id="btn-suivant" class="btn btn-primary btn-sm">Suivant</button>
+					`;
+
+					divCommentaires.appendChild(divBtns);
+
+					document.getElementById('btn-precedent').addEventListener('click', () => {
+						const divs = document.querySelectorAll('.commentaire');
+						let cpt = 0;
+						divs.forEach(div => {
+							if(div.style.display === 'block' && cpt !== 0) {
+								div.style.display = 'none';
+								divs[cpt - 1].style.display = 'block';
+							}
+							cpt++;
+						});
+					});
+
+					document.getElementById('btn-suivant').addEventListener('click', () => {
+						const divs = document.querySelectorAll('.commentaire');
+						let cpt = 0;
+						divs.forEach(div => {
+							if(div.style.display === 'block' && cpt !== divs.length - 1) {
+								div.style.display = 'none';
+								divs[cpt + 1].style.display = 'block';
+							}
+							cpt++;
+						});
+					});
+				}
+			}
 		});
 	}
 });

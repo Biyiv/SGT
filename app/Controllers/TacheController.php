@@ -131,4 +131,17 @@ class TacheController extends BaseController
 			return $this->response->setStatusCode(280)->setJSON(['error' => 'Erreur lors de la modification de la tâche']);
 		}
 	}
+
+	public function getCommentaires($id) {	
+		$commentaireModel = new CommentaireModel();
+		$commentaires = $commentaireModel->getCommentaires($id);
+
+	
+		if ($commentaires) {
+			return $this->response->setJSON($commentaires);
+		} else {
+			// Retourne le string "Pas de commentaire"
+			return $this->response->setJSON([]);
+		}
+	}	
 }
