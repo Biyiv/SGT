@@ -227,5 +227,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		setTimeout(() => {
 			bandeau.style.visibility = 'hidden'; // Pour éviter de garder l'élément interactif.
 		}, 500); // Correspond à la durée de la transition CSS.
+
+		taches.forEach(t => {
+			t.style.backgroundColor = '';
+			t.style.color = 'black';
+		});
 	}
 });
