@@ -65,6 +65,22 @@
 				<hr>
 			</div>
 			<div>
+				<?= form_open('/recherche', ['method' => 'post']); ?>
+					<!-- CSRF Protection -->
+					<?= csrf_field() ?>
+					<!-- Liste déroulante pour le tri -->
+					<?= form_label('<h3>Rechercher :</h3>', 'tri'); ?>
+					<?= form_input(
+						'recherche',
+						'',
+						['recherche' => 'tri', 'onchange' => 'this.form.submit()']
+					); ?>
+				<?= form_close(); ?>
+			</div>
+			<div>
+				<hr>
+			</div>
+			<div>
 				<!-- Modal Trigger Button -->
 				<button id="openModalBtnTache">Créer une Tâche</button>
 			</div>
