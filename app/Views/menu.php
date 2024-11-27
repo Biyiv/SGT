@@ -193,7 +193,8 @@
 
 	<div id="bandeau-droit">
 		<button id="fermer-bandeau">&times;</button>
-		<img src="/assets/images/crayon.png" alt="modificaation" id="crayon">
+		<span id="username"><?= session()->get('utilisateur')['username'] ?></span>
+		<img src="/assets/images/crayon.png" alt="modification" id="crayon">
 		<div id="donnees">
 			<h2 id="bandeau-titre"></h2><br>
 			<p id="bandeau-description"></p>

@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Fonction pour ouvrir le bandeau avec les détails d'une tâche
 	function afficherDetailsTache(tache) {
+		const username = document.getElementById('username').textContent;
+		const bandeauCrayon = document.getElementById('crayon');
 		const bandeauTitre = document.getElementById('bandeau-titre');
 		const bandeauDescription = document.getElementById('bandeau-description');
 		const bandeauCreepar = document.getElementById('bandeau-creepar');
@@ -33,6 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		bandeauDebut.textContent = debut;
 		bandeauEcheance.textContent = echeance;
 		bandeauId.textContent = id;
+
+		if(username !== creepar) {
+			bandeauCrayon.style.display = 'none';
+		} else {
+			bandeauCrayon.style.removeProperty('display');
+		}
 
 		//Pour chaque value de la liste déroulante priorité, on vérifie si la priorité de la tâche est égale à la value
 		//Si c'est le cas, on sélectionne l'option
