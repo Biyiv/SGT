@@ -124,18 +124,28 @@ document.addEventListener("DOMContentLoaded", () => {
 		const debutElement = document.getElementById('bandeau-debut');
 		const debutInput = document.createElement('input');
 		debutInput.type = 'datetime-local';
-		debutInput.id = 'bandeau-debut';
-		// Convertir le texte en format compatible avec datetime-local
-		debutInput.value = new Date(debutElement.textContent).toISOString().slice(0, 16);
+		debutInput.id = 'input-debut';
+		// Convertir le texte de la date
+		const dateStringD = debutElement.textContent.trim();
+		// Utiliser une expression régulière pour extraire les informations de la date et de l'heure
+		const [dayD, monthD, yearD, hourD, minuteD] = dateStringD.match(/(\d{2})\/(\d{2})\/(\d{4}) - (\d{2}):(\d{2})/).slice(1);
+		// Créer un objet Date en utilisant les informations extraites
+		const formattedDateD = new Date(`${yearD}-${monthD}-${dayD}T${hourD}:${minuteD}:00`);
+		formattedDateD.setHours(formattedDateD.getHours() + 1);
+		// Mettre la valeur de l'input avec le format ISO 8601 (sans les secondes et le fuseau horaire)
+		debutInput.value = formattedDateD.toISOString().slice(0, 16);
 		debutElement.replaceWith(debutInput);
 	
 		// Transformer le champ "Échéance" en input de type datetime-local
 		const echeanceElement = document.getElementById('bandeau-echeance');
 		const echeanceInput = document.createElement('input');
 		echeanceInput.type = 'datetime-local';
-		echeanceInput.id = 'bandeau-echeance';
-		// Convertir le texte en format compatible avec datetime-local
-		echeanceInput.value = new Date(echeanceElement.textContent).toISOString().slice(0, 16);
+		echeanceInput.id = 'input-echeance';
+		const dateStringE = echeanceElement.textContent.trim();
+		const [dayE, monthE, yearE, hourE, minuteE] = dateStringE.match(/(\d{2})\/(\d{2})\/(\d{4}) - (\d{2}):(\d{2})/).slice(1);
+		const formattedDateE = new Date(`${yearE}-${monthE}-${dayE}T${hourE}:${minuteE}:00`);
+		formattedDateE.setHours(formattedDateE.getHours() + 1);
+		echeanceInput.value = formattedDateE.toISOString().slice(0, 16);
 		echeanceElement.replaceWith(echeanceInput);
 
 		const id = document.getElementById('bandeau-id').textContent;
