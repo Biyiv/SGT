@@ -60,14 +60,14 @@ class LoginController extends BaseController {
 		$mail = trim($this->request->getVar('email'));
 
 		//Vérification de l'unicité du nom d'utilisateur
-		if ($utilisateurModel->where('username', $this->request->getVar('username'))->first() && $this->request->getVar('username') != "") {
-			$this->session->setFlashdata('error', 'Ce nom d\'utilisateur est déjà utilisé');
+		if ($utilisateurModel->where('username', $username)->first() || $username === "") {
+			$this->session->setFlashdata('error', 'Ce nom d\'utilisateur est déjà utilisé ou invalide');
 			return redirect()->to('/register');
 		}
 
 		//Vérification de l'unicité de l'adresse mail
-		if ($utilisateurModel->where('mail', $this->request->getVar('email'))->first() && $this->request->getVar('email') != "") {
-			$this->session->setFlashdata('error', 'Cette adresse mail est déjà utilisée');
+		if ($utilisateurModel->where('mail', $mail)->first() && !filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+			$this->session->setFlashdata('error', 'Cette adresse mail est déjà utilisée ou invalide');
 			return redirect()->to('/register');
 		}
 
@@ -84,10 +84,10 @@ class LoginController extends BaseController {
 		}
 
 		$utilisateur = [
-			'username' => $this->request->getVar('username'),
+			'username' => $username,
 			'nom' => $this->request->getVar('nom'),
 			'prenom' => $this->request->getVar('prenom'),
-			'mail' => $this->request->getVar('email'),
+			'mail' => $mail,
 			'mdp' => password_hash($this->request->getVar('mdp'), PASSWORD_DEFAULT)
 		];
 
@@ -102,47 +102,63 @@ class LoginController extends BaseController {
 		$utilisateurModel = new UtilisateurModel();
 		$username = trim($this->request->getVar('username'));
 		$mail = trim($this->request->getVar('email'));
+		$utilisateurBase = $utilisateurModel->where('username', $usernameBase)->first();
 
 		//Vérification de l'unicité du nom d'utilisateur
-		if ($utilisateurModel->where('username', $this->request->getVar('username'))->first() && $this->request->getVar('username') != "") {
-			$this->session->setFlashdata('error', 'Ce nom d\'utilisateur est déjà utilisé');
-			return redirect()->to('/register');
+		if (($utilisateurModel->where('username', $username)->first() || $username === "") && $username != $usernameBase) {
+			$this->session->setFlashdata('error', 'Ce nom d\'utilisateur est déjà utilisé ou invalide');
+			$this->session->setFlashdata('show_modal', 'creationProfilModal');
+			return redirect()->to('/dashboard');
 		}
 
 		//Vérification de l'unicité de l'adresse mail
-		if ($utilisateurModel->where('mail', $this->request->getVar('email'))->first() && $this->request->getVar('email') != "") {
-			$this->session->setFlashdata('error', 'Cette adresse mail est déjà utilisée');
-			return redirect()->to('/register');
+		if (($utilisateurModel->where('mail', $mail)->first() && !filter_var($mail, FILTER_VALIDATE_EMAIL)) && $mail != $utilisateurBase['mail']) {
+			$this->session->setFlashdata('error', 'Cette adresse mail est déjà utilisée ou invalide');
+			$this->session->setFlashdata('show_modal', 'creationProfilModal');
+			return redirect()->to('/dashboard');
 		}
 
-		// Vérification que le mot de passe fasse au moins 8 caractères, contienne une majuscule, une minuscule et un chiffre
-		if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', $this->request->getVar('mdp'))) {
-			$this->session->setFlashdata('error', 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre');
-			return redirect()->to('/register');
-		}
-
-		//Vérification du mot de passe
-		if ($this->request->getVar('mdp') != $this->request->getVar('mdp_confirm')) {
-			$this->session->setFlashdata('error', 'Les mots de passe ne correspondent pas');
-			return redirect()->to('/register');
-		}
-
-		$utilisateur = [
-			'username' => $this->request->getVar('username'),
+		$nouveauUtilisateur = [
+			'username' => $username,
 			'nom' => $this->request->getVar('nom'),
 			'prenom' => $this->request->getVar('prenom'),
-			'mail' => $this->request->getVar('email'),
-			'mdp' => password_hash($this->request->getVar('mdp'), PASSWORD_DEFAULT)
+			'mail' => $mail,
 		];
 
-		$utilisateurModel->update($usernameBase, $utilisateur);
+		$utilisateurModel->update($usernameBase, $nouveauUtilisateur);
 
 		if($this->request->getVar('mdp_actuel') != "" || $this->request->getVar('ancien_mdp') != "" || $this->request->getVar('mdp_confirm') != "")
 		{
-			
+			if(!password_verify($this->request->getVar('mdp_actuel'), $utilisateurBase['mdp']))
+			{
+				$this->session->setFlashdata('error', 'Le mot de passe est incorrect');
+				$this->session->setFlashdata('show_modal', 'creationProfilModal');
+				return redirect()->to('/dashboard');
+			}
+
+			// Vérification que le mot de passe fasse au moins 8 caractères, contienne une majuscule, une minuscule et un chiffre
+			if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', $this->request->getVar('nouveau_mdp'))) {
+				$this->session->setFlashdata('error', 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre');
+				$this->session->setFlashdata('show_modal', 'creationProfilModal');
+				return redirect()->to('/dashboard');
+			}
+
+			//Vérification du mot de passe
+			if ($this->request->getVar('nouveau_mdp') != $this->request->getVar('mdp_confirm')) {
+				$this->session->setFlashdata('error', 'Les mots de passe ne correspondent pas');
+				$this->session->setFlashdata('show_modal', 'creationProfilModal');
+				return redirect()->to('/dashboard');
+			}
+
+			$nouveauMdpUtilisateur = [
+				'mdp' => password_hash($this->request->getVar('nouveau_mdp'), PASSWORD_DEFAULT)
+			];
+			$utilisateurModel->update($usernameBase, $nouveauMdpUtilisateur);
 		}
 
-		//return redirect()->to('/login')->with('success', 'Utilisateur modif avec succès');
+		$usernameFinal = $utilisateurModel->where('username', $username)->first();
+		$this->session->set('utilisateur', $usernameFinal);
+		return redirect()->to('/dashboard')->with('success', 'Utilisateur modifier avec succès');
 	}
 
 	public function forgotpwd()

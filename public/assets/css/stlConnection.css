@@ -224,6 +224,10 @@ a:focus, button:focus {
     color: #007bff;
 }
 
+#error-modal {
+    z-index: 1060; /* Augmenter le z-index pour qu'il soit au-dessus des autres modals */
+}
+
 /* Animation pour le modal */
 @keyframes fadeIn {
     from {
