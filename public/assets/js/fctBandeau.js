@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		echeanceInput.value = new Date(echeanceElement.textContent).toISOString().slice(0, 16);
 		echeanceElement.replaceWith(echeanceInput);
 
-
+		const id = document.getElementById('bandeau-id').textContent;
 
 		// Ajoute un bouton sauvegarder
 		const sauvegarderBtn = document.createElement('button');
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		sauvegarderBtn.classList.add('m-2');
 
 		sauvegarderBtn.addEventListener('click', () => {
-			fetch('/taches/' + document.getElementById('bandeau-id').textContent, {
+			fetch('/taches/' + id, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -154,5 +154,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		document.getElementById('bandeau-droit').appendChild(sauvegarderBtn);
 	});
+
+	// Fonction pour mettre à jour dynamiquement la page
+	function updateContent() {
+		// Récupérer les valeurs actuelles des selects
+		const priorite = prioriteSelect.value;
+		const statut = statutSelect.value;
+		const id = document.getElementById('bandeau-id').textContent;
+
+		fetch('/taches/' + id, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				titre: bandeauTitre.textContent,
+				description: bandeauDescription.textContent,
+				creepar: bandeauCreepar.textContent,
+				debut: bandeauDebut.textContent,
+				echeance: bandeauEcheance.textContent,
+				priorite: priorite,
+				statut: statut,
+				id: id,
+			})
+		}).then((data) => {
+			console.log('Succès:', data.json());
+			//location.reload();
+		}).catch((error) => {
+			console.error('Erreur:', error);
+		});
+	}
+
+    // Écouter les événements change sur les selects
+    prioriteSelect.addEventListener('change', updateContent);
+    statutSelect.addEventListener('change', updateContent);
 	
 });
