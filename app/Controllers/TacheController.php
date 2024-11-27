@@ -24,11 +24,13 @@ class TacheController extends BaseController
 		$tacheModel = new TacheModel();
 		$commentaireModel = new CommentaireModel();
 
-		$tri = $this->session->get('tri') == null ? "echeance" : $this->session->get('tri');
+		$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance";
+
 		$recherche = $this->session->get('recherche') == null ? "" : $this->session->get('recherche');
+		
 		// Récupérer toutes les tâches, triées par échéance
 		if ($tri == 'retard'){
-			$data['taches'] = $tacheModel->getPaginatedAllTaches(8);
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedAllTaches(8) : $data['taches'] = $tacheModel->getPaginatedAllTaches(8, $recherche);
 			//Tri les taches par leur retard c'est à dire la date actuelle moins leur echeance
 			usort($data['taches'], function($a, $b) {
 				$dateA = new \DateTime($a['echeance']);
@@ -41,13 +43,12 @@ class TacheController extends BaseController
 				return $diffB - $diffA;
 			});
 		} elseif ($tri == 'echeance') {
-			$data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, $recherche);
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri) : $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'ASC', $recherche);
 		} elseif ($tri == 'priorite') {
-			$data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC', $recherche);
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC') : $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC', $recherche);
 		}
 
 		$data['pagerTaches'] = $tacheModel->pager;
-		$data['tri'] = $tri;
 
 		$data['commentaires'] = $commentaireModel->getPaginatedCommentaires(2);
 		$data['pagerCommentaires'] = $commentaireModel->pager;
@@ -58,11 +59,9 @@ class TacheController extends BaseController
 
 	public function setTriPreference()
 	{
-		$session = session();
-
 		$tri = $this->request->getPost('tri');
 		if ($tri) {
-			$session->set('tri', $tri);
+			setcookie('tri', $tri, time() + 3600 * 24 * 30);
 		}
 
 		return redirect()->to('/dashboard');
@@ -77,6 +76,12 @@ class TacheController extends BaseController
 			$session->set('recherche', $recherche);
 		}
 
+		return redirect()->to('/dashboard');
+	}
+	public function resetRecherche()
+	{
+		$session = session();
+		$session->set('recherche', "");
 		return redirect()->to('/dashboard');
 	}
 

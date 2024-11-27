@@ -56,7 +56,7 @@
 							'priorite' => 'Priorité',
 							'retard' => 'Retard'
 						],
-						$tri,
+						$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance",
 						['id' => 'tri', 'onchange' => 'this.form.submit()']
 					); ?>
 				<?= form_close(); ?>
@@ -69,13 +69,12 @@
 					<!-- CSRF Protection -->
 					<?= csrf_field() ?>
 					<!-- Liste déroulante pour le tri -->
-					<?= form_label('<h3>Rechercher :</h3>', 'tri'); ?>
-					<?= form_input(
-						'recherche',
-						'',
-						['recherche' => 'tri', 'onchange' => 'this.form.submit()']
-					); ?>
+					<?= form_label('<h3>Rechercher :</h3>', 'recherche'); ?>
+					<?= form_input('recherche',isset($_SESSION['recherche']) ? $_SESSION['recherche'] : '',['id' => 'recherche', 'onchange' => 'this.form.submit()']); ?>
 				<?= form_close(); ?>
+			</div>
+			<div>
+			<a href="/resetRecherche">Reset</a>
 			</div>
 			<div>
 				<hr>
