@@ -25,6 +25,7 @@ class TacheController extends BaseController
 		$commentaireModel = new CommentaireModel();
 
 		$tri = $this->session->get('tri') == null ? "echeance" : $this->session->get('tri');
+		$recherche = $this->session->get('recherche') == null ? "" : $this->session->get('recherche');
 		// Récupérer toutes les tâches, triées par échéance
 		if ($tri == 'retard'){
 			$data['taches'] = $tacheModel->getPaginatedAllTaches(8);
@@ -40,9 +41,9 @@ class TacheController extends BaseController
 				return $diffB - $diffA;
 			});
 		} elseif ($tri == 'echeance') {
-			$data['taches'] = $tacheModel->getPaginatedTaches(8, $tri);
+			$data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, $recherche);
 		} elseif ($tri == 'priorite') {
-			$data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC');
+			$data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC', $recherche);
 		}
 
 		$data['pagerTaches'] = $tacheModel->pager;
@@ -62,6 +63,18 @@ class TacheController extends BaseController
 		$tri = $this->request->getPost('tri');
 		if ($tri) {
 			$session->set('tri', $tri);
+		}
+
+		return redirect()->to('/dashboard');
+	}
+
+	public function setRecherche()
+	{
+		$session = session();
+
+		$recherche = $this->request->getPost('recherche');
+		if ($recherche) {
+			$session->set('recherche', $recherche);
 		}
 
 		return redirect()->to('/dashboard');
@@ -107,6 +120,8 @@ class TacheController extends BaseController
 	
 		// Récupérer les données JSON
 		$data = $this->request->getJSON(true);
+
+		$data['priorite'] = $data['priorite'] == 'importante' ? 3 : ($data['priorite'] == 'moyenne' ? 2 : 1);
 
 		if($tacheModel->update($id, $data)) {
 			$this->session->setFlashdata('success', 'Tâche modifiée avec succès');
