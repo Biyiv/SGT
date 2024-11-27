@@ -15,16 +15,6 @@ class TacheModel extends Model
 		'statut',
 	];
 	
-	public function getTaches($sort = "echeance", $direction = "ASC"): array
-	{
-		return $this->orderBy($sort, $direction)->findAll();
-	}
-
-	public function getTacheById($id)
-	{
-		return $this->where('id', $id)->first();
-	}
-
 	public function getPaginatedAllTaches(int $perPage = 8, ?string $keyword = null): array
 	{
 		// Appliquer la recherche par mot-clé si fourni

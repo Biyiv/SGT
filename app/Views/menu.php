@@ -193,7 +193,8 @@
 
 	<div id="bandeau-droit">
 		<button id="fermer-bandeau">&times;</button>
-		<img src="/assets/images/crayon.png" alt="modificaation" id="crayon">
+		<span id="username"><?= session()->get('utilisateur')['username'] ?></span>
+		<img src="/assets/images/crayon.png" alt="modification" id="crayon">
 		<div id="donnees">
 			<h2 id="bandeau-titre"></h2><br>
 			<p id="bandeau-description"></p>
@@ -202,6 +203,23 @@
 			<p><strong>Échéance :</strong> <span id="bandeau-echeance"></span></p>
 			<p><span id="bandeau-id"></span></p>
 		</div>
+
+		<div class="commentaire">
+			<?php if (!empty($commentaires) && is_array($commentaires)): ?>
+				<?php foreach ($commentaires as $commentaire): ?>
+					<div class="commentaire" id="<?= esc($commentaire['id']) ?>">
+						<h2><?= esc($commentaire['commentaire']) ?></h2>
+					</div>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<p>Aucun commentaire.</p>
+			<?php endif; ?>
+		</div>
+		<!-- Affichage des liens de pagination -->
+		<div>
+			<?= $pagerCommentaires->links('Commentaire', 'custom') ?>
+		</div>
+
 		<p><strong>Priorité :</strong>
 			<span id="bandeau-priorite">
 				<select name="select-priorite" id="select-priorite" disabled>
@@ -220,22 +238,6 @@
 				</select>
 			</span>
 		</p>
-
-		<div class="commentaire">
-			<?php if (!empty($commentaires) && is_array($commentaires)): ?>
-				<?php foreach ($commentaires as $commentaire): ?>
-					<div class="commentaire" id="<?= esc($commentaire['id']) ?>">
-						<h2><?= esc($commentaire['commentaire']) ?></h2>
-					</div>
-				<?php endforeach; ?>
-			<?php else: ?>
-				<p>Aucun commentaire.</p>
-			<?php endif; ?>
-		</div>
-		<!-- Affichage des liens de pagination -->
-		<div>
-			<?= $pagerCommentaires->links('Commentaire', 'custom') ?>
-		</div>
 	</div>
 
 
