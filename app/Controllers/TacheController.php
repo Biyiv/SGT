@@ -128,6 +128,8 @@ class TacheController extends BaseController
 		// Récupérer les données JSON
 		$data = $this->request->getJSON(true);
 
+		$data['priorite'] = $data['priorite'] == 'importante' ? 3 : ($data['priorite'] == 'moyenne' ? 2 : 1);
+
 		if($tacheModel->update($id, $data)) {
 			$this->session->setFlashdata('success', 'Tâche modifiée avec succès');
 			return $this->response->setJSON($data);

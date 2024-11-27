@@ -328,6 +328,12 @@ body {
     margin-right: 40%;
 }
 
+.bandeau-visible #paginationTache {
+    opacity: 0; /* Invisible */
+    visibility: hidden; /* Masqué */
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
 #bandeau-droit {
     position: fixed;
     top: 0;
@@ -360,6 +366,11 @@ body {
 
 #bandeau-droit #bandeau-id {
     display: none;
+}
+
+#paginationTache {
+    opacity: 1; /* Visible */
+    visibility: visible; /* Affiché */
 }
 
 .pagination {
