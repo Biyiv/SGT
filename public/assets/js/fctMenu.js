@@ -7,6 +7,7 @@ const openModalBtnProfil = document.getElementById('openModalBtnProfil');
 const closeModalBtnProfil = document.getElementById('closeModalBtnProfil');
 
 const taches = document.querySelectorAll('.tache');
+const bandeau = document.getElementById('bandeau-droit');
 
 // Ouvrir le modal
 openModalBtnTache.addEventListener('click', () => {
@@ -56,29 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (e.target === modal) {
 			modal.style.display = "none";
 		}
-	});
-});
-
-taches.forEach(tache => {
-	tache.addEventListener('click', () => {
-		if (tache.style.backgroundColor === hexToRgb('#007BFF')) {
-            tache.style.backgroundColor = ''; // Remettre à l'état normal
-			tache.style.color = 'black';
-
-			document.body.classList.remove('bandeau-visible');
-			const bandeau = document.getElementById('bandeau-droit');
-
-			setTimeout(() => {
-				bandeau.style.visibility = 'hidden';
-			}, 500);
-        } else {
-            taches.forEach(t => {
-				t.style.backgroundColor = '';
-				t.style.color = 'black';
-			}); // Réinitialiser toutes les tâches
-            tache.style.backgroundColor = '#007BFF'; // Appliquer la couleur de fond
-			tache.style.color = 'white';
-        }
 	});
 });
 
