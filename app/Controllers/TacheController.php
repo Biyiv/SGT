@@ -101,17 +101,18 @@ class TacheController extends BaseController
 		$tache = $tacheModel->find($id);
 	
 		if (!$tache) {
+			$this->session->setFlashdata('error', 'Tâche non trouvée');
 			return $this->response->setStatusCode(404)->setJSON(['error' => 'Tâche non trouvée']);
 		}
 	
 		// Récupérer les données JSON
 		$data = $this->request->getJSON(true);
 
-	
 		if($tacheModel->update($id, $data)) {
 			$this->session->setFlashdata('success', 'Tâche modifiée avec succès');
 			return $this->response->setJSON($data);
 		} else {
+			$this->session->setFlashdata('error', 'Erreur lors de la modification de la tâche');
 			return $this->response->setStatusCode(280)->setJSON(['error' => 'Erreur lors de la modification de la tâche']);
 		}
 	}
