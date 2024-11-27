@@ -113,6 +113,10 @@
 		<?php else: ?>
 			<p>Aucune tâche trouvée.</p>
 		<?php endif; ?>
+		<!-- Affichage des liens de pagination -->
+	</div>
+	<div>
+		<?= $pagerTaches->links('default') ?>
 	</div>
 
 	<!-- Modal -->
