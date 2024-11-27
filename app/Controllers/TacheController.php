@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\TacheModel;
+use App\Models\CommentaireModel;
 use App\Models\UtilisateurModel;
 
 ini_set('display_errors', 1);
@@ -20,12 +21,13 @@ class TacheController extends BaseController
 
 	public function index(): string
 	{
-		$model = new TacheModel();
+		$tacheModel = new TacheModel();
+		$commentaireModel = new CommentaireModel();
 
-		$tri = $this->session->get('tri') == null ? "" : $this->session->get('tri');
+		$tri = $this->session->get('tri') == null ? "echeance" : $this->session->get('tri');
 		// Récupérer toutes les tâches, triées par échéance
 		if ($tri == 'retard'){
-			$data['taches'] = $model->findAll();
+			$data['taches'] = $tacheModel->getPaginatedAllTaches(8);
 			//Tri les taches par leur retard c'est à dire la date actuelle moins leur echeance
 			usort($data['taches'], function($a, $b) {
 				$dateA = new \DateTime($a['echeance']);
@@ -38,12 +40,16 @@ class TacheController extends BaseController
 				return $diffB - $diffA;
 			});
 		} elseif ($tri == 'echeance') {
-			$data['taches'] = $model->getTaches($tri);
+			$data['taches'] = $tacheModel->getPaginatedTaches(8, $tri);
 		} elseif ($tri == 'priorite') {
-			$data['taches'] = $model->getTaches($tri, 'DESC');
+			$data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC');
 		}
-		
+
+		$data['pagerTaches'] = $tacheModel->pager;
 		$data['tri'] = $tri;
+
+		$data['commentaires'] = $commentaireModel->getPaginatedCommentaires(2, 1);//mettre le num de la tache
+		$data['pagerCommentaires'] = $commentaireModel->pager;
 
 		// Charger la vue avec les données
 		return view('menu', $data);
