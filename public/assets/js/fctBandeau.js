@@ -58,8 +58,20 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Ajouter des événements aux tâches
 	taches.forEach((tache) => {
 		tache.addEventListener('click', () => {
-			afficherDetailsTache(tache);
-			afficherBandeau();
+			if (tache.style.backgroundColor === hexToRgb('#007BFF')) {
+				tache.style.backgroundColor = ''; // Remettre à l'état normal
+				tache.style.color = 'black';
+				cacherBandeau();
+			} else {
+				taches.forEach(t => {
+					t.style.backgroundColor = '';
+					t.style.color = 'black';
+				}); // Réinitialiser toutes les tâches
+				tache.style.backgroundColor = '#007BFF'; // Appliquer la couleur de fond
+				tache.style.color = 'white';
+				afficherDetailsTache(tache);
+				afficherBandeau();
+			}
 		});
 	});
 
