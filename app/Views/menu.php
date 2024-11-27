@@ -74,7 +74,7 @@
 				<button id="openModalBtnProfil"><h1><?= esc(session()->get('utilisateur')['username']) ?></h1></button>
 			</div>
 			<div>
-				<img src="/assets/images/poisson.png" alt="Image de profil">
+				<a href="/logout"><img id="logout" src="/assets/images/logout.png" alt="Image de profil"></a>
 			</div>
 		</div>
 	</nav>
