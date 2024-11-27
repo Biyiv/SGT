@@ -48,7 +48,7 @@ class TacheController extends BaseController
 		$data['pagerTaches'] = $tacheModel->pager;
 		$data['tri'] = $tri;
 
-		$data['commentaires'] = $commentaireModel->getPaginatedCommentaires(2, 1);//mettre le num de la tache
+		$data['commentaires'] = $commentaireModel->getPaginatedCommentaires(2);
 		$data['pagerCommentaires'] = $commentaireModel->pager;
 
 		// Charger la vue avec les données

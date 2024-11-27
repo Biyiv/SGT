@@ -113,10 +113,10 @@
 		<?php else: ?>
 			<p>Aucune tâche trouvée.</p>
 		<?php endif; ?>
-		<!-- Affichage des liens de pagination -->
 	</div>
+	<!-- Affichage des liens de pagination -->
 	<div>
-		<?= $pagerTaches->links('default') ?>
+		<?= $pagerTaches->links('Tache') ?>
 	</div>
 
 	<!-- Modal -->
@@ -216,7 +216,19 @@
 		</p>
 
 		<div class="commentaire">
-
+			<?php if (!empty($commentaires) && is_array($commentaires)): ?>
+				<?php foreach ($commentaires as $commentaire): ?>
+					<div class="commentaire" id="<?= esc($commentaire['id']) ?>">
+						<h2><?= esc($commentaire['commentaire']) ?></h2>
+					</div>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<p>Aucun commentaire.</p>
+			<?php endif; ?>
+		</div>
+		<!-- Affichage des liens de pagination -->
+		<div>
+			<?= $pagerCommentaires->links('Commentaire') ?>
 		</div>
 	</div>
 
