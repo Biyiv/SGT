@@ -24,7 +24,8 @@ class TacheController extends BaseController
 		$tacheModel = new TacheModel();
 		$commentaireModel = new CommentaireModel();
 
-		$tri = $this->session->get('tri') == null ? "echeance" : $this->session->get('tri');
+		$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance";
+
 		$recherche = $this->session->get('recherche') == null ? "" : $this->session->get('recherche');
 		
 		// Récupérer toutes les tâches, triées par échéance
@@ -48,7 +49,6 @@ class TacheController extends BaseController
 		}
 
 		$data['pagerTaches'] = $tacheModel->pager;
-		$data['tri'] = $tri;
 
 		$data['commentaires'] = $commentaireModel->getPaginatedCommentaires(2);
 		$data['pagerCommentaires'] = $commentaireModel->pager;
@@ -59,11 +59,9 @@ class TacheController extends BaseController
 
 	public function setTriPreference()
 	{
-		$session = session();
-
 		$tri = $this->request->getPost('tri');
 		if ($tri) {
-			$session->set('tri', $tri);
+			setcookie('tri', $tri, time() + 3600 * 24 * 30);
 		}
 
 		return redirect()->to('/dashboard');
