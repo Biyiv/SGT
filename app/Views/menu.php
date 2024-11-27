@@ -120,7 +120,7 @@
 		<?php endif; ?>
 	</div>
 	<!-- Affichage des liens de pagination -->
-	<div>
+	<div id="paginationTache">
 		<?= $pagerTaches->links('Tache', 'custom') ?>
 	</div>
 
@@ -207,9 +207,12 @@
 		<div class="commentaire">
 			<?php if (!empty($commentaires) && is_array($commentaires)): ?>
 				<?php foreach ($commentaires as $commentaire): ?>
-					<div class="commentaire" id="<?= esc($commentaire['id']) ?>">
-						<h2><?= esc($commentaire['commentaire']) ?></h2>
-					</div>
+					<?php echo $commentaire['tache']; ?>
+					<?php if ($commentaire['tache'] === 11): ?>
+						<div class="commentaire" id="<?= esc($commentaire['id']) ?>">
+							<p><?= esc($commentaire['commentaire']) ?></p>
+						</div>
+					<?php endif; ?>
 				<?php endforeach; ?>
 			<?php else: ?>
 				<p>Aucun commentaire.</p>
