@@ -48,7 +48,7 @@ class TacheController extends BaseController
 		$data['pagerTaches'] = $tacheModel->pager;
 		$data['tri'] = $tri;
 
-		$data['commentaires'] = $commentaireModel->getPaginatedCommentaires(2, 1);//mettre le num de la tache
+		$data['commentaires'] = $commentaireModel->getPaginatedCommentaires(2);
 		$data['pagerCommentaires'] = $commentaireModel->pager;
 
 		// Charger la vue avec les données
@@ -70,17 +70,12 @@ class TacheController extends BaseController
 	public function ajouterTache()
 	{
 		$tacheModel = new TacheModel();
-		$utilisateurModel = new UtilisateurModel();
 
 		if(!$this->session->get('utilisateur')) {
 			return redirect()->to('/login')->with('error', 'Vous devez être connecté pour accéder à cette page');
 		}
 
-		$utilisateur = $utilisateurModel->getUtilisateur($this->session->get('utilisateur')['username']);
-
-		if (!$utilisateur) {
-			return redirect()->to('/login')->with('error', 'Utilisateur non trouvé.');
-		}
+		$utilisateur = $this->session->get('utilisateur');
 
 		$data = [
 			'titre' => $this->request->getPost('titre'),
@@ -111,10 +106,13 @@ class TacheController extends BaseController
 	
 		// Récupérer les données JSON
 		$data = $this->request->getJSON(true);
+
 	
-		$tacheModel->update($id, $data);
-	
-		return $this->response->setJSON(['success' => 'Tâche modifiée avec succès']);
+		if($tacheModel->update($id, $data)) {
+			$this->session->setFlashdata('success', 'Tâche modifiée avec succès');
+			return $this->response->setJSON($data);
+		} else {
+			return $this->response->setStatusCode(500)->setJSON(['error' => 'Erreur lors de la modification de la tâche']);
+		}
 	}
-	
 }
