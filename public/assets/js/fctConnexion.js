@@ -55,3 +55,21 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 });
+
+
+const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+
+// Ajouter un gestionnaire d'événement à chaque bouton
+togglePasswordButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        // Trouver le champ de mot de passe associé
+        const passwordInput = this.previousElementSibling;
+        
+        // Basculer le type du champ (password/text)
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        
+        // Optionnel : changer l'icône ou le texte du bouton
+        this.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+});
