@@ -354,6 +354,10 @@ body {
     visibility: visible; /* Affiché */
 }
 
+#logout {
+    margin: 0 10px;
+}
+
 #bandeau-droit #bandeau-id {
     display: none;
 }

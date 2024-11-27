@@ -74,7 +74,7 @@
 				<button id="openModalBtnProfil"><h1><?= esc(session()->get('utilisateur')['username']) ?></h1></button>
 			</div>
 			<div>
-				<img src="/assets/images/poisson.png" alt="Image de profil">
+				<a href="/logout"><img id="logout" src="/assets/images/logout.png" alt="Image de profil"></a>
 			</div>
 		</div>
 	</nav>
@@ -86,8 +86,12 @@
 					<h2><?= esc($tache['titre']) ?></h2>
 					<p><?= esc($tache['description']) ?></p>
 					<p><strong>Créé par : </strong><?= esc($tache['creepar']) ?></p>
-					<p><strong>Début : </strong><?= esc($tache['debut']) ?></p>
-					<p><strong>Échéance : </strong><?= esc($tache['echeance']) ?></p>
+					<?php 
+						$debut =  new DateTime($tache['debut']);
+						$echeance =  new DateTime($tache['echeance']);
+					?>
+					<p><strong>Début : </strong><?= esc($debut->format('d/m/Y - H:i')) ?></p>
+					<p><strong>Échéance : </strong><?= esc($echeance->format('d/m/Y - H:i')) ?></p>
 					<p class="tache-id" id=""><?= esc($tache['id']) ?></p>
 					<div class="task-info">
 						<div>
