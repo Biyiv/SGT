@@ -117,7 +117,7 @@
 	</div>
 	<!-- Affichage des liens de pagination -->
 	<div>
-		<?= $pagerTaches->links('Tache') ?>
+		<?= $pagerTaches->links('Tache', 'custom') ?>
 	</div>
 
 	<!-- Modal -->
@@ -230,7 +230,7 @@
 		</div>
 		<!-- Affichage des liens de pagination -->
 		<div>
-			<?= $pagerCommentaires->links('Commentaire') ?>
+			<?= $pagerCommentaires->links('Commentaire', 'custom') ?>
 		</div>
 	</div>
 
