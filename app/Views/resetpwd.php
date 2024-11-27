@@ -8,19 +8,21 @@
 	<link rel="stylesheet" href="/assets/css/stlConnection.css">
 </head>
 <body>
-	<div id="app">
-		<div id="error-modal" class="modal">
+<div id="app">
+	<div id="error-modal" class="modal">
 			<div class="modal-content">
-				<span class="close-btn">&times;</span>
+				<div class="modal-header">
+					<h2>
+						<?= session()->getFlashdata('error') 
+							? 'Erreur' 
+							: (session()->getFlashdata('success') ? 'Succès' : 'Information') ?>
+					</h2>
+					<button class="close-btn">&times;</button>
+				</div>
 				<p>
-					<?php 
-						if(session()->getFlashdata('error')) {
-							echo session()->getFlashdata('error');
-						}
-						if(session()->getFlashdata('success')) {
-							echo session()->getFlashdata('success');
-						}
-					?>
+					<?= session()->getFlashdata('error') 
+						? session()->getFlashdata('error') 
+						: session()->getFlashdata('success') ?>
 				</p>
 			</div>
 		</div>
@@ -28,11 +30,33 @@
 			<div id="resetpwd">
 				<h1>Réinitialisation du mot de passe</h1>
 				<?= form_open('/resetpwd/' .$token) ?>
-					<?= form_label('Mot de passe', 'mdp') ?>
-					<?= form_password('mdp', '', ['placeholder' => 'Mot de passe']) ?>
+				<div class="password-wrapper">
+						<?= form_label('Confirmer le mot de passe', 'mdp') ?>
+						<div class="password-container">
+							<?= form_password('mdp', '', [
+								'placeholder' => 'Confirmer le mot de passe',
+								'required' => 'required',
+								'id' => 'password1'
+							]) ?>
+							<button type="button" id="toggle-password" class="toggle-password">
+								👁️
+							</button>
+						</div>
+					</div>
 					<br>
-					<?= form_label('Confirmer le mot de passe', 'mdp_confirm') ?>
-					<?= form_password('mdp_confirm', '', ['placeholder' => 'Confirmer le mot de passe']) ?>
+					<div class="password-wrapper">
+						<?= form_label('Confirmer le mot de passe', 'mdp_confirm') ?>
+						<div class="password-container">
+							<?= form_password('mdp_confirm', '', [
+								'placeholder' => 'Confirmer le mot de passe',
+								'required' => 'required',
+								'id' => 'password1'
+							]) ?>
+							<button type="button" id="toggle-password" class="toggle-password">
+								👁️
+							</button>
+						</div>
+					</div>
 					<br>
 					<?= form_submit('submit', 'Modifier le mot de passe') ?>
 				<?= form_close() ?>
@@ -43,4 +67,5 @@
 		</div>
 	</div>
 </body>
+<script src="/assets/js/fctConnexion.js"></script>
 </html>
