@@ -85,20 +85,20 @@
 				<div class="tache" id="<?= esc($tache['id']) ?>">
 					<h2><?= esc($tache['titre']) ?></h2>
 					<p><?= esc($tache['description']) ?></p>
-					<p>Créé par : <?= esc($tache['creepar']) ?></p>
-					<p>Début : <?= esc($tache['debut']) ?></p>
-					<p>Échéance : <?= esc($tache['echeance']) ?></p>
+					<p><strong>Créé par : </strong><?= esc($tache['creepar']) ?></p>
+					<p><strong>Début : </strong><?= esc($tache['debut']) ?></p>
+					<p><strong>Échéance : </strong><?= esc($tache['echeance']) ?></p>
 					<div class="task-info">
 						<div>
 							<p>
-								Priorité : 
+								<strong>Priorité : </strong>
 								<b class="<?= esc($prioriteLst[$tache['priorite']]) ?>">
 									<?= esc($prioriteLst[$tache['priorite']]) ?>
 								</b>
 							</p>
 							<?php $statut = explode(' ', $tache['statut']) ?>
 							<p>
-								Statut : 
+								<strong>Statut : </strong>
 								<b class="<?= esc(end($statut)) ?>">
 									<?= esc($tache['statut']) ?>
 								</b>
@@ -183,7 +183,7 @@
 
 
 	<div id="bandeau-droit">
-		<button id="fermer-bandeau">Fermer</button>
+		<button id="fermer-bandeau">&times;</button>
 		<img src="/assets/images/crayon.png" alt="modificaation" id="crayon">
 		<div id="donnees">
 			<h2 id="bandeau-titre"></h2>
