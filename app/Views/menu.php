@@ -86,8 +86,12 @@
 					<h2><?= esc($tache['titre']) ?></h2>
 					<p><?= esc($tache['description']) ?></p>
 					<p><strong>Créé par : </strong><?= esc($tache['creepar']) ?></p>
-					<p><strong>Début : </strong><?= esc($tache['debut']) ?></p>
-					<p><strong>Échéance : </strong><?= esc($tache['echeance']) ?></p>
+					<?php 
+						$debut =  new DateTime($tache['debut']);
+						$echeance =  new DateTime($tache['echeance']);
+					?>
+					<p><strong>Début : </strong><?= esc($debut->format('d/m/Y - H:i')) ?></p>
+					<p><strong>Échéance : </strong><?= esc($echeance->format('d/m/Y - H:i')) ?></p>
 					<div class="task-info">
 						<div>
 							<p>
