@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				taches.forEach(t => {
 					t.style.backgroundColor = '';
 					t.style.color = 'black';
-				}); // Réinitialiser toutes les tâches
+				});
 				tache.style.backgroundColor = '#007BFF'; // Appliquer la couleur de fond
 				tache.style.color = 'white';
 				afficherBandeau();
@@ -78,6 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Fermer le bandeau avec une transition
 	fermerBandeauBtn.addEventListener('click', () => {
+		taches.forEach(t => {
+			t.style.backgroundColor = '';
+			t.style.color = 'black';
+		});
 		cacherBandeau();
 	});
 
