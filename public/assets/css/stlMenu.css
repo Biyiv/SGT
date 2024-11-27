@@ -328,6 +328,10 @@ body {
     margin-right: 40%;
 }
 
+.bandeau-visible .pagination {
+    display: none;
+}
+
 #bandeau-droit {
     position: fixed;
     top: 0;
