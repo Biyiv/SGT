@@ -88,6 +88,7 @@
 					<p><strong>Créé par : </strong><?= esc($tache['creepar']) ?></p>
 					<p><strong>Début : </strong><?= esc($tache['debut']) ?></p>
 					<p><strong>Échéance : </strong><?= esc($tache['echeance']) ?></p>
+					<p class="tache-id" id=""><?= esc($tache['id']) ?></p>
 					<div class="task-info">
 						<div>
 							<p>
