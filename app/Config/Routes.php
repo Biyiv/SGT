@@ -5,7 +5,6 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-
 $routes->get('/', 'LoginController::redirect');
 
 $routes->get('/login', 'LoginController::login');
@@ -27,4 +26,6 @@ $routes->post('/register', 'LoginController::register');
 
 $routes->get('/logout', 'LoginController::logout');
 
-$routes->get('/dashboard', 'DashboardController::index');
+$routes->get('/dashboard', 'TacheController::index');
+$routes->match(['get', 'post'], '/setTriPreference','TacheController::setTriPreference');
+$routes->post( '/ajouterTache','TacheController::ajouterTache');

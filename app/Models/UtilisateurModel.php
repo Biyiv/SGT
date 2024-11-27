@@ -11,8 +11,7 @@ class UtilisateurModel extends Model {
 
 	protected $useAutoIncrement = false;
 
-	public function getUserByEmail($mail)
-	{
-		return $this->where('mail', $mail)->first();
+	public function getUtilisateur($username) {
+		return $this->where(['username' => $username])->first();
 	}
 }
