@@ -160,6 +160,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		sauvegarderBtn.classList.add('btn-sm');
 		sauvegarderBtn.classList.add('m-2');
 
+		const gestionnaireTaches = document.querySelector('.conteneur-taches')
+
+		gestionnaireTaches.style.pointerEvents = 'none';
+
 		sauvegarderBtn.addEventListener('click', () => {
 			fetch('/taches/' + id, {
 				method: 'POST',
@@ -177,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					id: document.getElementById('bandeau-id').textContent,
 				})
 			}).then(() => {
+				gestionnaireTaches.style.pointerEvents = 'auto';
 				location.reload();
 			}).catch((error) => {
 				console.error('Erreur:', error);
@@ -222,6 +227,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function fermerBandeau() {
 		document.body.classList.remove('bandeau-visible');
+
+		const gestionnaireTaches = document.querySelector('.conteneur-taches')
+
+		gestionnaireTaches.style.pointerEvents = 'auto';
 
 		// Optionnel : Assurez-vous que l'état du bandeau est réinitialisé après la transition
 		setTimeout(() => {
