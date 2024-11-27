@@ -284,54 +284,6 @@ class LoginController extends BaseController {
 		}
 	}
 
-	public function sendActiveMail($utilisateur)
-	{
-		$token = bin2hex(random_bytes(16));
-		$activeLink = site_url("active/$token");
-		$utilisateurModel = new UtilisateurModel();
-		$utilisateurModel->set('active_token', $token)->update($utilisateur['username']);
-		$message = 
-"Bonjour ".$utilisateur['username'].",
-
-Merci de vous être inscrit sur SGT BALM. ! Nous avons besoin que vous activiez votre compte avant de pouvoir l'utiliser.
-
-Cliquez sur le lien ci-dessous pour activer votre compte :
-
-$activeLink
-
-Si vous n'avez pas demandé à créer un compte, ignorez simplement ce message.
-
-Merci et à bientôt !
-
-Cordialement,
-L'équipe de SGT BALM.";
-		$emailService = \Config\Services::email();
-		//envoi du mail
-		$emailService->setTo($utilisateur['mail']);
-		$emailService->setFrom('sgt.balm.projetsynthese@gmail.com');
-		$emailService->setSubject('Activation de votre compte');
-		$emailService->setMessage($message);
-		if (!$emailService->send()) {
-			echo $emailService->printDebugger();
-		}
-	}
-
-	public function activation($token)
-	{
-		$utilisateurModel = new UtilisateurModel();
-
-		// Valider et traiter les données du formulaire
-		$utilisateur = $utilisateurModel->where('active_token', $token)->first();
-		if (!$utilisateur) {
-			$this->session->setFlashdata('error', "Le lien d'activation est invalide ou à déja été utilisé.");
-			return redirect()->to('/login');
-		}
-
-		$utilisateurModel->set('active', true)->set('active_token', null)->update($utilisateur['username']);
-		$this->session->setFlashdata('success', 'Votre compte a été activé avec succès. Vous pouvez maintenant vous connecter.');
-		return redirect()->to('/login');
-	}
-
 	public function logout() {
 		$this->session->remove('utilisateur');
 		return redirect()->to('/login')->with('success', 'Vous avez été déconnecté avec succès');
