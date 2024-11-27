@@ -286,6 +286,7 @@ class LoginController extends BaseController {
 
 	public function logout() {
 		$this->session->remove('utilisateur');
+		$this->session->remove('recherche');
 		return redirect()->to('/login')->with('success', 'Vous avez été déconnecté avec succès');
 	}
 

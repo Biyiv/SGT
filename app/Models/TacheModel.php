@@ -15,19 +15,19 @@ class TacheModel extends Model
 		'statut',
 	];
 	
-	public function getPaginatedAllTaches(int $perPage = 8, ?string $keyword = ""): array
+	public function getPaginatedAllTaches(int $perPage = 8, ?string $keyword = null): array
 	{
 		// Appliquer la recherche par mot-clé si fourni
-		if ($keyword != "") {
+		if ($keyword) {
 			$this->like('titre', $keyword); // Recherche dans le champ title
 		}
 		return $this->paginate($perPage, 'default');
 	}
 
-	public function getPaginatedTaches(int $perPage = 8, string $sortField = 'echeance', string $sortOrder = 'asc', ?string $keyword = ""): array
+	public function getPaginatedTaches(int $perPage = 8, string $sortField = 'echeance', string $sortOrder = 'asc', ?string $keyword = null): array
 	{
 		// Appliquer la recherche par mot-clé si fourni
-		if ($keyword != "") {
+		if ($keyword) {
 			$this->like('titre', $keyword); // Recherche dans le champ title
 		}
 		return $this->orderBy($sortField, $sortOrder)->paginate($perPage, 'Tache');
