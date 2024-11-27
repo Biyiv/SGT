@@ -22,7 +22,7 @@ class TacheController extends BaseController
 	{
 		$model = new TacheModel();
 
-		$tri = $this->session->get('tri') == null ? "" : $this->session->get('tri');
+		$tri = $this->session->get('tri') == null ? "echeance" : $this->session->get('tri');
 		// Récupérer toutes les tâches, triées par échéance
 		if ($tri == 'retard'){
 			$data['taches'] = $model->getPaginatedAllTaches(8);
@@ -39,10 +39,10 @@ class TacheController extends BaseController
 			});
 			$data['pagerTaches'] = $model->pager;
 		} elseif ($tri == 'echeance') {
-			$data['taches'] = $model->getPaginatedArticles(8, $tri);
+			$data['taches'] = $model->getPaginatedTaches(8, $tri);
 			$data['pagerTaches'] = $model->pager;
 		} elseif ($tri == 'priorite') {
-			$data['taches'] = $model->getPaginatedArticles(8, $tri, 'DESC');
+			$data['taches'] = $model->getPaginatedTaches(8, $tri, 'DESC');
 			$data['pagerTaches'] = $model->pager;
 		}
 
