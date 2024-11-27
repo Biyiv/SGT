@@ -313,6 +313,10 @@ body {
     transition: width 0.5s ease-in-out; /* Animation pour un effet fluide */
 }
 
+.tache .tache-id {
+    display: none;
+}
+
 /* Réduction de la largeur quand le bandeau est visible */
 .bandeau-visible .conteneur-taches {
     width: 70%;
@@ -348,6 +352,10 @@ body {
     transform: translateX(0); /* À l'écran */
     opacity: 1; /* Visible */
     visibility: visible; /* Affiché */
+}
+
+#bandeau-droit #bandeau-id {
+    display: none;
 }
 
 .pagination {

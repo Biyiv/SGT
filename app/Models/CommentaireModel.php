@@ -27,6 +27,6 @@ class CommentaireModel extends Model
 
 	public function getPaginatedCommentaires(int $perPage = 2, int $numTache = 1): array
 	{
-		return $this->paginate($perPage, 'default');
+		return $this->paginate($perPage, 'Commentaire');
 	}
 }
