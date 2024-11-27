@@ -64,15 +64,19 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	});
 
-	// Fermer le bandeau
+	// Fermer le bandeau avec une transition
 	fermerBandeauBtn.addEventListener('click', () => {
-		bandeau.style.display = 'none';
 		document.body.classList.remove('bandeau-visible');
+
+		// Optionnel : Assurez-vous que l'état du bandeau est réinitialisé après la transition
+		setTimeout(() => {
+			bandeau.style.visibility = 'hidden'; // Pour éviter de garder l'élément interactif.
+		}, 500); // Correspond à la durée de la transition CSS.
 	});
 
-
-	// Ouvrir le bandeau
+	// Ouvrir le bandeau avec une transition
 	function afficherBandeau() {
+		bandeau.style.visibility = 'visible'; // Pour éviter de garder l'élément interactif.
 		document.body.classList.add('bandeau-visible');
 	}
 

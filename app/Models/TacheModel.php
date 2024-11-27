@@ -40,6 +40,6 @@ class TacheModel extends Model
 		if ($keyword) {
 			$this->like('titre', $keyword); // Recherche dans le champ title
 		}
-		return $this->orderBy($sortField, $sortOrder)->paginate($perPage, 'default');
+		return $this->orderBy($sortField, $sortOrder)->paginate($perPage, 'Tache');
 	}
 }
