@@ -396,3 +396,7 @@ body {
     padding: 10px 15px;
     border: 1px solid #007bff;
 }
+
+#bandeau-droit #username {
+    display: none;
+}

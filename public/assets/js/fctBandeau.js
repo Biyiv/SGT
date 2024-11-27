@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Fonction pour ouvrir le bandeau avec les détails d'une tâche
 	function afficherDetailsTache(tache) {
+		const username = document.getElementById('username').textContent;
+		const bandeauCrayon = document.getElementById('crayon');
 		const bandeauTitre = document.getElementById('bandeau-titre');
 		const bandeauDescription = document.getElementById('bandeau-description');
 		const bandeauCreepar = document.getElementById('bandeau-creepar');
@@ -33,6 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		bandeauDebut.textContent = debut;
 		bandeauEcheance.textContent = echeance;
 		bandeauId.textContent = id;
+
+		if(username !== creepar) {
+			bandeauCrayon.style.display = 'none';
+		} else {
+			bandeauCrayon.style.removeProperty('display');
+		}
 
 		//Pour chaque value de la liste déroulante priorité, on vérifie si la priorité de la tâche est égale à la value
 		//Si c'est le cas, on sélectionne l'option
@@ -117,8 +125,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		debutInput.type = 'datetime-local';
 		debutInput.id = 'bandeau-debut';
 		// Convertir le texte en format compatible avec datetime-local
-		date = new Date(debutElement.textContent);
-		debutInput.value = new Date(date.getTime() + 60 * 60 * 1000).toISOString().slice(0, 16);
+		const dateStringD = debutElement.textContent.trim();
+		// Utiliser une expression régulière pour extraire les informations de la date et de l'heure
+		const [dayD, monthD, yearD, hourD, minuteD] = dateStringD.match(/(\d{2})\/(\d{2})\/(\d{4}) - (\d{2}):(\d{2})/).slice(1);
+		// Créer un objet Date en utilisant les informations extraites
+		const formattedDateD = new Date(`${yearD}-${monthD}-${dayD}T${hourD}:${minuteD}:00`);
+		formattedDateD.setHours(formattedDateD.getHours() + 1);
+		// Mettre la valeur de l'input avec le format ISO 8601 (sans les secondes et le fuseau horaire)
+		debutInput.value = formattedDateD.toISOString().slice(0, 16);
 		debutElement.replaceWith(debutInput);
 	
 		// Transformer le champ "Échéance" en input de type datetime-local
@@ -127,8 +141,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		echeanceInput.type = 'datetime-local';
 		echeanceInput.id = 'bandeau-echeance';
 		// Convertir le texte en format compatible avec datetime-local
-		date = new Date(echeanceElement.textContent);
-		echeanceInput.value = new Date(date.getTime() + 60 * 60 * 1000).toISOString().slice(0, 16);
+		const dateStringE = echeanceElement.textContent.trim();
+		// Utiliser une expression régulière pour extraire les informations de la date et de l'heure
+		const [dayE, monthE, yearE, hourE, minuteE] = dateStringE.match(/(\d{2})\/(\d{2})\/(\d{4}) - (\d{2}):(\d{2})/).slice(1);
+		// Créer un objet Date en utilisant les informations extraites
+		const formattedDateE = new Date(`${yearE}-${monthE}-${dayE}T${hourE}:${minuteE}:00`);
+		formattedDateE.setHours(formattedDateE.getHours() + 1);
+		// Mettre la valeur de l'input avec le format ISO 8601 (sans les secondes et le fuseau horaire)
+		echeanceInput.value = formattedDateE.toISOString().slice(0, 16);
 		echeanceElement.replaceWith(echeanceInput);
 
 		const id = document.getElementById('bandeau-id').textContent;
@@ -148,6 +168,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		sauvegarderBtn.classList.add('btn-sm');
 		sauvegarderBtn.classList.add('m-2');
 
+		const gestionnaireTaches = document.querySelector('.conteneur-taches')
+
+		gestionnaireTaches.style.pointerEvents = 'none';
+
 		sauvegarderBtn.addEventListener('click', () => {
 			fetch('/taches/' + id, {
 				method: 'POST',
@@ -165,6 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					id: document.getElementById('bandeau-id').textContent,
 				})
 			}).then(() => {
+				gestionnaireTaches.style.pointerEvents = 'auto';
 				location.reload();
 			}).catch((error) => {
 				console.error('Erreur:', error);
@@ -210,6 +235,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function fermerBandeau() {
 		document.body.classList.remove('bandeau-visible');
+
+		const gestionnaireTaches = document.querySelector('.conteneur-taches')
+
+		gestionnaireTaches.style.pointerEvents = 'auto';
 
 		// Optionnel : Assurez-vous que l'état du bandeau est réinitialisé après la transition
 		setTimeout(() => {
