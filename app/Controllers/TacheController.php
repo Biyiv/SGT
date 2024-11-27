@@ -112,7 +112,7 @@ class TacheController extends BaseController
 			$this->session->setFlashdata('success', 'Tâche modifiée avec succès');
 			return $this->response->setJSON($data);
 		} else {
-			return $this->response->setStatusCode(500)->setJSON(['error' => 'Erreur lors de la modification de la tâche']);
+			return $this->response->setStatusCode(280)->setJSON(['error' => 'Erreur lors de la modification de la tâche']);
 		}
 	}
 }
