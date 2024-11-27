@@ -23,17 +23,17 @@ document.addEventListener("DOMContentLoaded", () => {
 		const creepar = tache.querySelector('p:nth-child(3)').textContent.split(': ')[1];
 		const debut = tache.querySelector('p:nth-child(4)').textContent.split(': ')[1];
 		const echeance = tache.querySelector('p:nth-child(5)').textContent.split(': ')[1];
-		const priorite = tache.querySelector('p:nth-child(6) b').textContent.toLowerCase();
-		const statut = tache.querySelector('p:nth-child(7) b').textContent.toLowerCase();
+		const priorite = tache.querySelector('.task-info p:nth-child(1) b').textContent.toLowerCase();
+		const statut = tache.querySelector('.task-info p:nth-child(2) b').textContent.toLowerCase();
 
-		// Remplir les champs statiques
+		// Remplir les champs statiques	
 		bandeauTitre.textContent = titre;
 		bandeauDescription.textContent = description;
 		bandeauCreepar.textContent = creepar;
 		bandeauDebut.textContent = debut;
 		bandeauEcheance.textContent = echeance;
 
-		
+		console.log(priorite);
 		
 		//Pour chaque value de la liste déroulante priorité, on vérifie si la priorité de la tâche est égale à la value
 		//Si c'est le cas, on sélectionne l'option
@@ -54,6 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		// Afficher le bandeau
 		bandeau.style.display = 'block';
 	}
+
+	console.log(taches);
 
 	// Ajouter des événements aux tâches
 	taches.forEach((tache) => {
