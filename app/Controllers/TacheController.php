@@ -64,17 +64,12 @@ class TacheController extends BaseController
 	public function ajouterTache()
 	{
 		$tacheModel = new TacheModel();
-		$utilisateurModel = new UtilisateurModel();
 
 		if(!$this->session->get('utilisateur')) {
 			return redirect()->to('/login')->with('error', 'Vous devez être connecté pour accéder à cette page');
 		}
 
-		$utilisateur = $utilisateurModel->getUtilisateur($this->session->get('utilisateur')['username']);
-
-		if (!$utilisateur) {
-			return redirect()->to('/login')->with('error', 'Utilisateur non trouvé.');
-		}
+		$utilisateur = $this->session->get('utilisateur');
 
 		$data = [
 			'titre' => $this->request->getPost('titre'),
@@ -107,8 +102,9 @@ class TacheController extends BaseController
 		$data = $this->request->getJSON(true);
 	
 		$tacheModel->update($id, $data);
-	
+
+		$this->session->setFlashdata('success', 'Tâche modifiée avec succès');
+
 		return $this->response->setJSON(['success' => 'Tâche modifiée avec succès']);
 	}
-	
 }

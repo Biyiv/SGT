@@ -88,6 +88,7 @@
 					<p>Créé par : <?= esc($tache['creepar']) ?></p>
 					<p>Début : <?= esc($tache['debut']) ?></p>
 					<p>Échéance : <?= esc($tache['echeance']) ?></p>
+					<p class="tache-id"><?= esc($tache['id']) ?></p>
 					<div class="task-info">
 						<div>
 							<p>
@@ -186,11 +187,12 @@
 		<button id="fermer-bandeau">Fermer</button>
 		<img src="/assets/images/crayon.png" alt="modificaation" id="crayon">
 		<div id="donnees">
-			<h2 id="bandeau-titre"></h2>
+			<h2 id="bandeau-titre"></h2><br>
 			<p id="bandeau-description"></p>
 			<p><strong>Créé par :</strong> <span id="bandeau-creepar"></span></p>
 			<p><strong>Début :</strong> <span id="bandeau-debut"></span></p>
 			<p><strong>Échéance :</strong> <span id="bandeau-echeance"></span></p>
+			<p><span id="bandeau-id"></span></p>
 		</div>
 		<p><strong>Priorité :</strong>
 			<span id="bandeau-priorite">

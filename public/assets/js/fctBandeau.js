@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const bandeauCreepar = document.getElementById('bandeau-creepar');
 	const bandeauDebut = document.getElementById('bandeau-debut');
 	const bandeauEcheance = document.getElementById('bandeau-echeance');
+	const bandeauId = document.getElementById('bandeau-id');
 
 	// Listes déroulantes
 	const prioriteSelect = document.getElementById('select-priorite');
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const echeance = tache.querySelector('p:nth-child(5)').textContent.split(': ')[1];
 		const priorite = tache.querySelector('.task-info p:nth-child(1) b').textContent.toLowerCase();
 		const statut = tache.querySelector('.task-info p:nth-child(2) b').textContent.toLowerCase();
+		const id = tache.querySelector('p:nth-child(6)').textContent;
 
 		// Remplir les champs statiques	
 		bandeauTitre.textContent = titre;
@@ -32,8 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		bandeauCreepar.textContent = creepar;
 		bandeauDebut.textContent = debut;
 		bandeauEcheance.textContent = echeance;
+		bandeauId.textContent = id;
 
-		console.log(priorite);
 		
 		//Pour chaque value de la liste déroulante priorité, on vérifie si la priorité de la tâche est égale à la value
 		//Si c'est le cas, on sélectionne l'option
@@ -55,11 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		bandeau.style.display = 'block';
 	}
 
-	console.log(taches);
 
 	// Ajouter des événements aux tâches
 	taches.forEach((tache) => {
-		id = tache.id;
 		tache.addEventListener('click', () => afficherDetailsTache(tache));
 		tache.addEventListener('click', () => {
 			afficherBandeau();
@@ -83,14 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		const titreElement = document.getElementById('bandeau-titre');
 		const titreInput = document.createElement('input');
 		titreInput.type = 'text';
-		titreInput.id = 'input-titre';
+		titreInput.id = 'bandeau-titre';
 		titreInput.value = titreElement.textContent;
 		titreElement.replaceWith(titreInput);
 	
 		// Transformer la description en textarea
 		const descriptionElement = document.getElementById('bandeau-description');
 		const descriptionInput = document.createElement('textarea');
-		descriptionInput.id = 'input-description';
+		descriptionInput.id = 'bandeau-description';
 		descriptionInput.textContent = descriptionElement.textContent;
 		descriptionElement.replaceWith(descriptionInput);
 	
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const creeparElement = document.getElementById('bandeau-creepar');
 		const creeparInput = document.createElement('input');
 		creeparInput.type = 'text';
-		creeparInput.id = 'input-creepar';
+		creeparInput.id = 'bandeau-creepar';
 		creeparInput.value = creeparElement.textContent;
 		creeparElement.replaceWith(creeparInput);
 	
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const debutElement = document.getElementById('bandeau-debut');
 		const debutInput = document.createElement('input');
 		debutInput.type = 'datetime-local';
-		debutInput.id = 'input-debut';
+		debutInput.id = 'bandeau-debut';
 		// Convertir le texte en format compatible avec datetime-local
 		debutInput.value = new Date(debutElement.textContent).toISOString().slice(0, 16);
 		debutElement.replaceWith(debutInput);
@@ -115,10 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		const echeanceElement = document.getElementById('bandeau-echeance');
 		const echeanceInput = document.createElement('input');
 		echeanceInput.type = 'datetime-local';
-		echeanceInput.id = 'input-echeance';
+		echeanceInput.id = 'bandeau-echeance';
 		// Convertir le texte en format compatible avec datetime-local
 		echeanceInput.value = new Date(echeanceElement.textContent).toISOString().slice(0, 16);
 		echeanceElement.replaceWith(echeanceInput);
+
+
 
 		// Ajoute un bouton sauvegarder
 		const sauvegarderBtn = document.createElement('button');
@@ -130,22 +132,21 @@ document.addEventListener("DOMContentLoaded", () => {
 		sauvegarderBtn.classList.add('m-2');
 
 		sauvegarderBtn.addEventListener('click', () => {
-			fetch('/taches/' + id, {
+			fetch('/taches/' + document.getElementById('bandeau-id').textContent, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					titre: document.getElementById('input-titre').value,
-					description: document.getElementById('input-description').value,
-					creepar: document.getElementById('input-creepar').value,
-					debut: document.getElementById('input-debut').value,
-					echeance: document.getElementById('input-echeance').value,
-					priorite: document.getElementById('select-priorite').value,
-					statut: document.getElementById('select-statut').value
+					titre: document.getElementById('bandeau-titre').value,
+					description: document.getElementById('bandeau-description').value,
+					creepar: document.getElementById('bandeau-creepar').value,
+					debut: document.getElementById('bandeau-debut').value,
+					echeance: document.getElementById('bandeau-echeance').value,
+					id: document.getElementById('bandeau-id').textContent,
 				})
 			}).then(() => {
-				//location.reload();
+				location.reload();
 			}).catch((error) => {
 				console.error('Erreur:', error);
 			});
