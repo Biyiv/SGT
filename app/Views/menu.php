@@ -202,6 +202,23 @@
 			<p><strong>Échéance :</strong> <span id="bandeau-echeance"></span></p>
 			<p><span id="bandeau-id"></span></p>
 		</div>
+
+		<div class="commentaire">
+			<?php if (!empty($commentaires) && is_array($commentaires)): ?>
+				<?php foreach ($commentaires as $commentaire): ?>
+					<div class="commentaire" id="<?= esc($commentaire['id']) ?>">
+						<h2><?= esc($commentaire['commentaire']) ?></h2>
+					</div>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<p>Aucun commentaire.</p>
+			<?php endif; ?>
+		</div>
+		<!-- Affichage des liens de pagination -->
+		<div>
+			<?= $pagerCommentaires->links('Commentaire', 'custom') ?>
+		</div>
+
 		<p><strong>Priorité :</strong>
 			<span id="bandeau-priorite">
 				<select name="select-priorite" id="select-priorite" disabled>
@@ -220,22 +237,6 @@
 				</select>
 			</span>
 		</p>
-
-		<div class="commentaire">
-			<?php if (!empty($commentaires) && is_array($commentaires)): ?>
-				<?php foreach ($commentaires as $commentaire): ?>
-					<div class="commentaire" id="<?= esc($commentaire['id']) ?>">
-						<h2><?= esc($commentaire['commentaire']) ?></h2>
-					</div>
-				<?php endforeach; ?>
-			<?php else: ?>
-				<p>Aucun commentaire.</p>
-			<?php endif; ?>
-		</div>
-		<!-- Affichage des liens de pagination -->
-		<div>
-			<?= $pagerCommentaires->links('Commentaire', 'custom') ?>
-		</div>
 	</div>
 
 
