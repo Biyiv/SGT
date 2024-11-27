@@ -204,7 +204,7 @@
 		</div>
 		<p><strong>Priorité :</strong>
 			<span id="bandeau-priorite">
-				<select name="select-priorite" id="select-priorite">
+				<select name="select-priorite" id="select-priorite" disabled>
 					<option value="faible">Faible</option>
 					<option value="moyenne">Moyenne</option>
 					<option value="importante">Importante</option>
@@ -213,7 +213,7 @@
 		</p>
 		<p><strong>Statut :</strong>
 			<span id="bandeau-statut">
-				<select name="select-statut" id="select-statut">
+				<select name="select-statut" id="select-statut" disabled>
 					<option value="en attente">En attente</option>
 					<option value="en cours">En cours</option>
 					<option value="terminee">Terminée</option>

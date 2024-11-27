@@ -4,20 +4,19 @@ document.addEventListener("DOMContentLoaded", () => {
 	const bandeau = document.getElementById('bandeau-droit');
 	const fermerBandeauBtn = document.getElementById('fermer-bandeau');
 
-	// Champs du bandeau
-	const bandeauTitre = document.getElementById('bandeau-titre');
-	const bandeauDescription = document.getElementById('bandeau-description');
-	const bandeauCreepar = document.getElementById('bandeau-creepar');
-	const bandeauDebut = document.getElementById('bandeau-debut');
-	const bandeauEcheance = document.getElementById('bandeau-echeance');
-	const bandeauId = document.getElementById('bandeau-id');
-
 	// Listes déroulantes
 	const prioriteSelect = document.getElementById('select-priorite');
 	const statutSelect = document.getElementById('select-statut');
 
 	// Fonction pour ouvrir le bandeau avec les détails d'une tâche
 	function afficherDetailsTache(tache) {
+		const bandeauTitre = document.getElementById('bandeau-titre');
+		const bandeauDescription = document.getElementById('bandeau-description');
+		const bandeauCreepar = document.getElementById('bandeau-creepar');
+		const bandeauDebut = document.getElementById('bandeau-debut');
+		const bandeauEcheance = document.getElementById('bandeau-echeance');
+		const bandeauId = document.getElementById('bandeau-id');
+
 		const titre = tache.querySelector('h2').textContent;
 		const description = tache.querySelector('p:nth-child(2)').textContent;
 		const creepar = tache.querySelector('p:nth-child(3)').textContent.split(': ')[1];
@@ -58,12 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Ajouter des événements aux tâches
 	taches.forEach((tache) => {
-		tache.addEventListener('click', () => afficherDetailsTache(tache));
 		tache.addEventListener('click', () => {
 			if (tache.style.backgroundColor === hexToRgb('#007BFF')) {
 				tache.style.backgroundColor = ''; // Remettre à l'état normal
 				tache.style.color = 'black';
-				cacherBandeau();
+				fermerBandeau();
 			} else {
 				taches.forEach(t => {
 					t.style.backgroundColor = '';
@@ -71,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				});
 				tache.style.backgroundColor = '#007BFF'; // Appliquer la couleur de fond
 				tache.style.color = 'white';
+				afficherDetailsTache(tache);
 				afficherBandeau();
 			}
 		});
@@ -78,21 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Fermer le bandeau avec une transition
 	fermerBandeauBtn.addEventListener('click', () => {
-		taches.forEach(t => {
-			t.style.backgroundColor = '';
-			t.style.color = 'black';
-		});
-		cacherBandeau();
+		reinitialiserBandeau(); // Réinitialiser avant de fermer le bandeau
+		fermerBandeau();
 	});
-
-	function cacherBandeau() {
-		document.body.classList.remove('bandeau-visible');
-
-		// Optionnel : Assurez-vous que l'état du bandeau est réinitialisé après la transition
-		setTimeout(() => {
-			bandeau.style.visibility = 'hidden'; // Pour éviter de garder l'élément interactif.
-		}, 500); // Correspond à la durée de la transition CSS.
-	}
 
 	// Ouvrir le bandeau avec une transition
 	function afficherBandeau() {
@@ -128,31 +115,29 @@ document.addEventListener("DOMContentLoaded", () => {
 		const debutElement = document.getElementById('bandeau-debut');
 		const debutInput = document.createElement('input');
 		debutInput.type = 'datetime-local';
-		debutInput.id = 'input-debut';
-		// Convertir le texte de la date
-		const dateStringD = debutElement.textContent.trim();
-		// Utiliser une expression régulière pour extraire les informations de la date et de l'heure
-		const [dayD, monthD, yearD, hourD, minuteD] = dateStringD.match(/(\d{2})\/(\d{2})\/(\d{4}) - (\d{2}):(\d{2})/).slice(1);
-		// Créer un objet Date en utilisant les informations extraites
-		const formattedDateD = new Date(`${yearD}-${monthD}-${dayD}T${hourD}:${minuteD}:00`);
-		formattedDateD.setHours(formattedDateD.getHours() + 1);
-		// Mettre la valeur de l'input avec le format ISO 8601 (sans les secondes et le fuseau horaire)
-		debutInput.value = formattedDateD.toISOString().slice(0, 16);
+		debutInput.id = 'bandeau-debut';
+		// Convertir le texte en format compatible avec datetime-local
+		date = new Date(debutElement.textContent);
+		debutInput.value = new Date(date.getTime() + 60 * 60 * 1000).toISOString().slice(0, 16);
 		debutElement.replaceWith(debutInput);
 	
 		// Transformer le champ "Échéance" en input de type datetime-local
 		const echeanceElement = document.getElementById('bandeau-echeance');
 		const echeanceInput = document.createElement('input');
 		echeanceInput.type = 'datetime-local';
-		echeanceInput.id = 'input-echeance';
-		const dateStringE = echeanceElement.textContent.trim();
-		const [dayE, monthE, yearE, hourE, minuteE] = dateStringE.match(/(\d{2})\/(\d{2})\/(\d{4}) - (\d{2}):(\d{2})/).slice(1);
-		const formattedDateE = new Date(`${yearE}-${monthE}-${dayE}T${hourE}:${minuteE}:00`);
-		formattedDateE.setHours(formattedDateE.getHours() + 1);
-		echeanceInput.value = formattedDateE.toISOString().slice(0, 16);
+		echeanceInput.id = 'bandeau-echeance';
+		// Convertir le texte en format compatible avec datetime-local
+		date = new Date(echeanceElement.textContent);
+		echeanceInput.value = new Date(date.getTime() + 60 * 60 * 1000).toISOString().slice(0, 16);
 		echeanceElement.replaceWith(echeanceInput);
 
 		const id = document.getElementById('bandeau-id').textContent;
+
+		const priorite = document.getElementById('select-priorite');
+		priorite.removeAttribute('disabled');
+		
+		const statut = document.getElementById('select-statut');
+		statut.removeAttribute('disabled');
 
 		// Ajoute un bouton sauvegarder
 		const sauvegarderBtn = document.createElement('button');
@@ -175,6 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
 					creepar: document.getElementById('bandeau-creepar').value,
 					debut: document.getElementById('bandeau-debut').value,
 					echeance: document.getElementById('bandeau-echeance').value,
+					priorite: document.getElementById('select-priorite').value,
+					statut: document.getElementById('select-statut').value,
 					id: document.getElementById('bandeau-id').textContent,
 				})
 			}).then(() => {
@@ -187,38 +174,46 @@ document.addEventListener("DOMContentLoaded", () => {
 		document.getElementById('bandeau-droit').appendChild(sauvegarderBtn);
 	});
 
-	// Fonction pour mettre à jour dynamiquement la page
-	function updateContent() {
-		// Récupérer les valeurs actuelles des selects
-		const priorite = prioriteSelect.value;
-		const statut = statutSelect.value;
-		const id = document.getElementById('bandeau-id').textContent;
+	// Fonction pour réinitialiser le bandeau en version non éditable
+	function reinitialiserBandeau() {
+		// Récupérer les champs en tant qu'éléments statiques
+		const titreSpan = document.createElement('h2');
+		titreSpan.id = 'bandeau-titre';
+		document.getElementById('bandeau-titre').replaceWith(titreSpan);
 
-		fetch('/taches/' + id, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				titre: bandeauTitre.textContent,
-				description: bandeauDescription.textContent,
-				creepar: bandeauCreepar.textContent,
-				debut: bandeauDebut.textContent,
-				echeance: bandeauEcheance.textContent,
-				priorite: priorite,
-				statut: statut,
-				id: id,
-			})
-		}).then((data) => {
-			console.log('Succès:', data.json());
-			//location.reload();
-		}).catch((error) => {
-			console.error('Erreur:', error);
-		});
+		const descriptionSpan = document.createElement('span');
+		descriptionSpan.id = 'bandeau-description';
+		document.getElementById('bandeau-description').replaceWith(descriptionSpan);
+
+		const creeparSpan = document.createElement('span');
+		creeparSpan.id = 'bandeau-creepar';
+		document.getElementById('bandeau-creepar').replaceWith(creeparSpan);
+
+		const debutSpan = document.createElement('span');
+		debutSpan.id = 'bandeau-debut';
+		document.getElementById('bandeau-debut').replaceWith(debutSpan);
+
+		const echeanceSpan = document.createElement('span');
+		echeanceSpan.id = 'bandeau-echeance';
+		document.getElementById('bandeau-echeance').replaceWith(echeanceSpan);
+
+		// Désactiver les listes déroulantes
+		prioriteSelect.setAttribute('disabled', 'true');
+		statutSelect.setAttribute('disabled', 'true');
+
+		// Supprimer le bouton sauvegarder s'il existe
+		const sauvegarderBtn = document.getElementById('sauvegarder');
+		if (sauvegarderBtn) {
+			sauvegarderBtn.remove();
+		}
 	}
 
-    // Écouter les événements change sur les selects
-    prioriteSelect.addEventListener('change', updateContent);
-    statutSelect.addEventListener('change', updateContent);
-	
+	function fermerBandeau() {
+		document.body.classList.remove('bandeau-visible');
+
+		// Optionnel : Assurez-vous que l'état du bandeau est réinitialisé après la transition
+		setTimeout(() => {
+			bandeau.style.visibility = 'hidden'; // Pour éviter de garder l'élément interactif.
+		}, 500); // Correspond à la durée de la transition CSS.
+	}
 });
