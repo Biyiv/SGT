@@ -1,11 +1,14 @@
 # SGT
 
+Ce projet consiste est une application web de gestion des tâches (SGT) simple et fonctionnelle, permettant aux utilisateurs de créer, organiser et suivre leurs tâches personnelles. L'application intègre des fonctionnalités telles que la gestion des utilisateurs, l'organisation par priorités et échéances, des rappels par email, ainsi que la gestion des commentaires. 
+
 Ce projet utilise **CodeIgniter 4** pour gérer des tâches web de base, y compris l'interaction avec une base de données, des formulaires, et un système de routage. Ce modèle peut être utilisé comme point de départ pour vos projets.
 
 ## Prérequis
 
 Avant de commencer, assurez-vous d'avoir les éléments suivants installés :
 
+- **Linux**
 - **PHP 8.1 ou supérieur**
 - **Base de données PostgreSQL**
 
