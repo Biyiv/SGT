@@ -246,13 +246,14 @@
 		<div class="modal" id="commentaire-modal">
 			<div class="modal-content commentaire-form">
 				<textarea name="commentaire" id="commentaire" cols="43" rows="3"></textarea><br>
-				<button id="valider-commentaire">Valider</button>
-				<button id="closeModalBtnCommentaire">Annuler</button>
+				<button id="valider-commentaire" class="btn btn-primary btn-sm w-auto">Valider</button>
+				<button id="closeModalBtnCommentaire" class="btn btn-primary btn-sm w-auto">Annuler</button>
 			</div>
 		</div>
 
+
 		<div id="bandeau-footer">
-			<button id="supprimer-tache">Supprimer</button>
+			<button id="supprimer-tache" class="btn btn-primary btn-sm">Supprimer</button>
 		</div>
 	</div>
 
