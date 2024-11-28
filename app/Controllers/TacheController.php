@@ -22,10 +22,25 @@ class TacheController extends BaseController
 	public function index(): string
 	{
 		$tacheModel = new TacheModel();
-		$commentaireModel = new CommentaireModel();
+
+		$taches = $tacheModel->findAll();
+		foreach ($taches as $tache) {
+			if($tache['statut'] != 'en retard' || $tache['statut'] != 'termine') {
+				if($tache['echeance'] < date('Y-m-d H:i:s')) {
+					$this->modifierStatutTache($tache['id'], 'en retard');
+				}
+			}
+			if($tache['statut'] == 'en retard' && $tache['echeance'] > date('Y-m-d H:i:s')) {
+				if($tache['debut'] < date('Y-m-d H:i:s')) {
+					$this->modifierStatutTache($tache['id'], 'en cours');
+				}
+				if($tache['debut'] > date('Y-m-d H:i:s')) {
+					$this->modifierStatutTache($tache['id'], 'en attente');
+				}
+			}
+		}
 
 		$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance";
-
 		$recherche = $this->session->get('recherche') == null ? "" : $this->session->get('recherche');
 
 		// Récupérer toutes les tâches, triées par échéance
@@ -36,7 +51,6 @@ class TacheController extends BaseController
 		} else {
 			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri) : $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'ASC', $recherche);
 		}
-
 		$data['pagerTaches'] = $tacheModel->pager;
 
 		// Charger la vue avec les données
@@ -121,6 +135,17 @@ class TacheController extends BaseController
 			$this->session->setFlashdata('error', 'Erreur lors de la modification de la tâche');
 			return $this->response->setStatusCode(280)->setJSON(['error' => 'Erreur lors de la modification de la tâche']);
 		}
+	}
+
+	public function modifierStatutTache($id, $statut) {
+		$tacheModel = new TacheModel();
+		$tache = $tacheModel->find($id);
+	
+		if (!$tache) {
+			return $this->response->setStatusCode(404)->setJSON(['error' => 'Tâche non trouvée']);
+		}
+	
+		$tacheModel->set('statut', $statut)->update($id);
 	}
 
 	public function getCommentaires($id) {	
