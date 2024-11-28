@@ -21,7 +21,7 @@ Clonez ce projet dans le répertoire de votre choix grâce à la commande :
 git clone git@github.com:Biyiv/SGT.git
 ```
 
-## 2. Ajouter un fichier pour se connecter à la Base de Données
+### 2. Ajouter un fichier pour se connecter à la Base de Données
 
 Dans le répertoire ``` app/Config/ ``` ajouter un fichier ``` Database.php ``` qui à la structure suivante : 
 ```php
@@ -100,3 +100,32 @@ class Database extends Config
 }
 ```
 Modifiez désormais le ``` $default ``` afin d'avoir vos informations de connexion à la base de données.
+
+### 3. Créer la structure de la base de données
+
+Pour créer la base de données, mettez vous à la racine du répertoire du projet et écrivez la commande :
+```bash
+php spark migrate
+```
+
+### 4. Initialiser la base de données
+
+Pour insérer des données, mettez vous à la racine du répertoire du projet et écrivez les commandes suivantes dans l'ordre:
+```bash
+php spark db:seed UtilisateurSeeder
+```
+puis : 
+```bash
+php spark db:seed TacheSeeder
+```
+enfin : 
+```bash
+php spark db:seed CommentaireSeeder
+```
+
+## Lancement de l'application
+
+Pour lancer le serveur, mettez vous à la racine du répertoire du projet et écrivez la commande :
+```bash
+php spark serve
+```
