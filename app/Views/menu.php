@@ -54,7 +54,9 @@
 						[
 							'echeance' => 'Échéance',
 							'priorite' => 'Priorité',
-							'retard' => 'Retard'
+							'retard' => 'Retard',
+							'creepar' => 'Createur',
+							'titre' => 'Alphabétique'
 						],
 						$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance",
 						['id' => 'tri', 'onchange' => 'this.form.submit()']
