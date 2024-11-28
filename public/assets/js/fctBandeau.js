@@ -99,6 +99,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	document.getElementById('crayon').addEventListener('click', () => {
+
+		document.getElementById('crayon').style.display = 'none';
+
 		// Transformer le titre en input
 		const titreElement = document.getElementById('bandeau-titre');
 		const titreInput = document.createElement('input');
@@ -327,6 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
 							if(div.style.display === 'block' && cpt !== divs.length - 1) {
 								div.style.display = 'none';
 								divs[cpt + 1].style.display = 'block';
+								return;
 							}
 							cpt++;
 						});
@@ -334,5 +338,9 @@ document.addEventListener("DOMContentLoaded", () => {
 				}
 			}
 		});
+	}
+
+	function afficherBtn() {
+
 	}
 });
