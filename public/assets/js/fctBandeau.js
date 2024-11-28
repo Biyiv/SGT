@@ -162,8 +162,32 @@ document.addEventListener("DOMContentLoaded", () => {
 		const priorite = document.getElementById('select-priorite');
 		priorite.removeAttribute('disabled');
 		
+		const mtn = new Date();
 		const statut = document.getElementById('select-statut');
-		statut.removeAttribute('disabled');
+		statut.removeAttribute('disabled'); 
+
+		statut.innerHTML = '';
+
+		// Vérifier si la date actuelle est supérieure à la date d'échéance
+		const options = mtn > formattedDateE
+			? [
+				{ value: 'en retard', text: 'En retard' },
+				{ value: 'termine', text: 'Terminée' },
+			]
+			: [
+				{ value: 'en attente', text: 'En attente' },
+				{ value: 'en cours', text: 'En cours' },
+				{ value: 'termine', text: 'Terminée' },
+			];
+
+		options.forEach(optionData => {
+			const option = document.createElement('option');
+			option.value = optionData.value;
+			option.textContent = optionData.text;
+			statut.appendChild(option);
+		});
+
+		
 
 		// Ajoute un bouton sauvegarder
 		const sauvegarderBtn = document.createElement('button');
@@ -204,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		
 		document.getElementById('bandeau-droit').appendChild(sauvegarderBtn);
 
-		// Ajoute un bouton sauvegarder
+		// Ajoute un bouton supprimer
 		const supprimerBtn = document.createElement('button');
 		supprimerBtn.textContent = 'Supprimer';
 		supprimerBtn.id = 'supprimer';

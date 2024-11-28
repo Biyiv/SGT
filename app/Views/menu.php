@@ -156,11 +156,11 @@
 				<br>
 				
 				<?= form_label('Début :', 'debut'); ?>
-				<?= form_input(['type' => 'datetime-local', 'name' => 'debut', 'id' => 'debut', 'value' => date('Y-m-d\TH:i')]); ?>
+				<?= form_input(['type' => 'datetime-local', 'name' => 'debut', 'id' => 'debut', 'value' => date('Y-m-d\TH:i', strtotime('+1 hour'))]); ?>
 				<br>
 				
 				<?= form_label('Échéance :', 'echeance'); ?>
-				<?= form_input(['type' => 'datetime-local', 'name' => 'echeance', 'id' => 'echeance', 'value' => date('Y-m-d\TH:i', strtotime('+1 day'))]); ?> 
+				<?= form_input(['type' => 'datetime-local', 'name' => 'echeance', 'id' => 'echeance', 'value' => date('Y-m-d\TH:i' , strtotime('+25 hours'))]); ?> 
 				<br>
 				
 				<?= form_label('Priorité :', 'priorite'); ?>
