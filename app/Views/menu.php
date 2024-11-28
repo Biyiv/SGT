@@ -40,19 +40,6 @@
 		</div>
 	</div>
 
-	<div id="dmd-modal" class="modal">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h2>
-					<?= session()->getFlashdata('demandeSuppr') ?>
-				</h2>
-				<button class="close-btn">&times;</button>
-			</div>
-			<a href="/supprimerTache/<?= session()->getFlashdata('demandeSupprId') ?>">Confirmer</a>
-			<a href="/dashboard">Annuler</a>
-		</div>
-	</div>
-
 	<nav class="navbar">
 		<div class="left-section">
 			<div>
@@ -67,7 +54,9 @@
 						[
 							'echeance' => 'Échéance',
 							'priorite' => 'Priorité',
-							'retard' => 'Retard'
+							'retard' => 'Retard',
+							'creepar' => 'Createur',
+							'titre' => 'Alphabétique'
 						],
 						$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance",
 						['id' => 'tri', 'onchange' => 'this.form.submit()']
@@ -99,7 +88,7 @@
 		</div>
 		<div class="right-section">
 			<div>
-				<button id="openModalBtnProfil"><h1><?= esc(session()->get('utilisateur')['username']) ?></h1></button>
+				<button id="openModalBtnProfil"><h1><?= strlen(session()->get('utilisateur')['username']) > 9 ? substr(session()->get('utilisateur')['username'], 0, 9) . ' ...' : session()->get('utilisateur')['username']; ?></h1></button>
 			</div>
 			<div>
 				<a href="/logout"><img id="logout" src="/assets/images/logout.png" alt="Image de profil"></a>
@@ -169,11 +158,11 @@
 				<br>
 				
 				<?= form_label('Début :', 'debut'); ?>
-				<?= form_input(['type' => 'datetime-local', 'name' => 'debut', 'id' => 'debut', 'value' => date('Y-m-d\TH:i')]); ?>
+				<?= form_input(['type' => 'datetime-local', 'name' => 'debut', 'id' => 'debut', 'value' => date('Y-m-d\TH:i', strtotime('+1 hour'))]); ?>
 				<br>
 				
 				<?= form_label('Échéance :', 'echeance'); ?>
-				<?= form_input(['type' => 'datetime-local', 'name' => 'echeance', 'id' => 'echeance', 'value' => date('Y-m-d\TH:i', strtotime('+1 day'))]); ?> 
+				<?= form_input(['type' => 'datetime-local', 'name' => 'echeance', 'id' => 'echeance', 'value' => date('Y-m-d\TH:i' , strtotime('+25 hours'))]); ?> 
 				<br>
 				
 				<?= form_label('Priorité :', 'priorite'); ?>

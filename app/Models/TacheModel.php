@@ -15,13 +15,13 @@ class TacheModel extends Model
 		'statut',
 	];
 	
-	public function getPaginatedAllTaches(int $perPage = 8, ?string $keyword = null): array
+	public function getPaginatedRetardTaches(int $perPage = 8, ?string $keyword = null): array
 	{
 		// Appliquer la recherche par mot-clé si fourni
 		if ($keyword) {
 			$this->like('titre', $keyword); // Recherche dans le champ title
 		}
-		return $this->paginate($perPage, 'default');
+		return $this->where('statut', 'en retard')->paginate($perPage, 'Tache');
 	}
 
 	public function getPaginatedTaches(int $perPage = 8, string $sortField = 'echeance', string $sortOrder = 'asc', ?string $keyword = null): array

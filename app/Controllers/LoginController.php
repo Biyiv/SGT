@@ -27,17 +27,17 @@ class LoginController extends BaseController {
 
 
 			if ($utilisateur) {
-                if ($utilisateur['active'] == 'f') {
-                    $this->sendActiveMail($utilisateur);
-                    $this->session->setFlashdata('error', "Votre compte n'est pas activé, un mail viens de vous être envoyé (" . $utilisateur['mail'] . ") afin d'activer votre compte");
-                    return redirect()->to('/login');
-                } else if (password_verify($this->request->getVar('password'), $utilisateur['mdp'])) {
-                    // Si l'utilisateur a coché la case "Se souvenir de moi", on garde l'identifiant en cookie
-                    if($this->request->getVar('remember')) {
-                        setcookie('identifiant', $this->request->getVar('identifiant'), time() + 3600 * 24 * 30);
-                    } else {
-                        setcookie('identifiant', '', time() - 3600);
-                    }
+				if ($utilisateur['active'] == 'f') {
+					$this->sendActiveMail($utilisateur);
+					$this->session->setFlashdata('error', "Votre compte n'est pas activé, un mail viens de vous être envoyé (" . $utilisateur['mail'] . ") afin d'activer votre compte");
+					return redirect()->to('/login');
+				} else if (password_verify($this->request->getVar('password'), $utilisateur['mdp'])) {
+					// Si l'utilisateur a coché la case "Se souvenir de moi", on garde l'identifiant en cookie
+					if($this->request->getVar('remember')) {
+						setcookie('identifiant', $this->request->getVar('identifiant'), time() + 3600 * 24 * 30);
+					} else {
+						setcookie('identifiant', '', time() - 3600);
+					}
 
 					$this->session->set('utilisateur', $utilisateur);
 					return redirect()->to('/dashboard');

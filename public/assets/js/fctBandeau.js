@@ -162,8 +162,32 @@ document.addEventListener("DOMContentLoaded", () => {
 		const priorite = document.getElementById('select-priorite');
 		priorite.removeAttribute('disabled');
 		
+		const mtn = new Date();
 		const statut = document.getElementById('select-statut');
-		statut.removeAttribute('disabled');
+		statut.removeAttribute('disabled'); 
+
+		statut.innerHTML = '';
+
+		// Vérifier si la date actuelle est supérieure à la date d'échéance
+		const options = mtn > formattedDateE
+			? [
+				{ value: 'en retard', text: 'En retard' },
+				{ value: 'termine', text: 'Terminée' },
+			]
+			: [
+				{ value: 'en attente', text: 'En attente' },
+				{ value: 'en cours', text: 'En cours' },
+				{ value: 'termine', text: 'Terminée' },
+			];
+
+		options.forEach(optionData => {
+			const option = document.createElement('option');
+			option.value = optionData.value;
+			option.textContent = optionData.text;
+			statut.appendChild(option);
+		});
+
+		
 
 		// Ajoute un bouton sauvegarder
 		const sauvegarderBtn = document.createElement('button');
@@ -204,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		
 		document.getElementById('bandeau-droit').appendChild(sauvegarderBtn);
 
-		// Ajoute un bouton sauvegarder
+		// Ajoute un bouton supprimer
 		const supprimerBtn = document.createElement('button');
 		supprimerBtn.textContent = 'Supprimer';
 		supprimerBtn.id = 'supprimer';
@@ -218,15 +242,23 @@ document.addEventListener("DOMContentLoaded", () => {
 		gestionnaireTachesSuppr.style.pointerEvents = 'none';
 
 		supprimerBtn.addEventListener('click', () => {
-			fetch('/dmdSupprimerTache/' + id, {
-				method: 'POST',
-			}).then(() => {
-				gestionnaireTaches.style.pointerEvents = 'auto';
-				location.reload();
-			}).catch((error) => {
-				console.error('Erreur:', error);
-			});
+			const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
+
+			if(confirmation) {
+				fetch('/supprimerTache/' + id, {
+					method: 'POST',
+				}).then(() => {
+					gestionnaireTaches.style.pointerEvents = 'auto';
+					location.reload();
+				}).catch((error) => {
+					console.error('Erreur:', error);
+				});
+			} else {
+				alert('Le commentaire n\'a pas été supprimé');
+			}
 		});
+
+		
 
 		document.getElementById('bandeau-droit').appendChild(supprimerBtn);
 	});
@@ -339,30 +371,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				divCommentaires.appendChild(divBtns);
 
-				document.getElementById('btn-precedent').addEventListener('click', () => {
-					const divs = document.querySelectorAll('.commentaire');
-					let cpt = 0;
-					divs.forEach(div => {
-						if(div.style.display === 'block' && cpt !== 0) {
-							div.style.display = 'none';
-							divs[cpt - 1].style.display = 'block';
-						}
-						cpt++;
-					});
-				});
+					const btnPrecedent = document.getElementById('btn-precedent');
+					const btnSuivant = document.getElementById('btn-suivant');
 
-				document.getElementById('btn-suivant').addEventListener('click', () => {
+					// Sélectionner tous les divs avec la classe "commentaire"
 					const divs = document.querySelectorAll('.commentaire');
+
+					// Initialiser le compteur pour suivre l'élément affiché
 					let cpt = 0;
-					divs.forEach(div => {
-						if(div.style.display === 'block' && cpt !== divs.length - 1) {
-							div.style.display = 'none';
-							divs[cpt + 1].style.display = 'block';
-							return;
-						}
-						cpt++;
+
+					// Initialiser : afficher uniquement le premier div
+					divs.forEach((div, index) => {
+						div.style.display = index === 0 ? 'block' : 'none';
 					});
-				});
+
+					// Gestion du bouton "Précédent"
+					btnPrecedent.addEventListener('click', () => {
+						if (cpt > 0) {
+							divs[cpt].style.display = 'none'; // Cacher le div actuel
+							cpt--; // Décrémenter le compteur
+							divs[cpt].style.display = 'block'; // Afficher le div précédent
+						}
+
+						// Activer/désactiver les boutons selon la position
+						btnSuivant.style.visibility = 'visible';
+						if (cpt === 0) {
+							btnPrecedent.style.visibility = 'collapse';
+						}
+					});
+
+					// Gestion du bouton "Suivant"
+					btnSuivant.addEventListener('click', () => {
+						if (cpt < divs.length - 1) {
+							divs[cpt].style.display = 'none'; // Cacher le div actuel
+							cpt++; // Incrémenter le compteur
+							divs[cpt].style.display = 'block'; // Afficher le div suivant
+						}
+
+						// Activer/désactiver les boutons selon la position
+						btnPrecedent.style.visibility = 'visible';
+						if (cpt === divs.length - 1) {
+							btnSuivant.style.visibility = 'collapse';
+						}
+					});
+				}
 			}
 		});
 	}
