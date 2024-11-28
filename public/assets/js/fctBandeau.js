@@ -362,58 +362,60 @@ document.addEventListener("DOMContentLoaded", () => {
 					divCommentaires.appendChild(divCommentaire);
 				})
 
-				const divBtns = document.createElement('div');
-				divBtns.classList.add('btns');
-				divBtns.innerHTML = `
-				<button id="btn-precedent" class="btn btn-primary btn-sm">Précédent</button>
-				<button id="btn-suivant" class="btn btn-primary btn-sm">Suivant</button>
-				`;
+				if ( data.length > 1 ){
+					const divBtns = document.createElement('div');
+					divBtns.classList.add('btns');
+					divBtns.innerHTML = `
+					<button id="btn-precedent" class="btn btn-primary btn-sm">Précédent</button>
+					<button id="btn-suivant" class="btn btn-primary btn-sm">Suivant</button>
+					`;
 
-				divCommentaires.appendChild(divBtns);
+					divCommentaires.appendChild(divBtns);
 
-				const btnPrecedent = document.getElementById('btn-precedent');
-				const btnSuivant = document.getElementById('btn-suivant');
+					const btnPrecedent = document.getElementById('btn-precedent');
+					const btnSuivant = document.getElementById('btn-suivant');
 
-				// Sélectionner tous les divs avec la classe "commentaire"
-				const divs = document.querySelectorAll('.commentaire');
+					// Sélectionner tous les divs avec la classe "commentaire"
+					const divs = document.querySelectorAll('.commentaire');
 
-				// Initialiser le compteur pour suivre l'élément affiché
-				let cpt = 0;
+					// Initialiser le compteur pour suivre l'élément affiché
+					let cpt = 0;
 
-				// Initialiser : afficher uniquement le premier div
-				divs.forEach((div, index) => {
-					div.style.display = index === 0 ? 'block' : 'none';
-				});
+					// Initialiser : afficher uniquement le premier div
+					divs.forEach((div, index) => {
+						div.style.display = index === 0 ? 'block' : 'none';
+					});
 
-				// Gestion du bouton "Précédent"
-				btnPrecedent.addEventListener('click', () => {
-					if (cpt > 0) {
-						divs[cpt].style.display = 'none'; // Cacher le div actuel
-						cpt--; // Décrémenter le compteur
-						divs[cpt].style.display = 'block'; // Afficher le div précédent
-					}
+					// Gestion du bouton "Précédent"
+					btnPrecedent.addEventListener('click', () => {
+						if (cpt > 0) {
+							divs[cpt].style.display = 'none'; // Cacher le div actuel
+							cpt--; // Décrémenter le compteur
+							divs[cpt].style.display = 'block'; // Afficher le div précédent
+						}
 
-					// Activer/désactiver les boutons selon la position
-					btnSuivant.style.visibility = 'visible';
-					if (cpt === 0) {
-						btnPrecedent.style.visibility = 'collapse';
-					}
-				});
+						// Activer/désactiver les boutons selon la position
+						btnSuivant.style.visibility = 'visible';
+						if (cpt === 0) {
+							btnPrecedent.style.visibility = 'collapse';
+						}
+					});
 
-				// Gestion du bouton "Suivant"
-				btnSuivant.addEventListener('click', () => {
-					if (cpt < divs.length - 1) {
-						divs[cpt].style.display = 'none'; // Cacher le div actuel
-						cpt++; // Incrémenter le compteur
-						divs[cpt].style.display = 'block'; // Afficher le div suivant
-					}
+					// Gestion du bouton "Suivant"
+					btnSuivant.addEventListener('click', () => {
+						if (cpt < divs.length - 1) {
+							divs[cpt].style.display = 'none'; // Cacher le div actuel
+							cpt++; // Incrémenter le compteur
+							divs[cpt].style.display = 'block'; // Afficher le div suivant
+						}
 
-					// Activer/désactiver les boutons selon la position
-					btnPrecedent.style.visibility = 'visible';
-					if (cpt === divs.length - 1) {
-						btnSuivant.style.visibility = 'collapse';
-					}
-				});
+						// Activer/désactiver les boutons selon la position
+						btnPrecedent.style.visibility = 'visible';
+						if (cpt === divs.length - 1) {
+							btnSuivant.style.visibility = 'collapse';
+						}
+					});
+				}
 			}
 		});
 	}
