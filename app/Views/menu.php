@@ -219,12 +219,6 @@
 			<p><span id="bandeau-id"></span></p>
 		</div>
 
-		<div class="commentaires">
-			
-		</div>
-		<!-- Affichage des liens de pagination -->
-		
-
 		<p><strong>Priorité :</strong>
 			<span id="bandeau-priorite">
 				<select name="select-priorite" id="select-priorite" disabled>
@@ -243,6 +237,23 @@
 				</select>
 			</span>
 		</p>
+
+		<div class="commentaires">
+			
+		</div>
+		<button id="ajouter-commentaire">Ajouter un commentaire</button>
+		<div id="commentaire-form">
+			<?= form_open('/ajouterCommentaire'); ?>
+				<?= form_input('commentaire', '', ['id' => 'commentaire', 'required' => 'required']); ?>
+				<?= form_hidden('id', ''); ?>
+				<?= form_submit('submit', 'Ajouter'); ?>
+			<?= form_close(); ?>
+		</div>
+
+		<div id="bandeau-footer">
+			<button id="supprimer-tache">Supprimer</button>
+			<button id="modifier-tache">Modifier</button>
+		</div>
 	</div>
 
 

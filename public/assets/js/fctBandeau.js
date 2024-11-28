@@ -99,6 +99,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	document.getElementById('crayon').addEventListener('click', () => {
+
+		document.getElementById('crayon').style.display = 'none';
+
 		// Transformer le titre en input
 		const titreElement = document.getElementById('bandeau-titre');
 		const titreInput = document.createElement('input');
@@ -198,8 +201,42 @@ document.addEventListener("DOMContentLoaded", () => {
 				console.error('Erreur:', error);
 			});
 		});
-
+		
 		document.getElementById('bandeau-droit').appendChild(sauvegarderBtn);
+
+		// Ajoute un bouton sauvegarder
+		const supprimerBtn = document.createElement('button');
+		supprimerBtn.textContent = 'Supprimer';
+		supprimerBtn.id = 'supprimer';
+		supprimerBtn.classList.add('btn');
+		supprimerBtn.classList.add('btn-primary');
+		supprimerBtn.classList.add('btn-sm');
+		supprimerBtn.classList.add('m-2');
+
+		const gestionnaireTachesSuppr = document.querySelector('.conteneur-taches')
+
+		gestionnaireTachesSuppr.style.pointerEvents = 'none';
+
+		supprimerBtn.addEventListener('click', () => {
+			const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
+
+			if(confirmation) {
+				fetch('/supprimerTache/' + id, {
+					method: 'POST',
+				}).then(() => {
+					gestionnaireTaches.style.pointerEvents = 'auto';
+					location.reload();
+				}).catch((error) => {
+					console.error('Erreur:', error);
+				});
+			} else {
+				alert('Le commentaire n\'a pas été supprimé');
+			}
+		});
+
+		
+
+		document.getElementById('bandeau-droit').appendChild(supprimerBtn);
 	});
 
 	// Fonction pour réinitialiser le bandeau en version non éditable
@@ -233,6 +270,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		const sauvegarderBtn = document.getElementById('sauvegarder');
 		if (sauvegarderBtn) {
 			sauvegarderBtn.remove();
+		}
+
+		const supprimerBtn = document.getElementById('supprimer');
+		if (supprimerBtn) {
+			supprimerBtn.remove();
 		}
 	}
 
@@ -344,6 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
 								divs[cpt + 1].style.display = 'block';
 								if ( cpt === div.length )
 									btnSuivant.style.visibility = 'collapse';
+								return;
 							}
 							cpt++;
 						});
@@ -352,4 +395,39 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 	}
+
+	document.getElementById('supprimer-tache').addEventListener('click', supprimerCommentaire);
+
+
+	function supprimerCommentaire() {
+
+		const commentaires = document.querySelectorAll('.commentaire');
+
+		commentaires.forEach(commentaire => {
+			if(commentaire.style.display === 'block') {
+				const id = commentaire.id;
+				const idTache = document.getElementById('bandeau-id').textContent;
+
+				const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
+
+				if(confirmation) {
+					fetch(`/taches/${idTache}/commentaires/${id}`, {
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json',
+						}
+					})
+					.then(response => {
+						return response.json();
+					})
+					.then(data => {
+						getCommentaires(idTache);
+					});
+				} else {
+					alert('Le commentaire n\'a pas été supprimé');
+				}
+			}
+		});
+	}
+
 });

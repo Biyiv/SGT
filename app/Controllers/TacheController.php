@@ -137,6 +137,24 @@ class TacheController extends BaseController
 		}
 	}
 
+	public function supprimerTache($id) {
+		$tacheModel = new TacheModel();
+		$tache = $tacheModel->find($id);
+	
+		if (!$tache) {
+			$this->session->setFlashdata('error', 'Tâche non trouvée');
+			return redirect()->to('/dashboard');
+		}
+	
+		if ($tacheModel->delete($id)) {
+			$this->session->setFlashdata('success', 'Tâche supprimée avec succès');
+			return redirect()->to('/dashboard');
+		} else {
+			$this->session->setFlashdata('error', 'Erreur lors de la suppression de la tâche');
+			return redirect()->to('/dashboard');
+		}
+	}
+
 	public function getCommentaires($id) {	
 		$commentaireModel = new CommentaireModel();
 		$commentaires = $commentaireModel->getCommentaires($id);
