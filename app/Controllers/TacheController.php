@@ -22,36 +22,36 @@ class TacheController extends BaseController
 	public function index(): string
 	{
 		$tacheModel = new TacheModel();
-		$commentaireModel = new CommentaireModel();
 
-		$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance";
-
-		$recherche = $this->session->get('recherche') == null ? "" : $this->session->get('recherche');
-		
-		// Récupérer toutes les tâches, triées par échéance
-		if ($tri == 'retard'){
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedAllTaches(8) : $data['taches'] = $tacheModel->getPaginatedAllTaches(8, $recherche);
-			//Tri les taches par leur retard c'est à dire la date actuelle moins leur echeance
-			usort($data['taches'], function($a, $b) {
-				$dateA = new \DateTime($a['echeance']);
-				$dateB = new \DateTime($b['echeance']);
-				$now = new \DateTime();
-
-				$diffA = $now->diff($dateA)->days;
-				$diffB = $now->diff($dateB)->days;
-
-				return $diffB - $diffA;
-			});
-		} elseif ($tri == 'echeance') {
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri) : $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'ASC', $recherche);
-		} elseif ($tri == 'priorite') {
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC') : $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC', $recherche);
+		$taches = $tacheModel->findAll();
+		foreach ($taches as $tache) {
+			if($tache['statut'] != 'en retard' || $tache['statut'] != 'termine') {
+				if($tache['echeance'] < date('Y-m-d H:i:s')) {
+					$this->modifierStatutTache($tache['id'], 'en retard');
+				}
+			}
+			if($tache['statut'] == 'en retard' && $tache['echeance'] > date('Y-m-d H:i:s')) {
+				if($tache['debut'] < date('Y-m-d H:i:s')) {
+					$this->modifierStatutTache($tache['id'], 'en cours');
+				}
+				if($tache['debut'] > date('Y-m-d H:i:s')) {
+					$this->modifierStatutTache($tache['id'], 'en attente');
+				}
+			}
 		}
 
-		$data['pagerTaches'] = $tacheModel->pager;
+		$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance";
+		$recherche = $this->session->get('recherche') == null ? "" : $this->session->get('recherche');
 
-		$data['commentaires'] = $commentaireModel->getPaginatedCommentaires(2);
-		$data['pagerCommentaires'] = $commentaireModel->pager;
+		// Récupérer toutes les tâches, triées par échéance
+		if ($tri == 'retard'){
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedRetardTaches(8) : $data['taches'] = $tacheModel->getPaginatedRetardTaches(8, $recherche);
+		} elseif ($tri == 'priorite') {
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC') : $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC', $recherche);
+		} else {
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri) : $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'ASC', $recherche);
+		}
+		$data['pagerTaches'] = $tacheModel->pager;
 
 		// Charger la vue avec les données
 		return view('menu', $data);
@@ -135,6 +135,17 @@ class TacheController extends BaseController
 			$this->session->setFlashdata('error', 'Erreur lors de la modification de la tâche');
 			return $this->response->setStatusCode(280)->setJSON(['error' => 'Erreur lors de la modification de la tâche']);
 		}
+	}
+
+	public function modifierStatutTache($id, $statut) {
+		$tacheModel = new TacheModel();
+		$tache = $tacheModel->find($id);
+	
+		if (!$tache) {
+			return $this->response->setStatusCode(404)->setJSON(['error' => 'Tâche non trouvée']);
+		}
+	
+		$tacheModel->set('statut', $statut)->update($id);
 	}
 
 	public function supprimerTache($id) {
