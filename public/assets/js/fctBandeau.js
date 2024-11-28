@@ -340,56 +340,58 @@ document.addEventListener("DOMContentLoaded", () => {
 					divCommentaires.appendChild(divCommentaire);
 				})
 
-				if(cpt > 0) {
+				if(cpt > 1) {
 					const divBtns = document.createElement('div');
 					divBtns.classList.add('btns');
 					divBtns.innerHTML = `
-						<button id="btn-precedent" class="btn btn-primary btn-sm">Précédent</button>
-						<button id="btn-suivant" class="btn btn-primary btn-sm">Suivant</button>
+						<button id="btn-precedent" class="btn btn-primary btn-sm"><< Précédent</button>
+						<button id="btn-suivant" class="btn btn-primary btn-sm">Suivant >></button>
 					`;
 
 					divCommentaires.appendChild(divBtns);
 
 					const btnPrecedent = document.getElementById('btn-precedent');
 					const btnSuivant = document.getElementById('btn-suivant');
-					const btnContainer = document.querySelector('.btns');
 
-					// Fonction pour masquer un bouton
-					function hideButton(button) {
-						button.style.visibility = 'collapse'; // Masque complètement le bouton
-						// Ajuste la position du bouton restant
-						btnContainer.style.justifyContent = 'center';
-					}
+					// Sélectionner tous les divs avec la classe "commentaire"
+					const divs = document.querySelectorAll('.commentaire');
 
-					btnPrecedent.addEventListener('click', () => {
-						btnSuivant.style.visibility = 'visible';
-						const divs = document.querySelectorAll('.commentaire');
-						let cpt = 0;
-						divs.forEach(div => {
-							if(div.style.display === 'block' && cpt !== 0) {
-								div.style.display = 'none';
-								divs[cpt - 1].style.display = 'block';
-								if ( cpt === 0 )
-									btnPrecedent.style.visibility = 'collapse';
-							}
-							cpt++;
-						});
+					// Initialiser le compteur pour suivre l'élément affiché
+					let cpt = 0;
+
+					// Initialiser : afficher uniquement le premier div
+					divs.forEach((div, index) => {
+						div.style.display = index === 0 ? 'block' : 'none';
 					});
 
+					// Gestion du bouton "Précédent"
+					btnPrecedent.addEventListener('click', () => {
+						if (cpt > 0) {
+							divs[cpt].style.display = 'none'; // Cacher le div actuel
+							cpt--; // Décrémenter le compteur
+							divs[cpt].style.display = 'block'; // Afficher le div précédent
+						}
+
+						// Activer/désactiver les boutons selon la position
+						btnSuivant.style.visibility = 'visible';
+						if (cpt === 0) {
+							btnPrecedent.style.visibility = 'collapse';
+						}
+					});
+
+					// Gestion du bouton "Suivant"
 					btnSuivant.addEventListener('click', () => {
-						btnPrecedent.style.visibility = 'visible'
-						const divs = document.querySelectorAll('.commentaire');
-						let cpt = 0;
-						divs.forEach(div => {
-							if(div.style.display === 'block' && cpt !== divs.length - 1) {
-								div.style.display = 'none';
-								divs[cpt + 1].style.display = 'block';
-								if ( cpt === div.length )
-									btnSuivant.style.visibility = 'collapse';
-								return;
-							}
-							cpt++;
-						});
+						if (cpt < divs.length - 1) {
+							divs[cpt].style.display = 'none'; // Cacher le div actuel
+							cpt++; // Incrémenter le compteur
+							divs[cpt].style.display = 'block'; // Afficher le div suivant
+						}
+
+						// Activer/désactiver les boutons selon la position
+						btnPrecedent.style.visibility = 'visible';
+						if (cpt === divs.length - 1) {
+							btnSuivant.style.visibility = 'collapse';
+						}
 					});
 				}
 			}
