@@ -180,5 +180,46 @@ class TacheController extends BaseController
 			// Retourne le string "Pas de commentaire"
 			return $this->response->setJSON([]);
 		}
-	}	
+	}
+
+	public function ajouterCommentaire($idtache) {
+		$commentaireModel = new CommentaireModel();
+	
+		$utilisateur = $this->session->get('utilisateur');
+	
+		// Récupération des données JSON
+		$data = $this->request->getJSON(true);
+	
+		if (!$utilisateur || empty($utilisateur['username'])) {
+			return $this->response->setStatusCode(280)->setJSON(['error' => 'Problème avec l\'utilisateur connecté.']);
+		}
+	
+		// Ajouter les données nécessaires
+		$data['tache'] = $idtache;
+		$data['datecreation'] = date('Y-m-d H:i:s');
+		$data['creepar'] = $utilisateur['username'];
+
+	
+		if ($commentaireModel->insert($data)) {
+			return $this->response->setJSON(['success' => 'Commentaire ajouté avec succès']);
+		} else {
+			return $this->response->setStatusCode(500)->setJSON(['error' => 'Erreur lors de l\'ajout du commentaire', 'data' => $data]);
+		}
+	}
+	
+
+	public function supprimerCommentaire($id) {
+		$commentaireModel = new CommentaireModel();
+		$commentaire = $commentaireModel->find($id);
+	
+		if (!$commentaire) {
+			return $this->response->setStatusCode(404)->setJSON(['error' => 'Commentaire non trouvé']);
+		}
+	
+		if ($commentaireModel->delete($id)) {
+			return $this->response->setJSON(['success' => 'Commentaire supprimé avec succès']);
+		} else {
+			return $this->response->setStatusCode(280)->setJSON(['error' => 'Erreur lors de la suppression du commentaire']);
+		}
+	}
 }

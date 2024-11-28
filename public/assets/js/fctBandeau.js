@@ -313,67 +313,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				divCommentaires.appendChild(divCommentaire);
 			} else {
-				cpt = 0;
 				data.forEach(commentaire => {
 					const divCommentaire = document.createElement('div');
 					divCommentaire.classList.add('commentaire');
-					if(cpt > 0) {
+					if(data.indexOf(commentaire) !== 0) {
 						divCommentaire.style.display = 'none';
 					}
 					else {
 						divCommentaire.style.display = 'block';
 					}
-					divCommentaire.id = cpt++;
+					divCommentaire.id = commentaire.id;
 					divCommentaire.innerHTML = `
 						<h5>${commentaire.creepar}</h5>
 						<p>${commentaire.commentaire}</p>
 					`;
-	
 					divCommentaires.appendChild(divCommentaire);
 				})
 
-				if(cpt > 0) {
-					const divBtns = document.createElement('div');
-					divBtns.classList.add('btns');
-					divBtns.innerHTML = `
-						<button id="btn-precedent" class="btn btn-primary btn-sm">Précédent</button>
-						<button id="btn-suivant" class="btn btn-primary btn-sm">Suivant</button>
-					`;
+				const divBtns = document.createElement('div');
+				divBtns.classList.add('btns');
+				divBtns.innerHTML = `
+					<button id="btn-precedent" class="btn btn-primary btn-sm">Précédent</button>
+					<button id="btn-suivant" class="btn btn-primary btn-sm">Suivant</button>
+				`;
 
-					divCommentaires.appendChild(divBtns);
+				divCommentaires.appendChild(divBtns);
 
-					document.getElementById('btn-precedent').addEventListener('click', () => {
-						const divs = document.querySelectorAll('.commentaire');
-						let cpt = 0;
-						divs.forEach(div => {
-							if(div.style.display === 'block' && cpt !== 0) {
-								div.style.display = 'none';
-								divs[cpt - 1].style.display = 'block';
-							}
-							cpt++;
-						});
+				document.getElementById('btn-precedent').addEventListener('click', () => {
+					const divs = document.querySelectorAll('.commentaire');
+					let cpt = 0;
+					divs.forEach(div => {
+						if(div.style.display === 'block' && cpt !== 0) {
+							div.style.display = 'none';
+							divs[cpt - 1].style.display = 'block';
+						}
+						cpt++;
 					});
+				});
 
-					document.getElementById('btn-suivant').addEventListener('click', () => {
-						const divs = document.querySelectorAll('.commentaire');
-						let cpt = 0;
-						divs.forEach(div => {
-							if(div.style.display === 'block' && cpt !== divs.length - 1) {
-								div.style.display = 'none';
-								divs[cpt + 1].style.display = 'block';
-								return;
-							}
-							cpt++;
-						});
+				document.getElementById('btn-suivant').addEventListener('click', () => {
+					const divs = document.querySelectorAll('.commentaire');
+					let cpt = 0;
+					divs.forEach(div => {
+						if(div.style.display === 'block' && cpt !== divs.length - 1) {
+							div.style.display = 'none';
+							divs[cpt + 1].style.display = 'block';
+							return;
+						}
+						cpt++;
 					});
-				}
+				});
 			}
 		});
 	}
 
+	document.getElementById('valider-commentaire').addEventListener('click', ajouterCommentaire);
+	function ajouterCommentaire() {
+		const idTache = document.getElementById('bandeau-id').textContent.trim();
+		const commentaire = document.getElementById('commentaire').value.trim();
+	
+		if (commentaire !== '') {
+			fetch(`/taches/${idTache}/ajouterCommentaire`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ commentaire: commentaire }),
+			})
+				.then(response => {
+					if (!response.ok) {
+						//throw new Error(`Erreur serveur : ${response.status}`);
+					}
+					return response.json();
+				})
+				.then(data => {
+					if (data.success) {
+						alert('Le commentaire a été ajouté');
+						getCommentaires(idTache); // Rafraîchir les commentaires
+					} else {
+						alert(data.error || 'Erreur inconnue lors de l\'ajout du commentaire.');
+					}
+				})
+				.catch(error => {
+					console.error('Erreur :', error);
+					alert('Impossible d\'ajouter le commentaire. Vérifiez votre connexion ou contactez un administrateur.');
+				});
+
+				document.getElementById('commentaire').value = '';
+		} else {
+			alert('Veuillez remplir le champ commentaire');
+		}
+	}
+	
+
+
 	document.getElementById('supprimer-tache').addEventListener('click', supprimerCommentaire);
-
-
 	function supprimerCommentaire() {
 
 		const commentaires = document.querySelectorAll('.commentaire');
@@ -386,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
 
 				if(confirmation) {
-					fetch(`/taches/${idTache}/commentaires/${id}`, {
+					fetch(`/taches/supprimerCommentaires/${id}`, {
 						method: 'DELETE',
 						headers: {
 							'Content-Type': 'application/json',
@@ -396,10 +430,11 @@ document.addEventListener("DOMContentLoaded", () => {
 						return response.json();
 					})
 					.then(data => {
-						getCommentaires(idTache);
+						if(data) {
+							alert('Le commentaire a été supprimé');
+							getCommentaires(idTache);
+						}
 					});
-				} else {
-					alert('Le commentaire n\'a pas été supprimé');
 				}
 			}
 		});

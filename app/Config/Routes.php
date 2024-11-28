@@ -40,3 +40,6 @@ $routes->post('/taches/(:num)/commentaires', 'TacheController::ajouterCommentair
 
 $routes->match(['get', 'post'], '/supprimerTache/(:num)','TacheController::supprimerTache/$1');
 $routes->match(['get', 'post'], '/dmdSupprimerTache/(:num)','TacheController::dmdSupprimerTache/$1');
+
+$routes->post('/taches/(:num)/ajouterCommentaire', 'TacheController::ajouterCommentaire/$1');
+$routes->delete('/taches/supprimerCommentaires/(:num)', 'TacheController::supprimerCommentaire/$1');

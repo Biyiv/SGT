@@ -255,12 +255,11 @@
 			
 		</div>
 		<button id="ajouter-commentaire">Ajouter un commentaire</button>
+
+		<!-- A transformer en modal -->
 		<div id="commentaire-form">
-			<?= form_open('/ajouterCommentaire'); ?>
-				<?= form_input('commentaire', '', ['id' => 'commentaire', 'required' => 'required']); ?>
-				<?= form_hidden('id', ''); ?>
-				<?= form_submit('submit', 'Ajouter'); ?>
-			<?= form_close(); ?>
+			<textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
+			<button id="valider-commentaire">Valider</button>
 		</div>
 
 		<div id="bandeau-footer">
