@@ -54,7 +54,9 @@
 						[
 							'echeance' => 'Échéance',
 							'priorite' => 'Priorité',
-							'retard' => 'Retard'
+							'retard' => 'Retard',
+							'creepar' => 'Createur',
+							'titre' => 'Alphabétique'
 						],
 						$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance",
 						['id' => 'tri', 'onchange' => 'this.form.submit()']
@@ -153,11 +155,11 @@
 				<br>
 				
 				<?= form_label('Début :', 'debut'); ?>
-				<?= form_input(['type' => 'datetime-local', 'name' => 'debut', 'id' => 'debut', 'value' => date('Y-m-d\TH:i')]); ?>
+				<?= form_input(['type' => 'datetime-local', 'name' => 'debut', 'id' => 'debut', 'value' => date('Y-m-d\TH:i', strtotime('+1 hour'))]); ?>
 				<br>
 				
 				<?= form_label('Échéance :', 'echeance'); ?>
-				<?= form_input(['type' => 'datetime-local', 'name' => 'echeance', 'id' => 'echeance', 'value' => date('Y-m-d\TH:i', strtotime('+1 day'))]); ?> 
+				<?= form_input(['type' => 'datetime-local', 'name' => 'echeance', 'id' => 'echeance', 'value' => date('Y-m-d\TH:i' , strtotime('+25 hours'))]); ?> 
 				<br>
 				
 				<?= form_label('Priorité :', 'priorite'); ?>
@@ -239,12 +241,11 @@
 			
 		</div>
 		<button id="ajouter-commentaire">Ajouter un commentaire</button>
+
+		<!-- A transformer en modal -->
 		<div id="commentaire-form">
-			<?= form_open('/ajouterCommentaire'); ?>
-				<?= form_input('commentaire', '', ['id' => 'commentaire', 'required' => 'required']); ?>
-				<?= form_hidden('id', ''); ?>
-				<?= form_submit('submit', 'Ajouter'); ?>
-			<?= form_close(); ?>
+			<textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
+			<button id="valider-commentaire">Valider</button>
 		</div>
 
 		<div id="bandeau-footer">

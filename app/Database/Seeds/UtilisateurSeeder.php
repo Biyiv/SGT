@@ -16,7 +16,7 @@ class UtilisateurSeeder extends Seeder
                 'nom'      => 'Lecarpentier',
                 'prenom'   => 'Luc',
                 'mail'     => 'luc.lecarpentier5@gmail.com',
-                'mdp'      => password_hash('pwdLuc', PASSWORD_DEFAULT),
+                'mdp'      => password_hash('Motdepasse1', PASSWORD_DEFAULT),
                 'active'   => true, 
             ],
             [
@@ -25,6 +25,22 @@ class UtilisateurSeeder extends Seeder
                 'prenom'   => 'Baptiste',
                 'mail'     => 'baptiste.hay@hotmail.fr',
                 'mdp'      => password_hash('MaisTesPasNet', PASSWORD_DEFAULT),
+                'active'   => true,
+            ],
+			[
+                'username' => 'Luck',
+                'nom'      => 'Dupont',
+                'prenom'   => 'Lucas',
+                'mail'     => 'lucas.dupont@sfr.fr',
+                'mdp'      => password_hash('Motdepasse1', PASSWORD_DEFAULT),
+                'active'   => true,
+            ],
+			[
+                'username' => 'Lucifer',
+                'nom'      => 'Fer',
+                'prenom'   => 'Lucie',
+                'mail'     => 'fer.lucie@gmail.com',
+                'mdp'      => password_hash('Motdepasse1', PASSWORD_DEFAULT),
                 'active'   => true,
             ],
         ];
