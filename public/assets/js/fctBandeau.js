@@ -340,7 +340,38 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 
-	function afficherBtn() {
+	document.getElementById('supprimer-tache').addEventListener('click', supprimerCommentaire);
 
+
+	function supprimerCommentaire() {
+
+		const commentaires = document.querySelectorAll('.commentaire');
+
+		commentaires.forEach(commentaire => {
+			if(commentaire.style.display === 'block') {
+				const id = commentaire.id;
+				const idTache = document.getElementById('bandeau-id').textContent;
+
+				const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
+
+				if(confirmation) {
+					fetch(`/taches/${idTache}/commentaires/${id}`, {
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json',
+						}
+					})
+					.then(response => {
+						return response.json();
+					})
+					.then(data => {
+						getCommentaires(idTache);
+					});
+				} else {
+					alert('Le commentaire n\'a pas été supprimé');
+				}
+			}
+		});
 	}
+
 });
