@@ -240,17 +240,17 @@
 		<div class="commentaires">
 			
 		</div>
-		<button id="ajouter-commentaire">Ajouter un commentaire</button>
+		<button id="ajouter-commentaire" class="btn btn-primary btn-sm">Ajouter un commentaire</button>
 
 		<!-- A transformer en modal -->
 		<div id="commentaire-form">
 			<textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
-			<button id="valider-commentaire">Valider</button>
+			<button id="valider-commentaire" class="btn btn-primary btn-sm">Valider</button>
 		</div>
 
 		<div id="bandeau-footer">
-			<button id="supprimer-tache">Supprimer</button>
-			<button id="modifier-tache">Modifier</button>
+			<button id="supprimer-tache" class="btn btn-primary btn-sm">Supprimer</button>
+			<button id="modifier-tache" class="btn btn-primary btn-sm">Modifier</button>
 		</div>
 	</div>
 

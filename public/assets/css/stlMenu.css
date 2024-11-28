@@ -307,10 +307,9 @@ button {
 	color: #E6E6E6;
 	border: none;
 	border-radius: 5px;
-	cursor: pointer;
 }
 
-.bandeau button:hover {
+button:hover {
 	background-color: #0056b3;
 }
 
