@@ -41,11 +41,11 @@ class Database extends Config
     public string $defaultGroup = 'default';
 
     public array $default = [
-        'DSN'          => '',
-        'hostname'     => 'localhost', 
-        'username'     => '',
-        'password'     => '',
-        'database'     => '',
+        'DSN'          => 'Postgre://{identifiant}:{mot de passe}@woody.iut.univ-lehavre.fr:5432',
+        'hostname'     => 'woody.iut.univ-lehavre.fr',
+        'username'     => '{identifiant}',
+        'password'     => '{mot de passe}',
+        'database'     => '{nom de la base}',
         'DBDriver'     => 'Postgre',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -124,6 +124,21 @@ php spark db:seed TacheSeeder
 enfin : 
 ```bash
 php spark db:seed CommentaireSeeder
+```
+
+### 5. Configurer l'envoi de rappels
+
+Ecrivez la commande : 
+```bash
+crontab -e
+```
+puis dans le fichier qui est ouvert mettez la ligne suivante : 
+```
+0 8 * * * /usr/bin/php /CodeIgniter/SGT/public/index.php EmailNotificationController envoyerNotificationParMail
+```
+ce qui correspond à : 
+```
+(tous les jours à 8h) (emplacement de php) (path pour ce projet)/public/index.php EmailNotificationController envoyerNotificationParMail
 ```
 
 ## Lancement de l'application
