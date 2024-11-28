@@ -198,8 +198,34 @@ document.addEventListener("DOMContentLoaded", () => {
 				console.error('Erreur:', error);
 			});
 		});
-
+		
 		document.getElementById('bandeau-droit').appendChild(sauvegarderBtn);
+
+		// Ajoute un bouton sauvegarder
+		const supprimerBtn = document.createElement('button');
+		supprimerBtn.textContent = 'Supprimer';
+		supprimerBtn.id = 'supprimer';
+		supprimerBtn.classList.add('btn');
+		supprimerBtn.classList.add('btn-primary');
+		supprimerBtn.classList.add('btn-sm');
+		supprimerBtn.classList.add('m-2');
+
+		const gestionnaireTachesSuppr = document.querySelector('.conteneur-taches')
+
+		gestionnaireTachesSuppr.style.pointerEvents = 'none';
+
+		supprimerBtn.addEventListener('click', () => {
+			fetch('/dmdSupprimerTache/' + id, {
+				method: 'POST',
+			}).then(() => {
+				gestionnaireTaches.style.pointerEvents = 'auto';
+				location.reload();
+			}).catch((error) => {
+				console.error('Erreur:', error);
+			});
+		});
+
+		document.getElementById('bandeau-droit').appendChild(supprimerBtn);
 	});
 
 	// Fonction pour réinitialiser le bandeau en version non éditable
@@ -233,6 +259,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		const sauvegarderBtn = document.getElementById('sauvegarder');
 		if (sauvegarderBtn) {
 			sauvegarderBtn.remove();
+		}
+
+		const supprimerBtn = document.getElementById('supprimer');
+		if (supprimerBtn) {
+			supprimerBtn.remove();
 		}
 	}
 
