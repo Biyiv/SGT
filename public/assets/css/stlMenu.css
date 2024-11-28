@@ -285,9 +285,11 @@ label {
     margin: 10px; /* Marge autour de chaque bloc */
     padding: 10px 25px 10px 25px; /* Espacement interne pour le contenu */
     border: 2px solid #64ACFA; /* Bordure bleue de 2 pixels */
+    box-shadow: 10px 5px 5px rgba(78, 145, 217, 0.1);
     border-radius: 5px; /* Coins arrondis pour un aspect plus doux */
     background-color: #E6E6E6; /* Couleur de fond légère */
-    width: 22%;
+    min-width: 26rem;
+    width: 26rem;
 }
 
 
@@ -307,10 +309,9 @@ button {
 	color: #E6E6E6;
 	border: none;
 	border-radius: 5px;
-	cursor: pointer;
 }
 
-.bandeau button:hover {
+button:hover {
 	background-color: #0056b3;
 }
 
@@ -362,7 +363,7 @@ button {
     position: fixed;
     top: 0;
     right: 0;
-    width: 30%;
+    width: 28%;
     height: 100%;
     background-color: #E6E6E6;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
@@ -403,7 +404,7 @@ button {
     justify-content: center;
     list-style-type: none;
     padding: 0;
-    margin: 2% 0;
+    margin: 1% 0;
 }
 
 .pagination li {
@@ -435,4 +436,10 @@ button {
 
 #bandeau-droit #username {
     display: none;
+}
+
+.commentaire-form {
+    position: relative;
+    top: 40%;
+    margin: 0 7%;
 }
