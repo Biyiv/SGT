@@ -380,10 +380,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				// Initialiser le compteur pour suivre l'élément affiché
 				let cpt = 0;
 
-				// Initialiser : afficher uniquement le premier div
-				divs.forEach((div, index) => {
-					div.style.display = index === 0 ? 'block' : 'none';
-				});
 
 				// Gestion du bouton "Précédent"
 				btnPrecedent.addEventListener('click', () => {
