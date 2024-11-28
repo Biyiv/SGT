@@ -137,20 +137,6 @@ class TacheController extends BaseController
 		}
 	}
 
-	public function dmdSupprimerTache($id) {
-		$tacheModel = new TacheModel();
-		$tache = $tacheModel->find($id);
-	
-		if (!$tache) {
-			$this->session->setFlashdata('error', 'Tâche non trouvée');
-			return redirect()->to('/dashboard');
-		}
-	
-		$this->session->setFlashdata('demandeSuppr', 'Voulez vous supprimer la tache : " '. $tache['titre'] . ' " ?');
-		$this->session->setFlashdata('demandeSupprId', $id);
-		return $this->response->setJSON(['demandeSuppr' => 'Voulez vous supprimer la tache : " '. $tache['titre'] . ' " ?' , 'demandeSupprId' => $id]);
-		
-	}
 	public function supprimerTache($id) {
 		$tacheModel = new TacheModel();
 		$tache = $tacheModel->find($id);

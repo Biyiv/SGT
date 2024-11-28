@@ -218,15 +218,23 @@ document.addEventListener("DOMContentLoaded", () => {
 		gestionnaireTachesSuppr.style.pointerEvents = 'none';
 
 		supprimerBtn.addEventListener('click', () => {
-			fetch('/dmdSupprimerTache/' + id, {
-				method: 'POST',
-			}).then(() => {
-				gestionnaireTaches.style.pointerEvents = 'auto';
-				location.reload();
-			}).catch((error) => {
-				console.error('Erreur:', error);
-			});
+			const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
+
+			if(confirmation) {
+				fetch('/supprimerTache/' + id, {
+					method: 'POST',
+				}).then(() => {
+					gestionnaireTaches.style.pointerEvents = 'auto';
+					location.reload();
+				}).catch((error) => {
+					console.error('Erreur:', error);
+				});
+			} else {
+				alert('Le commentaire n\'a pas été supprimé');
+			}
 		});
+
+		
 
 		document.getElementById('bandeau-droit').appendChild(supprimerBtn);
 	});

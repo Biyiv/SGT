@@ -58,21 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			modal.style.display = "none";
 		}
 	});
-
-
-	const modalDmd = document.getElementById("dmd-modal");
-
-	// Si un message d'erreur existe, affiche le modal
-	if (modalDmd.querySelector("h2").innerText.trim() !== "") {
-		modalDmd.style.display = "flex";
-	}
-
-	// Ferme le modal en cliquant à l'extérieur du contenu
-	modalDmd.addEventListener("click", (e) => {
-		if (e.target === modal) {
-			modalDmd.style.display = "none";
-		}
-	});
 });
 
 function hexToRgb(hex) {

@@ -40,19 +40,6 @@
 		</div>
 	</div>
 
-	<div id="dmd-modal" class="modal">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h2>
-					<?= session()->getFlashdata('demandeSuppr') ?>
-				</h2>
-				<button class="close-btn">&times;</button>
-			</div>
-			<a href="/supprimerTache/<?= session()->getFlashdata('demandeSupprId') ?>">Confirmer</a>
-			<a href="/dashboard">Annuler</a>
-		</div>
-	</div>
-
 	<nav class="navbar">
 		<div class="left-section">
 			<div>
