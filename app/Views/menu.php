@@ -240,16 +240,14 @@
 		<div class="commentaires">
 			
 		</div>
-		<button id="ajouter-commentaire">Ajouter un commentaire</button>
+		<button id="ajouter-commentaire" class="btn btn-primary btn-sm">Ajouter un commentaire</button>
 
 		
 		<div class="modal" id="commentaire-modal">
 			<div class="modal-content commentaire-form">
-				<div>	
-					<textarea name="commentaire" id="commentaire" cols="43" rows="3"></textarea><br>
-					<button id="valider-commentaire">Valider</button>
-					<button id="closeModalBtnCommentaire">Annuler</button>
-				</div>
+				<textarea name="commentaire" id="commentaire" cols="43" rows="3"></textarea><br>
+				<button id="valider-commentaire">Valider</button>
+				<button id="closeModalBtnCommentaire">Annuler</button>
 			</div>
 		</div>
 
