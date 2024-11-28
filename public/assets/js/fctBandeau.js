@@ -308,25 +308,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 					divCommentaires.appendChild(divBtns);
 
-					document.getElementById('btn-precedent').addEventListener('click', () => {
+					const btnPrecedent = document.getElementById('btn-precedent');
+					const btnSuivant = document.getElementById('btn-suivant');
+					const btnContainer = document.querySelector('.btns');
+
+					// Fonction pour masquer un bouton
+					function hideButton(button) {
+						button.style.visibility = 'collapse'; // Masque complètement le bouton
+						// Ajuste la position du bouton restant
+						btnContainer.style.justifyContent = 'center';
+					}
+
+					btnPrecedent.addEventListener('click', () => {
+						btnSuivant.style.visibility = 'visible';
 						const divs = document.querySelectorAll('.commentaire');
 						let cpt = 0;
 						divs.forEach(div => {
 							if(div.style.display === 'block' && cpt !== 0) {
 								div.style.display = 'none';
 								divs[cpt - 1].style.display = 'block';
+								if ( cpt === 0 )
+									btnPrecedent.style.visibility = 'collapse';
 							}
 							cpt++;
 						});
 					});
 
-					document.getElementById('btn-suivant').addEventListener('click', () => {
+					btnSuivant.addEventListener('click', () => {
+						btnPrecedent.style.visibility = 'visible'
 						const divs = document.querySelectorAll('.commentaire');
 						let cpt = 0;
 						divs.forEach(div => {
 							if(div.style.display === 'block' && cpt !== divs.length - 1) {
 								div.style.display = 'none';
 								divs[cpt + 1].style.display = 'block';
+								if ( cpt === div.length )
+									btnSuivant.style.visibility = 'collapse';
 							}
 							cpt++;
 						});
