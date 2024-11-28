@@ -99,6 +99,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	document.getElementById('crayon').addEventListener('click', () => {
+
+		document.getElementById('crayon').style.display = 'none';
+
 		// Transformer le titre en input
 		const titreElement = document.getElementById('bandeau-titre');
 		const titreInput = document.createElement('input');
@@ -159,8 +162,32 @@ document.addEventListener("DOMContentLoaded", () => {
 		const priorite = document.getElementById('select-priorite');
 		priorite.removeAttribute('disabled');
 		
+		const mtn = new Date();
 		const statut = document.getElementById('select-statut');
-		statut.removeAttribute('disabled');
+		statut.removeAttribute('disabled'); 
+
+		statut.innerHTML = '';
+
+		// Vérifier si la date actuelle est supérieure à la date d'échéance
+		const options = mtn > formattedDateE
+			? [
+				{ value: 'en retard', text: 'En retard' },
+				{ value: 'termine', text: 'Terminée' },
+			]
+			: [
+				{ value: 'en attente', text: 'En attente' },
+				{ value: 'en cours', text: 'En cours' },
+				{ value: 'termine', text: 'Terminée' },
+			];
+
+		options.forEach(optionData => {
+			const option = document.createElement('option');
+			option.value = optionData.value;
+			option.textContent = optionData.text;
+			statut.appendChild(option);
+		});
+
+		
 
 		// Ajoute un bouton sauvegarder
 		const sauvegarderBtn = document.createElement('button');
@@ -198,8 +225,42 @@ document.addEventListener("DOMContentLoaded", () => {
 				console.error('Erreur:', error);
 			});
 		});
-
+		
 		document.getElementById('bandeau-droit').appendChild(sauvegarderBtn);
+
+		// Ajoute un bouton supprimer
+		const supprimerBtn = document.createElement('button');
+		supprimerBtn.textContent = 'Supprimer';
+		supprimerBtn.id = 'supprimer';
+		supprimerBtn.classList.add('btn');
+		supprimerBtn.classList.add('btn-primary');
+		supprimerBtn.classList.add('btn-sm');
+		supprimerBtn.classList.add('m-2');
+
+		const gestionnaireTachesSuppr = document.querySelector('.conteneur-taches')
+
+		gestionnaireTachesSuppr.style.pointerEvents = 'none';
+
+		supprimerBtn.addEventListener('click', () => {
+			const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
+
+			if(confirmation) {
+				fetch('/supprimerTache/' + id, {
+					method: 'POST',
+				}).then(() => {
+					gestionnaireTaches.style.pointerEvents = 'auto';
+					location.reload();
+				}).catch((error) => {
+					console.error('Erreur:', error);
+				});
+			} else {
+				alert('Le commentaire n\'a pas été supprimé');
+			}
+		});
+
+		
+
+		document.getElementById('bandeau-droit').appendChild(supprimerBtn);
 	});
 
 	// Fonction pour réinitialiser le bandeau en version non éditable
@@ -233,6 +294,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		const sauvegarderBtn = document.getElementById('sauvegarder');
 		if (sauvegarderBtn) {
 			sauvegarderBtn.remove();
+		}
+
+		const supprimerBtn = document.getElementById('supprimer');
+		if (supprimerBtn) {
+			supprimerBtn.remove();
 		}
 	}
 
@@ -298,41 +364,96 @@ document.addEventListener("DOMContentLoaded", () => {
 					divCommentaires.appendChild(divCommentaire);
 				})
 
-				if(cpt > 0) {
+				if(cpt > 1) {
 					const divBtns = document.createElement('div');
 					divBtns.classList.add('btns');
 					divBtns.innerHTML = `
-						<button id="btn-precedent" class="btn btn-primary btn-sm">Précédent</button>
-						<button id="btn-suivant" class="btn btn-primary btn-sm">Suivant</button>
+						<button id="btn-precedent" class="btn btn-primary btn-sm"><< Précédent</button>
+						<button id="btn-suivant" class="btn btn-primary btn-sm">Suivant >></button>
 					`;
 
 					divCommentaires.appendChild(divBtns);
 
-					document.getElementById('btn-precedent').addEventListener('click', () => {
-						const divs = document.querySelectorAll('.commentaire');
-						let cpt = 0;
-						divs.forEach(div => {
-							if(div.style.display === 'block' && cpt !== 0) {
-								div.style.display = 'none';
-								divs[cpt - 1].style.display = 'block';
-							}
-							cpt++;
-						});
+					const btnPrecedent = document.getElementById('btn-precedent');
+					const btnSuivant = document.getElementById('btn-suivant');
+
+					// Sélectionner tous les divs avec la classe "commentaire"
+					const divs = document.querySelectorAll('.commentaire');
+
+					// Initialiser le compteur pour suivre l'élément affiché
+					let cpt = 0;
+
+					// Initialiser : afficher uniquement le premier div
+					divs.forEach((div, index) => {
+						div.style.display = index === 0 ? 'block' : 'none';
 					});
 
-					document.getElementById('btn-suivant').addEventListener('click', () => {
-						const divs = document.querySelectorAll('.commentaire');
-						let cpt = 0;
-						divs.forEach(div => {
-							if(div.style.display === 'block' && cpt !== divs.length - 1) {
-								div.style.display = 'none';
-								divs[cpt + 1].style.display = 'block';
-							}
-							cpt++;
-						});
+					// Gestion du bouton "Précédent"
+					btnPrecedent.addEventListener('click', () => {
+						if (cpt > 0) {
+							divs[cpt].style.display = 'none'; // Cacher le div actuel
+							cpt--; // Décrémenter le compteur
+							divs[cpt].style.display = 'block'; // Afficher le div précédent
+						}
+
+						// Activer/désactiver les boutons selon la position
+						btnSuivant.style.visibility = 'visible';
+						if (cpt === 0) {
+							btnPrecedent.style.visibility = 'collapse';
+						}
+					});
+
+					// Gestion du bouton "Suivant"
+					btnSuivant.addEventListener('click', () => {
+						if (cpt < divs.length - 1) {
+							divs[cpt].style.display = 'none'; // Cacher le div actuel
+							cpt++; // Incrémenter le compteur
+							divs[cpt].style.display = 'block'; // Afficher le div suivant
+						}
+
+						// Activer/désactiver les boutons selon la position
+						btnPrecedent.style.visibility = 'visible';
+						if (cpt === divs.length - 1) {
+							btnSuivant.style.visibility = 'collapse';
+						}
 					});
 				}
 			}
 		});
 	}
+
+	document.getElementById('supprimer-tache').addEventListener('click', supprimerCommentaire);
+
+
+	function supprimerCommentaire() {
+
+		const commentaires = document.querySelectorAll('.commentaire');
+
+		commentaires.forEach(commentaire => {
+			if(commentaire.style.display === 'block') {
+				const id = commentaire.id;
+				const idTache = document.getElementById('bandeau-id').textContent;
+
+				const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
+
+				if(confirmation) {
+					fetch(`/taches/${idTache}/commentaires/${id}`, {
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json',
+						}
+					})
+					.then(response => {
+						return response.json();
+					})
+					.then(data => {
+						getCommentaires(idTache);
+					});
+				} else {
+					alert('Le commentaire n\'a pas été supprimé');
+				}
+			}
+		});
+	}
+
 });

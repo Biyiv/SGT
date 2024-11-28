@@ -88,7 +88,7 @@
 		</div>
 		<div class="right-section">
 			<div>
-				<button id="openModalBtnProfil"><h1><?= esc(session()->get('utilisateur')['username']) ?></h1></button>
+				<button id="openModalBtnProfil"><h1><?= strlen(session()->get('utilisateur')['username']) > 9 ? substr(session()->get('utilisateur')['username'], 0, 9) . ' ...' : session()->get('utilisateur')['username']; ?></h1></button>
 			</div>
 			<div>
 				<a href="/logout"><img id="logout" src="/assets/images/logout.png" alt="Image de profil"></a>
@@ -158,11 +158,11 @@
 				<br>
 				
 				<?= form_label('Début :', 'debut'); ?>
-				<?= form_input(['type' => 'datetime-local', 'name' => 'debut', 'id' => 'debut', 'value' => date('Y-m-d\TH:i')]); ?>
+				<?= form_input(['type' => 'datetime-local', 'name' => 'debut', 'id' => 'debut', 'value' => date('Y-m-d\TH:i', strtotime('+1 hour'))]); ?>
 				<br>
 				
 				<?= form_label('Échéance :', 'echeance'); ?>
-				<?= form_input(['type' => 'datetime-local', 'name' => 'echeance', 'id' => 'echeance', 'value' => date('Y-m-d\TH:i', strtotime('+1 day'))]); ?> 
+				<?= form_input(['type' => 'datetime-local', 'name' => 'echeance', 'id' => 'echeance', 'value' => date('Y-m-d\TH:i' , strtotime('+25 hours'))]); ?> 
 				<br>
 				
 				<?= form_label('Priorité :', 'priorite'); ?>
@@ -221,12 +221,6 @@
 			<p><span id="bandeau-id"></span></p>
 		</div>
 
-		<div class="commentaires">
-			
-		</div>
-		<!-- Affichage des liens de pagination -->
-		
-
 		<p><strong>Priorité :</strong>
 			<span id="bandeau-priorite">
 				<select name="select-priorite" id="select-priorite" disabled>
@@ -245,6 +239,23 @@
 				</select>
 			</span>
 		</p>
+
+		<div class="commentaires">
+			
+		</div>
+		<button id="ajouter-commentaire">Ajouter un commentaire</button>
+		<div id="commentaire-form">
+			<?= form_open('/ajouterCommentaire'); ?>
+				<?= form_input('commentaire', '', ['id' => 'commentaire', 'required' => 'required']); ?>
+				<?= form_hidden('id', ''); ?>
+				<?= form_submit('submit', 'Ajouter'); ?>
+			<?= form_close(); ?>
+		</div>
+
+		<div id="bandeau-footer">
+			<button id="supprimer-tache">Supprimer</button>
+			<button id="modifier-tache">Modifier</button>
+		</div>
 	</div>
 
 
