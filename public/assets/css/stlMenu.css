@@ -324,14 +324,31 @@ body {
 }
 
 .bandeau-visible .navbar {
-    margin-left: 5%;
-    margin-right: 40%;
+    margin-left: 4%;
+    margin-right: 32%;
 }
 
 .bandeau-visible #paginationTache {
     opacity: 0; /* Invisible */
     visibility: hidden; /* Masqué */
     transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    margin: 5px 10%;
+}
+
+#btn-precedent {
+    visibility: collapse;
+    margin: 0 3%;
+    width: 40%;
+}
+
+#btn-suivant {
+    margin: 0 3%;
+    width: 40%;
 }
 
 #bandeau-droit {

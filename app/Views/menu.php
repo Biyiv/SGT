@@ -86,7 +86,7 @@
 		</div>
 		<div class="right-section">
 			<div>
-				<button id="openModalBtnProfil"><h1><?= esc(session()->get('utilisateur')['username']) ?></h1></button>
+				<button id="openModalBtnProfil"><h1><?= strlen(session()->get('utilisateur')['username']) > 9 ? substr(session()->get('utilisateur')['username'], 0, 9) . ' ...' : session()->get('utilisateur')['username']; ?></h1></button>
 			</div>
 			<div>
 				<a href="/logout"><img id="logout" src="/assets/images/logout.png" alt="Image de profil"></a>
