@@ -23,7 +23,7 @@ git clone git@github.com:Biyiv/SGT.git
 
 ## 2. Ajouter un fichier pour se connecter à la Base de Données
 
-Dans le répertoire ``` app/Config/ ``` ajouter un fichier ``` /Database.php ``` qui à la structure suivante : 
+Dans le répertoire ``` app/Config/ ``` ajouter un fichier ``` Database.php ``` qui à la structure suivante : 
 ```php
 <?php
 
@@ -31,9 +31,6 @@ namespace Config;
 
 use CodeIgniter\Database\Config;
 
-/**
- * Database Configuration
- */
 class Database extends Config
 {
     /**
@@ -77,11 +74,6 @@ class Database extends Config
         ],
     ];
 
-    /**
-     * This database connection is used when running PHPUnit database tests.
-     *
-     * @var array<string, mixed>
-     */
     public array $tests = [
         'DSN'         => '',
         'hostname'    => '127.0.0.1',
@@ -122,4 +114,4 @@ class Database extends Config
     }
 }
 ```
-Modifiez désormais le ```$default``` afin d'avoir vos informations de connexion à la base de données.
+Modifiez désormais le ```php $default ``` afin d'avoir vos informations de connexion à la base de données.
