@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		bandeauEcheance.textContent = echeance;
 		bandeauId.textContent = id;
 
-		if(username !== creepar) {
+		if (username !== creepar) {
 			bandeauCrayon.style.display = 'none';
 		} else {
 			bandeauCrayon.style.removeProperty('display');
@@ -109,14 +109,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		titreInput.id = 'bandeau-titre';
 		titreInput.value = titreElement.textContent;
 		titreElement.replaceWith(titreInput);
-	
+
 		// Transformer la description en textarea
 		const descriptionElement = document.getElementById('bandeau-description');
 		const descriptionInput = document.createElement('textarea');
 		descriptionInput.id = 'bandeau-description';
 		descriptionInput.textContent = descriptionElement.textContent;
 		descriptionElement.replaceWith(descriptionInput);
-	
+
 		// Transformer le champ "Créé par" en input
 		const creeparElement = document.getElementById('bandeau-creepar');
 		const creeparInput = document.createElement('input');
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		creeparInput.id = 'bandeau-creepar';
 		creeparInput.value = creeparElement.textContent;
 		creeparElement.replaceWith(creeparInput);
-	
+
 		// Transformer le champ "Début" en input de type datetime-local
 		const debutElement = document.getElementById('bandeau-debut');
 		const debutInput = document.createElement('input');
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		// Mettre la valeur de l'input avec le format ISO 8601 (sans les secondes et le fuseau horaire)
 		debutInput.value = formattedDateD.toISOString().slice(0, 16);
 		debutElement.replaceWith(debutInput);
-	
+
 		// Transformer le champ "Échéance" en input de type datetime-local
 		const echeanceElement = document.getElementById('bandeau-echeance');
 		const echeanceInput = document.createElement('input');
@@ -161,10 +161,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		const priorite = document.getElementById('select-priorite');
 		priorite.removeAttribute('disabled');
-		
+
 		const mtn = new Date();
 		const statut = document.getElementById('select-statut');
-		statut.removeAttribute('disabled'); 
+		statut.removeAttribute('disabled');
 
 		statut.innerHTML = '';
 
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			statut.appendChild(option);
 		});
 
-		
+
 
 		// Ajoute un bouton sauvegarder
 		const sauvegarderBtn = document.createElement('button');
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				console.error('Erreur:', error);
 			});
 		});
-		
+
 		document.getElementById('bandeau-droit').appendChild(sauvegarderBtn);
 
 		// Ajoute un bouton supprimer
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		supprimerBtn.addEventListener('click', () => {
 			const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
 
-			if(confirmation) {
+			if (confirmation) {
 				fetch('/supprimerTache/' + id, {
 					method: 'POST',
 				}).then(() => {
@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 
-		
+
 
 		document.getElementById('bandeau-droit').appendChild(supprimerBtn);
 	});
@@ -336,19 +336,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			divCommentaires.innerHTML = '';
 
-			if(data.length === 0) {
+			if (data.length === 0) {
 				const divCommentaire = document.createElement('div');
 				divCommentaire.classList.add('commentaire');
 				divCommentaire.innerHTML = `
-					<h5>Aucun commentaire</h5>
-				`;
+				<h5>Aucun commentaire</h5>
+			`;
 
 				divCommentaires.appendChild(divCommentaire);
 			} else {
 				data.forEach(commentaire => {
 					const divCommentaire = document.createElement('div');
 					divCommentaire.classList.add('commentaire');
-					if(data.indexOf(commentaire) !== 0) {
+					if (data.indexOf(commentaire) !== 0) {
 						divCommentaire.style.display = 'none';
 					}
 					else {
@@ -356,8 +356,8 @@ document.addEventListener("DOMContentLoaded", () => {
 					}
 					divCommentaire.id = commentaire.id;
 					divCommentaire.innerHTML = `
-						<h5>${commentaire.creepar}</h5>
-						<p>${commentaire.commentaire}</p>
+					<h5>${commentaire.creepar}</h5>
+					<p>${commentaire.commentaire}</p>
 					`;
 					divCommentaires.appendChild(divCommentaire);
 				})
@@ -365,131 +365,131 @@ document.addEventListener("DOMContentLoaded", () => {
 				const divBtns = document.createElement('div');
 				divBtns.classList.add('btns');
 				divBtns.innerHTML = `
-					<button id="btn-precedent" class="btn btn-primary btn-sm">Précédent</button>
-					<button id="btn-suivant" class="btn btn-primary btn-sm">Suivant</button>
+				<button id="btn-precedent" class="btn btn-primary btn-sm">Précédent</button>
+				<button id="btn-suivant" class="btn btn-primary btn-sm">Suivant</button>
 				`;
 
 				divCommentaires.appendChild(divBtns);
 
-					const btnPrecedent = document.getElementById('btn-precedent');
-					const btnSuivant = document.getElementById('btn-suivant');
+				const btnPrecedent = document.getElementById('btn-precedent');
+				const btnSuivant = document.getElementById('btn-suivant');
 
-					// Sélectionner tous les divs avec la classe "commentaire"
-					const divs = document.querySelectorAll('.commentaire');
+				// Sélectionner tous les divs avec la classe "commentaire"
+				const divs = document.querySelectorAll('.commentaire');
 
-					// Initialiser le compteur pour suivre l'élément affiché
-					let cpt = 0;
+				// Initialiser le compteur pour suivre l'élément affiché
+				let cpt = 0;
 
-					// Initialiser : afficher uniquement le premier div
-					divs.forEach((div, index) => {
-						div.style.display = index === 0 ? 'block' : 'none';
-					});
+				// Initialiser : afficher uniquement le premier div
+				divs.forEach((div, index) => {
+					div.style.display = index === 0 ? 'block' : 'none';
+				});
 
-					// Gestion du bouton "Précédent"
-					btnPrecedent.addEventListener('click', () => {
-						if (cpt > 0) {
-							divs[cpt].style.display = 'none'; // Cacher le div actuel
-							cpt--; // Décrémenter le compteur
-							divs[cpt].style.display = 'block'; // Afficher le div précédent
-						}
+				// Gestion du bouton "Précédent"
+				btnPrecedent.addEventListener('click', () => {
+					if (cpt > 0) {
+						divs[cpt].style.display = 'none'; // Cacher le div actuel
+						cpt--; // Décrémenter le compteur
+						divs[cpt].style.display = 'block'; // Afficher le div précédent
+					}
 
-						// Activer/désactiver les boutons selon la position
-						btnSuivant.style.visibility = 'visible';
-						if (cpt === 0) {
-							btnPrecedent.style.visibility = 'collapse';
-						}
-					});
+					// Activer/désactiver les boutons selon la position
+					btnSuivant.style.visibility = 'visible';
+					if (cpt === 0) {
+						btnPrecedent.style.visibility = 'collapse';
+					}
+				});
 
-					// Gestion du bouton "Suivant"
-					btnSuivant.addEventListener('click', () => {
-						if (cpt < divs.length - 1) {
-							divs[cpt].style.display = 'none'; // Cacher le div actuel
-							cpt++; // Incrémenter le compteur
-							divs[cpt].style.display = 'block'; // Afficher le div suivant
-						}
+				// Gestion du bouton "Suivant"
+				btnSuivant.addEventListener('click', () => {
+					if (cpt < divs.length - 1) {
+						divs[cpt].style.display = 'none'; // Cacher le div actuel
+						cpt++; // Incrémenter le compteur
+						divs[cpt].style.display = 'block'; // Afficher le div suivant
+					}
 
-						// Activer/désactiver les boutons selon la position
-						btnPrecedent.style.visibility = 'visible';
-						if (cpt === divs.length - 1) {
-							btnSuivant.style.visibility = 'collapse';
-						}
-					});
-				}
+					// Activer/désactiver les boutons selon la position
+					btnPrecedent.style.visibility = 'visible';
+					if (cpt === divs.length - 1) {
+						btnSuivant.style.visibility = 'collapse';
+					}
+				});
 			}
 		});
 	}
 
-	document.getElementById('valider-commentaire').addEventListener('click', ajouterCommentaire);
-	function ajouterCommentaire() {
-		const idTache = document.getElementById('bandeau-id').textContent.trim();
-		const commentaire = document.getElementById('commentaire').value.trim();
-	
-		if (commentaire !== '') {
-			fetch(`/taches/${idTache}/ajouterCommentaire`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ commentaire: commentaire }),
+
+document.getElementById('valider-commentaire').addEventListener('click', ajouterCommentaire);
+function ajouterCommentaire() {
+	const idTache = document.getElementById('bandeau-id').textContent.trim();
+	const commentaire = document.getElementById('commentaire').value.trim();
+
+	if (commentaire !== '') {
+		fetch(`/taches/${idTache}/ajouterCommentaire`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ commentaire: commentaire }),
+		})
+			.then(response => {
+				if (!response.ok) {
+					//throw new Error(`Erreur serveur : ${response.status}`);
+				}
+				return response.json();
 			})
-				.then(response => {
-					if (!response.ok) {
-						//throw new Error(`Erreur serveur : ${response.status}`);
-					}
-					return response.json();
-				})
-				.then(data => {
-					if (data.success) {
-						alert('Le commentaire a été ajouté');
-						getCommentaires(idTache); // Rafraîchir les commentaires
-					} else {
-						alert(data.error || 'Erreur inconnue lors de l\'ajout du commentaire.');
-					}
-				})
-				.catch(error => {
-					console.error('Erreur :', error);
-					alert('Impossible d\'ajouter le commentaire. Vérifiez votre connexion ou contactez un administrateur.');
-				});
+			.then(data => {
+				if (data.success) {
+					alert('Le commentaire a été ajouté');
+					getCommentaires(idTache); // Rafraîchir les commentaires
+				} else {
+					alert(data.error || 'Erreur inconnue lors de l\'ajout du commentaire.');
+				}
+			})
+			.catch(error => {
+				console.error('Erreur :', error);
+				alert('Impossible d\'ajouter le commentaire. Vérifiez votre connexion ou contactez un administrateur.');
+			});
 
-				document.getElementById('commentaire').value = '';
-		} else {
-			alert('Veuillez remplir le champ commentaire');
-		}
+		document.getElementById('commentaire').value = '';
+	} else {
+		alert('Veuillez remplir le champ commentaire');
 	}
-	
+}
 
 
-	document.getElementById('supprimer-tache').addEventListener('click', supprimerCommentaire);
-	function supprimerCommentaire() {
 
-		const commentaires = document.querySelectorAll('.commentaire');
+document.getElementById('supprimer-tache').addEventListener('click', supprimerCommentaire);
+function supprimerCommentaire() {
 
-		commentaires.forEach(commentaire => {
-			if(commentaire.style.display === 'block') {
-				const id = commentaire.id;
-				const idTache = document.getElementById('bandeau-id').textContent;
+	const commentaires = document.querySelectorAll('.commentaire');
 
-				const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
+	commentaires.forEach(commentaire => {
+		if (commentaire.style.display === 'block') {
+			const id = commentaire.id;
+			const idTache = document.getElementById('bandeau-id').textContent;
 
-				if(confirmation) {
-					fetch(`/taches/supprimerCommentaires/${id}`, {
-						method: 'DELETE',
-						headers: {
-							'Content-Type': 'application/json',
-						}
-					})
+			const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
+
+			if (confirmation) {
+				fetch(`/taches/supprimerCommentaires/${id}`, {
+					method: 'DELETE',
+					headers: {
+						'Content-Type': 'application/json',
+					}
+				})
 					.then(response => {
 						return response.json();
 					})
 					.then(data => {
-						if(data) {
+						if (data) {
 							alert('Le commentaire a été supprimé');
 							getCommentaires(idTache);
 						}
 					});
-				}
 			}
-		});
-	}
+		}
+	});
+}
 
 });
