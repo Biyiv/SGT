@@ -76,9 +76,6 @@
 				<?= form_close(); ?>
 			</div>
 			<div>
-			<a href="/resetRecherche">Reset</a>
-			</div>
-			<div>
 				<hr>
 			</div>
 			<div>

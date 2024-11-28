@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Ajouter des événements aux tâches
 	taches.forEach((tache) => {
 		tache.addEventListener('click', () => {
-			if (tache.style.backgroundColor === hexToRgb('#007BFF')) {
+			if (tache.style.backgroundColor === hexToRgb('#64ACFA')) {
 				tache.style.backgroundColor = ''; // Remettre à l'état normal
 				tache.style.color = 'black';
 				fermerBandeau();
@@ -78,8 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
 					t.style.backgroundColor = '';
 					t.style.color = 'black';
 				});
-				tache.style.backgroundColor = '#007BFF'; // Appliquer la couleur de fond
-				tache.style.color = 'white';
+				tache.style.backgroundColor = '#64ACFA'; // Appliquer la couleur de fond
+				tache.style.color = '#E6E6E6';
 				afficherDetailsTache(tache);
 				afficherBandeau();
 			}

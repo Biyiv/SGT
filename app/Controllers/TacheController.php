@@ -75,13 +75,10 @@ class TacheController extends BaseController
 		if ($recherche) {
 			$session->set('recherche', $recherche);
 		}
+		else {
+			$session->set('recherche', "");
+		}
 
-		return redirect()->to('/dashboard');
-	}
-	public function resetRecherche()
-	{
-		$session = session();
-		$session->set('recherche', "");
 		return redirect()->to('/dashboard');
 	}
 
