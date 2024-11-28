@@ -436,3 +436,9 @@ button {
 #bandeau-droit #username {
     display: none;
 }
+
+.commentaire-form {
+    position: relative;
+    top: 40%;
+    margin: 0 7%;
+}

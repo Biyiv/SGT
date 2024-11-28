@@ -242,15 +242,19 @@
 		</div>
 		<button id="ajouter-commentaire">Ajouter un commentaire</button>
 
-		<!-- A transformer en modal -->
-		<div id="commentaire-form">
-			<textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
-			<button id="valider-commentaire">Valider</button>
+		
+		<div class="modal" id="commentaire-modal">
+			<div class="modal-content commentaire-form">
+				<div>	
+					<textarea name="commentaire" id="commentaire" cols="43" rows="3"></textarea><br>
+					<button id="valider-commentaire">Valider</button>
+					<button id="closeModalBtnCommentaire">Annuler</button>
+				</div>
+			</div>
 		</div>
 
 		<div id="bandeau-footer">
 			<button id="supprimer-tache">Supprimer</button>
-			<button id="modifier-tache">Modifier</button>
 		</div>
 	</div>
 

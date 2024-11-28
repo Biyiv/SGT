@@ -417,77 +417,86 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 
-document.getElementById('valider-commentaire').addEventListener('click', ajouterCommentaire);
-function ajouterCommentaire() {
-	const idTache = document.getElementById('bandeau-id').textContent.trim();
-	const commentaire = document.getElementById('commentaire').value.trim();
+	document.getElementById('valider-commentaire').addEventListener('click', () => {
+		const idTache = document.getElementById('bandeau-id').textContent.trim();
+		const commentaire = document.getElementById('commentaire').value.trim();
 
-	if (commentaire !== '') {
-		fetch(`/taches/${idTache}/ajouterCommentaire`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ commentaire: commentaire }),
-		})
-			.then(response => {
-				if (!response.ok) {
-					//throw new Error(`Erreur serveur : ${response.status}`);
-				}
-				return response.json();
+		if (commentaire !== '') {
+			fetch(`/taches/${idTache}/ajouterCommentaire`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ commentaire: commentaire }),
 			})
-			.then(data => {
-				if (data.success) {
-					alert('Le commentaire a été ajouté');
-					getCommentaires(idTache); // Rafraîchir les commentaires
-				} else {
-					alert(data.error || 'Erreur inconnue lors de l\'ajout du commentaire.');
-				}
-			})
-			.catch(error => {
-				console.error('Erreur :', error);
-				alert('Impossible d\'ajouter le commentaire. Vérifiez votre connexion ou contactez un administrateur.');
-			});
-
-		document.getElementById('commentaire').value = '';
-	} else {
-		alert('Veuillez remplir le champ commentaire');
-	}
-}
-
-
-
-document.getElementById('supprimer-tache').addEventListener('click', supprimerCommentaire);
-function supprimerCommentaire() {
-
-	const commentaires = document.querySelectorAll('.commentaire');
-
-	commentaires.forEach(commentaire => {
-		if (commentaire.style.display === 'block') {
-			const id = commentaire.id;
-			const idTache = document.getElementById('bandeau-id').textContent;
-
-			const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
-
-			if (confirmation) {
-				fetch(`/taches/supprimerCommentaires/${id}`, {
-					method: 'DELETE',
-					headers: {
-						'Content-Type': 'application/json',
+				.then(response => {
+					if (!response.ok) {
+						//throw new Error(`Erreur serveur : ${response.status}`);
+					}
+					return response.json();
+				})
+				.then(data => {
+					if (data.success) {
+						alert('Le commentaire a été ajouté');
+						getCommentaires(idTache); // Rafraîchir les commentaires
+					} else {
+						alert(data.error || 'Erreur inconnue lors de l\'ajout du commentaire.');
 					}
 				})
+				.catch(error => {
+					console.error('Erreur :', error);
+					alert('Impossible d\'ajouter le commentaire. Vérifiez votre connexion ou contactez un administrateur.');
+				});
+
+			document.getElementById('commentaire').value = '';
+			document.getElementById('commentaire-modal').style.display = 'none';
+		} else {
+			alert('Veuillez remplir le champ commentaire');
+		}
+	});
+
+
+
+	document.getElementById('supprimer-tache').addEventListener('click', () => {
+		const commentaires = document.querySelectorAll('.commentaire');
+
+		commentaires.forEach(commentaire => {
+			if (commentaire.style.display === 'block') {
+				const id = commentaire.id;
+				const idTache = document.getElementById('bandeau-id').textContent;
+
+				const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
+
+				if (confirmation) {
+					fetch(`/taches/supprimerCommentaires/${id}`, {
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json',
+						}
+					})
 					.then(response => {
 						return response.json();
 					})
 					.then(data => {
 						if (data) {
-							alert('Le commentaire a été supprimé');
 							getCommentaires(idTache);
 						}
 					});
+				}
 			}
-		}
+		});
 	});
-}
 
+
+	const btnAjouterCommentaire = document.getElementById('ajouter-commentaire');
+	const commentaireModal = document.getElementById('commentaire-modal');
+	const fermerCommentaireBtn = document.getElementById('closeModalBtnCommentaire');
+
+	fermerCommentaireBtn.addEventListener('click', () => {
+		commentaireModal.style.display = 'none';
+	});
+
+	btnAjouterCommentaire.addEventListener('click', () => {
+		commentaireModal.style.display = 'block';
+	});
 });
