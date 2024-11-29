@@ -41,60 +41,63 @@
 	</div>
 
 	<nav class="navbar">
-		<div class="left-section">
-			<div>
-				<!-- Modal Trigger Button -->
-				<button id="openModalBtnFiltres"><h5>Filtres</h5></button>
+		<button class="navbar-toggle" aria-expanded="false" onclick="toggleNavbar(this)">☰</button>
+		<div class="navbar-content">
+			<div class="left-section">
+				<div>
+					<!-- Modal Trigger Button -->
+					<button id="openModalBtnFiltres"><h5>Filtres</h5></button>
+				</div>
+				<div>
+					<hr>
+				</div>
+				<div>
+					<?= form_open('/setTriPreference', ['method' => 'post']); ?>
+						<!-- CSRF Protection -->
+						<?= csrf_field() ?>
+						<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
+						<!-- Liste déroulante pour le tri -->
+						<?= form_label('<h5>Trier par :</h5>', 'tri'); ?>
+						<?= form_dropdown(
+							'tri',
+							[
+								'echeance' => 'Échéance',
+								'priorite' => 'Priorité',
+								'creepar' => 'Createur',
+								'titre' => 'Alphabétique'
+							],
+							$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance",
+							['id' => 'tri', 'onchange' => 'this.form.submit()']
+						); ?>
+					<?= form_close(); ?>
+				</div>
+				<div>
+					<hr>
+				</div>
+				<div>
+					<?= form_open('/recherche', ['method' => 'post']); ?>
+						<!-- CSRF Protection -->
+						<?= csrf_field() ?>
+						<!-- Liste déroulante pour le tri -->
+						<?= form_label('<h5>Rechercher :</h5>', 'recherche'); ?>
+						<?= form_input('recherche',isset($_SESSION['recherche']) ? $_SESSION['recherche'] : '',['id' => 'recherche', 'onchange' => 'this.form.submit()']); ?>
+					<?= form_close(); ?>
+				</div>
+				<div>
+					<hr>
+				</div>
+				<div>
+					<!-- Modal Trigger Button -->
+					<button id="openModalBtnTache"><h5>Créer une Tâche</h5></button>
+				</div>
 			</div>
-			<div>
-				<hr>
-			</div>
-			<div>
-				<?= form_open('/setTriPreference', ['method' => 'post']); ?>
-					<!-- CSRF Protection -->
-					<?= csrf_field() ?>
-					<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
-					<!-- Liste déroulante pour le tri -->
-					<?= form_label('<h5>Trier par :</h5>', 'tri'); ?>
-					<?= form_dropdown(
-						'tri',
-						[
-							'echeance' => 'Échéance',
-							'priorite' => 'Priorité',
-							'creepar' => 'Createur',
-							'titre' => 'Alphabétique'
-						],
-						$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance",
-						['id' => 'tri', 'onchange' => 'this.form.submit()']
-					); ?>
-				<?= form_close(); ?>
-			</div>
-			<div>
-				<hr>
-			</div>
-			<div>
-				<?= form_open('/recherche', ['method' => 'post']); ?>
-					<!-- CSRF Protection -->
-					<?= csrf_field() ?>
-					<!-- Liste déroulante pour le tri -->
-					<?= form_label('<h5>Rechercher :</h5>', 'recherche'); ?>
-					<?= form_input('recherche',isset($_SESSION['recherche']) ? $_SESSION['recherche'] : '',['id' => 'recherche', 'onchange' => 'this.form.submit()']); ?>
-				<?= form_close(); ?>
-			</div>
-			<div>
-				<hr>
-			</div>
-			<div>
-				<!-- Modal Trigger Button -->
-				<button id="openModalBtnTache"><h5>Créer une Tâche</h5></button>
-			</div>
-		</div>
-		<div class="right-section">
-			<div>
-				<button id="openModalBtnProfil"><h1><?= strlen(session()->get('utilisateur')['username']) > 9 ? substr(session()->get('utilisateur')['username'], 0, 9) . ' ...' : session()->get('utilisateur')['username']; ?></h1></button>
-			</div>
-			<div>
-				<a href="/logout"><img id="logout" src="/assets/images/logout.png" alt="Image de profil"></a>
+			<div class="right-section">
+				<div>
+					<button id="openModalBtnProfil"><h1><?= strlen(session()->get('utilisateur')['username']) > 9 ? substr(session()->get('utilisateur')['username'], 0, 9) . ' ...' : session()->get('utilisateur')['username']; ?></h1></button>
+				</div>
+				<div>
+					<a href="/logout"><img id="logout" src="/assets/images/logout.png" alt="Image de profil"></a>
+				</div>
 			</div>
 		</div>
 	</nav>

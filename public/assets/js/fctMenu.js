@@ -85,3 +85,11 @@ function hexToRgb(hex) {
         parseInt(result[3], 16)
     ].join(', ') + ")" : null;
 }
+
+function toggleNavbar(button) {
+    const navbarContent = document.querySelector('.navbar-content');
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+    navbarContent.classList.toggle('active');
+    button.setAttribute('aria-expanded', !isExpanded);
+}
