@@ -67,6 +67,7 @@ label {
 
 /* Section droite avec le titre et l'image */
 .right-section {
+    margin-top: -1%;
     display: flex;
     align-items: center;
 }
@@ -147,7 +148,7 @@ label {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px; /* Réduit l'espace en dessous */
+    margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
 }
 
@@ -192,7 +193,7 @@ label {
 /* Style des formulaires dans le modal */
 .modal form label {
     display: block;
-    margin: 12px 0 6px;
+    margin: 0.5vh 0 5px;
     color: #0056b3;
     font-weight: bold;
 }
@@ -200,10 +201,16 @@ label {
 .modal form input, .modal form textarea, .modal form select {
     width: 94%;
     padding: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 1vh;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
+}
+
+textarea {
+    width: 100%; /* Largeur relative au conteneur parent */
+    height: 20vh; /* Hauteur basée sur la fenêtre */
+    resize: none; /* Empêche l'utilisateur de redimensionner */
 }
 
 .modal form select {

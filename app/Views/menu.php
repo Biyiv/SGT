@@ -48,7 +48,7 @@
 					<?= csrf_field() ?>
 					<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
 					<!-- Liste déroulante pour le tri -->
-					<?= form_label('<h3>Trier par :</h3>', 'tri'); ?>
+					<?= form_label('<h5>Trier par :</h5>', 'tri'); ?>
 					<?= form_dropdown(
 						'tri',
 						[
@@ -71,7 +71,7 @@
 					<!-- CSRF Protection -->
 					<?= csrf_field() ?>
 					<!-- Liste déroulante pour le tri -->
-					<?= form_label('<h3>Rechercher :</h3>', 'recherche'); ?>
+					<?= form_label('<h5>Rechercher :</h5>', 'recherche'); ?>
 					<?= form_input('recherche',isset($_SESSION['recherche']) ? $_SESSION['recherche'] : '',['id' => 'recherche', 'onchange' => 'this.form.submit()']); ?>
 				<?= form_close(); ?>
 			</div>
@@ -80,7 +80,7 @@
 			</div>
 			<div>
 				<!-- Modal Trigger Button -->
-				<button id="openModalBtnTache">Créer une Tâche</button>
+				<button id="openModalBtnTache"><h5>Créer une Tâche</h5></button>
 			</div>
 		</div>
 		<div class="right-section">
