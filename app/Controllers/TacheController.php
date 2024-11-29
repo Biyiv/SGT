@@ -43,15 +43,15 @@ class TacheController extends BaseController
 		$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance";
 		$recherche = $this->session->get('recherche') == null ? "" : $this->session->get('recherche');
 		$nbTache = isset($_COOKIE['nbTache']) ? $_COOKIE['nbTache'] : 8;
-		$toutVoir = isset($_COOKIE['toutVoir']) ? $_COOKIE['toutVoir'] : 8;
+		$toutVoir = isset($_COOKIE['toutVoir']) ? $_COOKIE['toutVoir'] : 1;
+		$filtrePriorite = isset($_COOKIE['filtrePriorite']) ? $_COOKIE['filtrePriorite'] : -1;
+		$filtreStatut = isset($_COOKIE['filtreStatut']) ? $_COOKIE['filtreStatut'] : "tout";
 		
 		// Récupérer toutes les tâches, triées
-		if ($tri == 'retard'){
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedRetardTaches($nbTache) : $data['taches'] = $tacheModel->getPaginatedRetardTaches($nbTache, $recherche);
-		} elseif ($tri == 'priorite') {
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'DESC') : $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'DESC', $recherche);
+		if ($tri == 'priorite') {
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'DESC', $toutVoir, $filtrePriorite, $filtreStatut) : $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'DESC', $toutVoir, $filtrePriorite, $filtreStatut, $recherche);
 		} else {
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri) : $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'ASC', $recherche);
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'ASC', $toutVoir, $filtrePriorite, $filtreStatut) : $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'ASC', $toutVoir, $filtrePriorite, $filtreStatut, $recherche);
 		}
 		$data['pagerTaches'] = $tacheModel->pager;
 
@@ -65,16 +65,17 @@ class TacheController extends BaseController
 		if ($nbTache) {
 			setcookie('nbTache', $nbTache, time() + 3600 * 24 * 30);
 		}
-		else {
-			setcookie('nbTache', '', time() - 3600);
+
+		setcookie('toutVoir', $this->request->getPost('toutVoir') ?? '0', time() + 3600 * 24 * 30);
+
+		$filtrePriorite = $this->request->getPost('filtrePriorite');
+		if ($filtrePriorite) {
+			setcookie('filtrePriorite', $filtrePriorite, time() + 3600 * 24 * 30);
 		}
 
-		$toutVoir = $this->request->getPost('toutVoir');
-		if ($toutVoir) {
-			setcookie('toutVoir', $toutVoir, time() + 3600 * 24 * 30);
-		}
-		else {
-			setcookie('toutVoir', '', time() - 3600);
+		$filtreStatut = $this->request->getPost('filtreStatut');
+		if ($filtreStatut) {
+			setcookie('filtreStatut', $filtreStatut, time() + 3600 * 24 * 30);
 		}
 
 		return redirect()->to('/dashboard');
