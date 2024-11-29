@@ -51,17 +51,9 @@ body {
     margin-top: 20vh;
 }
 
-@media (min-height: 60em) {
-    #register {
-        margin: 28vh 0 8vh;
-        height: 84vh;
-    }
-}
-
 #register {
-    margin: 37.5vh 0 10vh;
-    height: 80vh;
-    min-height: 41rem;
+    margin: calc(10vh + 5px) 0 calc(5vh + 5px);
+    height: calc(70vh + 10%);
 }
 
 #forgotpwd {
