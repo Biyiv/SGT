@@ -41,31 +41,27 @@ body {
     transition: transform 0.8s ease-in-out; /* Animation de "scroll" */
 }
 
-#login, #resetpwd {
+#login {
+    margin: 27.5vh 0;
+    height: 45vh;
+}
+
+#resetpwd {
     margin-top: 20vh;
 }
 
 #register {
-    margin-top: 30vh;
+    margin: 37.5vh 0;
+    height: 80vh;
 }
 
 #forgotpwd {
-    margin-top: 35vh;
+    margin-top: 45vh;
 }
 
-#login, #forgotpwd, #resetpwd {
+#login, #forgotpwd, #resetpwd, #register {
     width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #E6E6E6;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#register {
-    width: 100%;
-    padding: 10px;
+    padding: 15px;
     box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 8px;
