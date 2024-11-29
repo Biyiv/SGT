@@ -52,9 +52,9 @@ body {
 }
 
 #register {
-    margin: 37.5vh 0;
-    min-height: 20rem;
+    margin: 37.5vh 0 10vh;
     height: 80vh;
+    min-height: 20rem;
 }
 
 #forgotpwd {
