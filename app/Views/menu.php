@@ -223,14 +223,14 @@
 				<?= form_label('Nombre de taches par page', 'nbTache') ?>
 				<?= form_input('nbTache', isset($_COOKIE['nbTache']) ? $_COOKIE['nbTache'] : 8, [ 'min' => 1, 'placeholder' => 'Nombre de taches par page', 'required' => 'required'], 'number') ?>
 				<br>
-				<?= form_label('Afficher les tâches de tout le monde', 'toutVoir') ?>
-				<?= form_checkbox('toutVoir', isset($_COOKIE['toutVoir']) ? $_COOKIE['toutVoir'] : 1) ?>
+				<?= form_label('Afficher uniquement mes tâches', 'toutVoir') ?>
+				<?= form_checkbox('toutVoir', '1', isset($_COOKIE['toutVoir']) ? $_COOKIE['toutVoir'] : 1) ?>
 				<br>
 				<?= form_label('Affichage selon la priorité', 'filtrePriorite'); ?>
 				<?= form_dropdown(
 					'filtrePriorite',
-					['-1' => 'Tout','1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'],
-					$tri = isset($_COOKIE['filtrePriorite']) ? $_COOKIE['filtrePriorite'] : "-1",
+					[-1 => 'Tout', 1 => 'Faible', 2 => 'Moyenne', 3 => 'Importante'],
+					isset($_COOKIE['filtrePriorite']) ? $_COOKIE['filtrePriorite'] : -1,
 					['id' => 'filtrePriorite']
 				); ?>
 				<br>
@@ -238,11 +238,11 @@
 				<?= form_dropdown(
 					'filtreStatut',
 					['tout' => 'Tout','en attente' => 'En attente', 'en cours' => 'En cours', 'en retard' => 'En retard', 'termine' => 'Terminé'],
-					$tri = isset($_COOKIE['filtreStatut']) ? $_COOKIE['filtreStatut'] : "tout",
+					isset($_COOKIE['filtreStatut']) ? $_COOKIE['filtreStatut'] : "tout",
 					['id' => 'filtreStatut']
 				); ?>
 				<br>
-				<?= form_submit('submit', 'Sauvegarder') ?>
+				<?= form_submit('submit', 'Appliquer') ?>
 			<?= form_close(); ?>
 		</div>
 	</div>

@@ -31,10 +31,10 @@
 				<h1>Réinitialisation du mot de passe</h1>
 				<?= form_open('/resetpwd/' .$token) ?>
 				<div class="password-wrapper">
-						<?= form_label('Confirmer le mot de passe', 'mdp') ?>
+						<?= form_label('Mot de passe', 'mdp') ?>
 						<div class="password-container">
 							<?= form_password('mdp', '', [
-								'placeholder' => 'Confirmer le mot de passe',
+								'placeholder' => 'Mot de passe',
 								'required' => 'required',
 								'id' => 'password1'
 							]) ?>
