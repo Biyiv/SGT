@@ -168,8 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		const mtn = new Date();
 		const statut = document.getElementById('select-statut');
-		statut.removeAttribute('disabled');
-
+		const statutSelected = statut.value;
 		statut.innerHTML = '';
 
 		// Vérifier si la date actuelle est supérieure à la date d'échéance
@@ -190,6 +189,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			option.textContent = optionData.text;
 			statut.appendChild(option);
 		});
+		for (let i = 0; i < statut.options.length; i++) {
+			if (statut.options[i].value.trim() == statutSelected.trim()) {
+				statut.options[i].selected = true;
+			}
+		}
+		statut.removeAttribute('disabled');
 
 
 
@@ -222,7 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {
 					statut: document.getElementById('select-statut').value,
 					id: document.getElementById('bandeau-id').textContent,
 				})
-			}).then(() => {
+			}).then((data) => {
+				console.log(data);
 				gestionnaireTaches.style.pointerEvents = 'auto';
 				location.reload();
 			}).catch((error) => {
@@ -230,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			});
 		});
 
-		document.getElementById('bandeau-droit').appendChild(sauvegarderBtn);
+		document.querySelector('.conteneur-btn').appendChild(sauvegarderBtn);
 
 		// Ajoute un bouton supprimer
 		const supprimerBtn = document.createElement('button');
@@ -262,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 
-		document.getElementById('bandeau-droit').appendChild(supprimerBtn);
+		document.querySelector('.conteneur-btn').appendChild(supprimerBtn);
 
 		// Cache les boutons de commentaire
 		document.getElementById('ajouter-commentaire').style.display = 'none';

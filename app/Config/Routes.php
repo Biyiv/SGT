@@ -24,8 +24,11 @@ $routes->post('/register', 'LoginController::register');
 $routes->get('/logout', 'LoginController::logout');
 
 $routes->get('/dashboard', 'TacheController::index');
+
+$routes->post( '/modifFiltres','TacheController::modifFiltres');
 $routes->match(['get', 'post'], '/setTriPreference','TacheController::setTriPreference');
 $routes->match(['get', 'post'], '/recherche','TacheController::setRecherche');
+
 $routes->post( '/ajouterTache','TacheController::ajouterTache');
 $routes->post( '/modifProfil/(:any)','LoginController::modifProfil/$1');
 

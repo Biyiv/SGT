@@ -25,7 +25,7 @@ class TacheController extends BaseController
 
 		$taches = $tacheModel->findAll();
 		foreach ($taches as $tache) {
-			if($tache['statut'] != 'en retard' || $tache['statut'] != 'termine') {
+			if($tache['statut'] != 'en retard' && $tache['statut'] != 'termine') {
 				if($tache['echeance'] < date('Y-m-d H:i:s')) {
 					$this->modifierStatutTache($tache['id'], 'en retard');
 				}
@@ -42,19 +42,43 @@ class TacheController extends BaseController
 
 		$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance";
 		$recherche = $this->session->get('recherche') == null ? "" : $this->session->get('recherche');
-
-		// Récupérer toutes les tâches, triées par échéance
-		if ($tri == 'retard'){
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedRetardTaches(8) : $data['taches'] = $tacheModel->getPaginatedRetardTaches(8, $recherche);
-		} elseif ($tri == 'priorite') {
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC') : $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC', $recherche);
+		$nbTache = isset($_COOKIE['nbTache']) ? $_COOKIE['nbTache'] : 8;
+		$toutVoir = isset($_COOKIE['toutVoir']) ? $_COOKIE['toutVoir'] : 1;
+		$filtrePriorite = isset($_COOKIE['filtrePriorite']) ? $_COOKIE['filtrePriorite'] : -1;
+		$filtreStatut = isset($_COOKIE['filtreStatut']) ? $_COOKIE['filtreStatut'] : "tout";
+		
+		// Récupérer toutes les tâches, triées
+		if ($tri == 'priorite') {
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'DESC', $toutVoir, $filtrePriorite, $filtreStatut) : $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'DESC', $toutVoir, $filtrePriorite, $filtreStatut, $recherche);
 		} else {
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri) : $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'ASC', $recherche);
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'ASC', $toutVoir, $filtrePriorite, $filtreStatut) : $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'ASC', $toutVoir, $filtrePriorite, $filtreStatut, $recherche);
 		}
 		$data['pagerTaches'] = $tacheModel->pager;
 
 		// Charger la vue avec les données
 		return view('menu', $data);
+	}
+
+	public function modifFiltres()
+	{
+		$nbTache = $this->request->getPost('nbTache');
+		if ($nbTache) {
+			setcookie('nbTache', $nbTache, time() + 3600 * 24 * 30);
+		}
+
+		setcookie('toutVoir', $this->request->getPost('toutVoir') ?? '0', time() + 3600 * 24 * 30);
+
+		$filtrePriorite = $this->request->getPost('filtrePriorite');
+		if ($filtrePriorite) {
+			setcookie('filtrePriorite', $filtrePriorite, time() + 3600 * 24 * 30);
+		}
+
+		$filtreStatut = $this->request->getPost('filtreStatut');
+		if ($filtreStatut) {
+			setcookie('filtreStatut', $filtreStatut, time() + 3600 * 24 * 30);
+		}
+
+		return redirect()->to('/dashboard');
 	}
 
 	public function setTriPreference()
@@ -130,7 +154,7 @@ class TacheController extends BaseController
 			return $this->response->setJSON($data);
 		} else {
 			$this->session->setFlashdata('error', 'Erreur lors de la modification de la tâche');
-			return $this->response->setStatusCode(280)->setJSON(['error' => 'Erreur lors de la modification de la tâche']);
+			return $this->response->setStatusCode(280)->setJSON(['error' => 'Erreur lors de la modification de la tâche', "data" => $data]);
 		}
 	}
 

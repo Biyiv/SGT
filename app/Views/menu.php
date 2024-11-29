@@ -43,18 +43,24 @@
 	<nav class="navbar">
 		<div class="left-section">
 			<div>
+				<!-- Modal Trigger Button -->
+				<button id="openModalBtnFiltres"><h5>Filtres</h5></button>
+			</div>
+			<div>
+				<hr>
+			</div>
+			<div>
 				<?= form_open('/setTriPreference', ['method' => 'post']); ?>
 					<!-- CSRF Protection -->
 					<?= csrf_field() ?>
 					<?php $prioriteLst = ['1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'] ?>
 					<!-- Liste déroulante pour le tri -->
-					<?= form_label('<h3>Trier par :</h3>', 'tri'); ?>
+					<?= form_label('<h5>Trier par :</h5>', 'tri'); ?>
 					<?= form_dropdown(
 						'tri',
 						[
 							'echeance' => 'Échéance',
 							'priorite' => 'Priorité',
-							'retard' => 'Retard',
 							'creepar' => 'Createur',
 							'titre' => 'Alphabétique'
 						],
@@ -71,7 +77,7 @@
 					<!-- CSRF Protection -->
 					<?= csrf_field() ?>
 					<!-- Liste déroulante pour le tri -->
-					<?= form_label('<h3>Rechercher :</h3>', 'recherche'); ?>
+					<?= form_label('<h5>Rechercher :</h5>', 'recherche'); ?>
 					<?= form_input('recherche',isset($_SESSION['recherche']) ? $_SESSION['recherche'] : '',['id' => 'recherche', 'onchange' => 'this.form.submit()']); ?>
 				<?= form_close(); ?>
 			</div>
@@ -80,7 +86,7 @@
 			</div>
 			<div>
 				<!-- Modal Trigger Button -->
-				<button id="openModalBtnTache">Créer une Tâche</button>
+				<button id="openModalBtnTache"><h5>Créer une Tâche</h5></button>
 			</div>
 		</div>
 		<div class="right-section">
@@ -97,8 +103,8 @@
 		<?php if (!empty($taches) && is_array($taches)): ?>
 			<?php foreach ($taches as $tache): ?>
 				<div class="tache" id="<?= esc($tache['id']) ?>">
-					<h2><?= esc($tache['titre']) ?></h2>
-					<p><?= esc($tache['description']) ?></p>
+					<h2 class="truncate-title"><?= $tache['titre']; ?></h2>
+					<p class="truncate-description"><?= $tache['description']; ?></p>
 					<p><strong>Créé par : </strong><?= esc($tache['creepar']) ?></p>
 					<?php 
 						$debut =  new DateTime($tache['debut']);
@@ -204,6 +210,40 @@
 		</div>
 	</div>
 
+	<!-- Modal -->
+	<div id="creationFiltresModal" class="modal">
+		<div class="modal-content">
+			<span class="close-btn" id="closeModalBtnFiltres">&times;</span>
+			
+			<!-- Formulaire de modification de profil -->
+			<?= form_open("/modifFiltres"); ?>
+				<?= form_label('Nombre de taches par page', 'nbTache') ?>
+				<?= form_input('nbTache', isset($_COOKIE['nbTache']) ? $_COOKIE['nbTache'] : 8, [ 'min' => 1, 'placeholder' => 'Nombre de taches par page', 'required' => 'required'], 'number') ?>
+				<br>
+				<?= form_label('Afficher les tâches de tout le monde', 'toutVoir') ?>
+				<?= form_checkbox('toutVoir', '1', isset($_COOKIE['toutVoir']) ? $_COOKIE['toutVoir'] : 1) ?>
+				<br>
+				<?= form_label('Affichage selon la priorité', 'filtrePriorite'); ?>
+				<?= form_dropdown(
+					'filtrePriorite',
+					[-1 => 'Tout', 1 => 'Faible', 2 => 'Moyenne', 3 => 'Importante'],
+					isset($_COOKIE['filtrePriorite']) ? $_COOKIE['filtrePriorite'] : -1,
+					['id' => 'filtrePriorite']
+				); ?>
+				<br>
+				<?= form_label('Affichage selon le statut', 'filtreStatut'); ?>
+				<?= form_dropdown(
+					'filtreStatut',
+					['tout' => 'Tout','en attente' => 'En attente', 'en cours' => 'En cours', 'en retard' => 'En retard', 'termine' => 'Terminé'],
+					isset($_COOKIE['filtreStatut']) ? $_COOKIE['filtreStatut'] : "tout",
+					['id' => 'filtreStatut']
+				); ?>
+				<br>
+				<?= form_submit('submit', 'Appliquer') ?>
+			<?= form_close(); ?>
+		</div>
+	</div>
+
 
 	<div id="bandeau-droit">
 		<button id="fermer-bandeau">&times;</button>
@@ -232,7 +272,8 @@
 				<select name="select-statut" id="select-statut" disabled>
 					<option value="en attente">En attente</option>
 					<option value="en cours">En cours</option>
-					<option value="terminee">Terminée</option>
+					<option value="en retard">En retard</option>
+					<option value="termine">Terminée</option>
 				</select>
 			</span>
 		</p>
@@ -242,15 +283,21 @@
 		</div>
 		
 		
-		<button id="ajouter-commentaire" class="btn btn-primary btn-sm">Ajouter un commentaire</button>
-		<div class="modal" id="commentaire-modal">
-			<div class="modal-content commentaire-form">
-				<textarea name="commentaire" id="commentaire" cols="43" rows="3"></textarea><br>
-				<button id="valider-commentaire" class="btn btn-primary btn-sm w-auto">Valider</button>
-				<button id="closeModalBtnCommentaire" class="btn btn-primary btn-sm w-auto">Annuler</button>
+		<div class="conteneur-btn">
+			<button id="supprimer-commentaire" class="btn btn-primary btn-sm">Supprimer le commentaire</button>
+			<div class="modal" id="commentaire-modal">
+				<div class="modal-content commentaire-form">
+					<textarea name="commentaire" id="commentaire" cols="43" rows="3"></textarea><br>
+					<div class="button-container">
+						<button id="closeModalBtnCommentaire" class="btn btn-primary btn-sm w-auto">Annuler</button>
+						<button id="valider-commentaire" class="btn btn-primary btn-sm w-auto">Valider</button>
+					</div>
+				</div>
 			</div>
+			<button id="ajouter-commentaire" class="btn btn-primary btn-sm">Ajouter un commentaire</button>
 		</div>
-		<button id="supprimer-commentaire" class="btn btn-primary btn-sm">Supprimer le commentaire</button>
+
+		<div class="conteneur-btn"></div>
 	</div>
 
 
