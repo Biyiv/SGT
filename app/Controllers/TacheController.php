@@ -49,9 +49,9 @@ class TacheController extends BaseController
 		
 		// Récupérer toutes les tâches, triées
 		if ($tri == 'priorite') {
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'DESC', $toutVoir, $filtrePriorite, $filtreStatut) : $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'DESC', $toutVoir, $filtrePriorite, $filtreStatut, $recherche);
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($toutVoir, $filtrePriorite, $filtreStatut, $nbTache, $tri, 'DESC') : $data['taches'] = $tacheModel->getPaginatedTaches($toutVoir, $filtrePriorite, $filtreStatut, $nbTache, $tri, 'DESC', $recherche);
 		} else {
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'ASC', $toutVoir, $filtrePriorite, $filtreStatut) : $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'ASC', $toutVoir, $filtrePriorite, $filtreStatut, $recherche);
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($toutVoir, $filtrePriorite, $filtreStatut, $nbTache, $tri, 'ASC') : $data['taches'] = $tacheModel->getPaginatedTaches($toutVoir, $filtrePriorite, $filtreStatut, $nbTache, $tri, 'ASC', $recherche);
 		}
 		$data['pagerTaches'] = $tacheModel->pager;
 
@@ -195,7 +195,6 @@ class TacheController extends BaseController
 		if ($commentaires) {
 			return $this->response->setJSON($commentaires);
 		} else {
-			// Retourne le string "Pas de commentaire"
 			return $this->response->setJSON([]);
 		}
 	}

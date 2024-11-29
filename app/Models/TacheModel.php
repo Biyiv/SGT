@@ -15,7 +15,7 @@ class TacheModel extends Model
 		'statut',
 	];
 
-	public function getPaginatedTaches(int $perPage = 8, string $sortField = 'echeance', string $sortOrder = 'asc', string $toutVoir, int $priorite, string $statut , ?string $keyword = null): array
+	public function getPaginatedTaches(string $toutVoir, int $priorite, string $statut, int $perPage = 8, string $sortField = 'echeance', string $sortOrder = 'asc', ?string $keyword = null): array
 	{
 		// Appliquer la recherche par mot-clé si fourni
 		if ($keyword) {

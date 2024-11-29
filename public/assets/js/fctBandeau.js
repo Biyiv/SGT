@@ -341,6 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		})
 		.then(response => {
+			console.log(response);
 			return response.json();
 		})
 		.then(data => {
@@ -434,7 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const commentaire = document.getElementById('commentaire').value.trim();
 
 		if (commentaire !== '') {
-			fetch(`/taches/${idTache}/ajouterCommentaire`, {
+			fetch(`/taches/ajouterCommentaire/${idTache}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
