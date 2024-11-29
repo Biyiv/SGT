@@ -19,6 +19,8 @@ body {
 
 /* Conteneur principal de la barre de navigation */
 .navbar {
+    user-select: none; /* Désactive la sélection de texte */
+    cursor: default; /* Change le curseur en flèche normale */
     display: flex;
     align-items: center;
     padding: 10px;
@@ -274,18 +276,23 @@ label {
 }
  
 .conteneur-taches {
+    user-select: none; /* Désactive la sélection de texte */
+    cursor: default; /* Change le curseur en flèche normale */
     display: flex;
     flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
     margin-left: 4%;
 }
 
 .conteneur-btn {
+    position:absolute;
+    bottom: 5%;
+    left: 10%;
     display: flex;
-    justify-content: center;
 }
 
 .conteneur-btn button {
-    margin: 1% 5%;
+    margin: 0 5%;
+    padding: 1% 15%;
 }
 
 .tache {
@@ -328,20 +335,6 @@ label {
 
 .bandeau p {
 	margin-bottom: 0.5em;
-}
-
-button {
-	margin-top: 20px;
-	padding: 10px 15px;
-	background-color: #64ACFA;
-	color: #E6E6E6;
-	border: none;
-	border-radius: 5px;
-}
-
-button:hover {
-	background-color: #0056b3;
-    color: #E6E6E6;
 }
 
 /* Conteneur par défaut */
@@ -445,7 +438,7 @@ button:hover {
     padding: 10px 15px;
     text-decoration: none;
     border: 1px solid #0056b3;
-    color: #64ACFA;
+    color: #0056b3;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -455,12 +448,12 @@ button:hover {
     color: #E6E6E6;
 }
 
-.pagination li.active span {
+.pagination .active a {
     background-color: #64ACFA;
     color: #E6E6E6;
-    border-radius: 5px;
-    padding: 10px 15px;
-    border: 1px solid #64ACFA;
+    font-weight: bold;
+    cursor: default;
+    pointer-events: none; /* Empêche de cliquer sur la page active */
 }
 
 #bandeau-droit #username {
@@ -470,5 +463,16 @@ button:hover {
 .commentaire-form {
     position: relative;
     top: 40%;
-    margin: 0 7%;
+    margin: 0 3.5%;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Ajuste l'espacement entre les boutons */
+}
+
+.button-container button {
+    margin: 0 5%;
+    padding: 1% 15%;
 }
