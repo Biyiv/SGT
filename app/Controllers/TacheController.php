@@ -43,6 +43,7 @@ class TacheController extends BaseController
 		$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance";
 		$recherche = $this->session->get('recherche') == null ? "" : $this->session->get('recherche');
 		$nbTache = isset($_COOKIE['nbTache']) ? $_COOKIE['nbTache'] : 8;
+		$toutVoir = isset($_COOKIE['toutVoir']) ? $_COOKIE['toutVoir'] : 8;
 		
 		// Récupérer toutes les tâches, triées
 		if ($tri == 'retard'){
