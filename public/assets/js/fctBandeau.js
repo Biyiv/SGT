@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			});
 		});
 
-		document.getElementById('bandeau-droit').appendChild(sauvegarderBtn);
+		document.querySelector('.conteneur-btn').appendChild(sauvegarderBtn);
 
 		// Ajoute un bouton supprimer
 		const supprimerBtn = document.createElement('button');
@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 
-		document.getElementById('bandeau-droit').appendChild(supprimerBtn);
+		document.querySelector('.conteneur-btn').appendChild(supprimerBtn);
 
 		// Cache les boutons de commentaire
 		document.getElementById('ajouter-commentaire').style.display = 'none';

@@ -97,8 +97,8 @@
 		<?php if (!empty($taches) && is_array($taches)): ?>
 			<?php foreach ($taches as $tache): ?>
 				<div class="tache" id="<?= esc($tache['id']) ?>">
-					<h2><?= esc($tache['titre']) ?></h2>
-					<p><?= esc($tache['description']) ?></p>
+					<h2 class="truncate-title"><?= $tache['titre']; ?></h2>
+					<p class="truncate-description"><?= $tache['description']; ?></p>
 					<p><strong>Créé par : </strong><?= esc($tache['creepar']) ?></p>
 					<?php 
 						$debut =  new DateTime($tache['debut']);
@@ -243,15 +243,19 @@
 		</div>
 		
 		
-		<button id="ajouter-commentaire" class="btn btn-primary btn-sm">Ajouter un commentaire</button>
-		<div class="modal" id="commentaire-modal">
-			<div class="modal-content commentaire-form">
-				<textarea name="commentaire" id="commentaire" cols="43" rows="3"></textarea><br>
-				<button id="valider-commentaire" class="btn btn-primary btn-sm w-auto">Valider</button>
-				<button id="closeModalBtnCommentaire" class="btn btn-primary btn-sm w-auto">Annuler</button>
+		<div class="conteneur-btn">
+			<button id="ajouter-commentaire" class="btn btn-primary btn-sm">Ajouter un commentaire</button>
+			<div class="modal" id="commentaire-modal">
+				<div class="modal-content commentaire-form">
+					<textarea name="commentaire" id="commentaire" cols="43" rows="3"></textarea><br>
+					<button id="valider-commentaire" class="btn btn-primary btn-sm w-auto">Valider</button>
+					<button id="closeModalBtnCommentaire" class="btn btn-primary btn-sm w-auto">Annuler</button>
+				</div>
 			</div>
+			<button id="supprimer-commentaire" class="btn btn-primary btn-sm">Supprimer le commentaire</button>
 		</div>
-		<button id="supprimer-commentaire" class="btn btn-primary btn-sm">Supprimer le commentaire</button>
+
+		<div class="conteneur-btn"></div>
 	</div>
 
 

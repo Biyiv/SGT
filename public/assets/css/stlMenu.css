@@ -279,6 +279,15 @@ label {
     margin-left: 4%;
 }
 
+.conteneur-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.conteneur-btn button {
+    margin: 1% 5%;
+}
+
 .tache {
     display: inline-block; /* Affichage en bloc */
     vertical-align: top; /* Alignement en haut */
@@ -290,6 +299,25 @@ label {
     background-color: #E6E6E6; /* Couleur de fond légère */
     min-width: 26rem;
     width: 26rem;
+    height: 21rem;
+}
+
+/* Styles pour troncature du titre */
+.truncate-title {
+    width: 100%; /* Ajustez selon la largeur de votre conteneur */
+    display: -webkit-box; /* Nécessaire pour la troncature en multi-lignes */
+    -webkit-box-orient: vertical; /* Définit l'orientation du texte */
+    -webkit-line-clamp: 2; /* Nombre maximum de lignes visibles */
+    overflow: hidden; /* Masque le contenu qui dépasse */
+}
+
+/* Styles pour troncature de la description */
+.truncate-description {
+    width: 100%; /* Ajustez selon la largeur de votre conteneur */
+    display: -webkit-box; /* Nécessaire pour la troncature en multi-lignes */
+    -webkit-box-orient: vertical; /* Définit l'orientation du texte */
+    -webkit-line-clamp: 1; /* Nombre maximum de lignes visibles */
+    overflow: hidden; /* Masque le contenu qui dépasse */
 }
 
 
