@@ -41,7 +41,7 @@ body {
     transition: transform 0.8s ease-in-out; /* Animation de "scroll" */
 }
 
-#login {
+#login, #resetpwd {
     margin-top: 20vh;
 }
 
