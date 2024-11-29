@@ -220,7 +220,7 @@
 				<?= form_label('Nombre de taches par page', 'nbTache') ?>
 				<?= form_input('nbTache', isset($_COOKIE['nbTache']) ? $_COOKIE['nbTache'] : 8, [ 'min' => 1, 'placeholder' => 'Nombre de taches par page', 'required' => 'required'], 'number') ?>
 				<br>
-				<?= form_label('Cochez pour afficher uniquement vos tâches', 'toutVoir') ?>
+				<?= form_label('Afficher uniquement mes tâches', 'toutVoir') ?>
 				<?= form_checkbox('toutVoir', '1', isset($_COOKIE['toutVoir']) ? $_COOKIE['toutVoir'] : 1) ?>
 				<br>
 				<?= form_label('Affichage selon la priorité', 'filtrePriorite'); ?>
