@@ -23,23 +23,26 @@ $routes->post('/register', 'LoginController::register');
 
 $routes->get('/logout', 'LoginController::logout');
 
-$routes->get('/dashboard', 'TacheController::index');
+$routes->group('', ['filter' => 'authGuard'], function($routes) {
 
-$routes->post( '/modifFiltres','TacheController::modifFiltres');
-$routes->match(['get', 'post'], '/setTriPreference','TacheController::setTriPreference');
-$routes->match(['get', 'post'], '/recherche','TacheController::setRecherche');
+	$routes->get('/dashboard', 'TacheController::index', ['filter' => 'authGuard']);
 
-$routes->post( '/ajouterTache','TacheController::ajouterTache');
-$routes->post( '/modifProfil/(:any)','LoginController::modifProfil/$1');
+	$routes->post( '/modifFiltres','TacheController::modifFiltres');
+	$routes->match(['get', 'post'], '/setTriPreference','TacheController::setTriPreference');
+	$routes->match(['get', 'post'], '/recherche','TacheController::setRecherche');
 
-$routes->post('/taches/(:num)', 'TacheController::modifierTache/$1');
+	$routes->post( '/ajouterTache','TacheController::ajouterTache');
+	$routes->post( '/modifProfil/(:any)','LoginController::modifProfil/$1');
 
-$routes->match(['get', 'post'], '/taches/(:num)/commentaires', 'TacheController::supprimerCommentaire/$1');
+	$routes->post('/taches/(:num)', 'TacheController::modifierTache/$1');
 
-$routes->post('/supprimerTache/(:num)', 'TacheController::supprimerTache/$1');
+	$routes->match(['get', 'post'], '/taches/(:num)/commentaires', 'TacheController::supprimerCommentaire/$1');
 
-$routes->post('/taches/(:num)/ajouterCommentaire', 'TacheController::ajouterCommentaire/$1');
-$routes->delete('/taches/supprimerCommentaires/(:num)', 'TacheController::supprimerCommentaire/$1');
+	$routes->post('/supprimerTache/(:num)', 'TacheController::supprimerTache/$1');
+
+	$routes->post('/taches/(:num)/ajouterCommentaire', 'TacheController::ajouterCommentaire/$1');
+	$routes->delete('/taches/supprimerCommentaires/(:num)', 'TacheController::supprimerCommentaire/$1');
+});
 
 
 //Cette route renvoie vers la méthode pour envoyer les notifications par mail des taches en retard
