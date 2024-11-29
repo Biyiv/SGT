@@ -49,7 +49,7 @@ body {
     box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 8px;
-    background-color: #fff;
+    background-color: #E6E6E6;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 50%; /* Chaque div prend 50% de la hauteur */
 }
@@ -61,7 +61,7 @@ body {
     box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 8px;
-    background-color: #fff;
+    background-color: #E6E6E6;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 50%; /* Chaque div prend 50% de la hauteur */
 }
@@ -100,7 +100,7 @@ form button, form input[type="submit"] {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
-    color: whitesmoke;
+    color: #E6E6E6;
     background-color: #087CA7;
     border: none;
     border-radius: 4px;
@@ -109,7 +109,7 @@ form button, form input[type="submit"] {
 
 form button:hover, form input[type="submit"]:hover {
     background-color: #031A6B;
-    color: whitesmoke;
+    color: #E6E6E6;
     transition: 0.5s;
 }
 
@@ -187,7 +187,7 @@ a, button {
     display: inline-block; /* Pour un style similaire aux boutons */
     text-align: center;
     margin-top: 15px;
-    color: whitesmoke;
+    color: #E6E6E6;
     background-color: #087CA7;
     padding: 10px 20px; /* Ajuste les dimensions */
     border-radius: 5px;
@@ -205,14 +205,14 @@ a, button {
 
 a:hover, button:hover {
     background-color: #031A6B; /* Couleur survol */
-    color: whitesmoke;
+    color: #E6E6E6;
     transition: 0.5s;
 }
 
 a:focus, button:focus {
     outline: none;
     box-shadow: 0 0 5px #031A6B;
-    color: whitesmoke;
+    color: #E6E6E6;
     transition: 0.5s;
 }
 
@@ -232,7 +232,7 @@ a:focus, button:focus {
 
 /* Contenu du modal */
 .modal-content {
-    background: #fff;
+    background: #E6E6E6;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -277,7 +277,11 @@ a:focus, button:focus {
 }
 
 .close-btn:hover {
-    color: #007bff;
+    color: #64ACFA;
+}
+
+#error-modal {
+    z-index: 1060; /* Augmenter le z-index pour qu'il soit au-dessus des autres modals */
 }
 
 /* Animation pour le modal */

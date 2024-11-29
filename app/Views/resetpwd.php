@@ -28,7 +28,7 @@
 		</div>
 		<div class="form-wrapper">
 			<div id="resetpwd">
-				<h1>Se Connecter</h1>
+				<h1>Réinitialisation du mot de passe</h1>
 				<?= form_open('/resetpwd/' .$token) ?>
 				<div class="password-wrapper">
 						<?= form_label('Confirmer le mot de passe', 'mdp') ?>

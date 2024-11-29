@@ -9,6 +9,7 @@ class CommentaireModel extends Model
 		'commentaire',
 		'tache',
 		'datecreation',
+		'creepar'
 	];
 	
 	
@@ -23,5 +24,14 @@ class CommentaireModel extends Model
 				->join('tache', 'tache.id = commentaire.tache')
 				->where('commentaire.tache', $tacheId)
 				->findAll();
+	}
+
+	public function getPaginatedCommentaires(int $perPage = 2, int $numTache = 1): array
+	{
+		return $this->paginate($perPage, 'Commentaire');
+	}
+
+	public function getCommentaires($id) {
+		return $this->where('tache', $id)->findAll();
 	}
 }
