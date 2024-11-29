@@ -41,31 +41,28 @@ body {
     transition: transform 0.8s ease-in-out; /* Animation de "scroll" */
 }
 
-#login, #resetpwd {
+#login {
+    margin: 27.5vh 0;
+    height: 45vh;
+    min-height: 24rem;
+}
+
+#resetpwd {
     margin-top: 20vh;
 }
 
 #register {
-    margin-top: 30vh;
+    margin: calc(10vh + 5px) 0 calc(5vh + 5px);
+    height: calc(70vh + 10%);
 }
 
 #forgotpwd {
-    margin-top: 35vh;
+    margin-top: 38vh;
 }
 
-#login, #forgotpwd, #resetpwd {
+#login, #forgotpwd, #resetpwd, #register {
     width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #E6E6E6;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#register {
-    width: 100%;
-    padding: 10px;
+    padding: 15px;
     box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -83,15 +80,15 @@ h1 {
 /* Form Elements Styling */
 form label {
     display: block;
-    margin: 10px 0 5px;
+    margin: 1vh 0 0.5vh;
     color: #033860;
     font-weight: bold;
 }
 
 form input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 5px;
+    padding: 1vh;
+    margin-bottom: 0.5vh;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
@@ -105,7 +102,7 @@ form input:focus {
 
 form button, form input[type="submit"] {
     width: 100%;
-    padding: 10px;
+    padding: 1vh;
     font-size: 1rem;
     color: #E6E6E6;
     background-color: #087CA7;
@@ -120,10 +117,12 @@ form button:hover, form input[type="submit"]:hover {
     transition: 0.5s;
 }
 
+#register input[type="submit"] {
+    margin-top: 2vh;
+}
+
 .remember-wrapper {
     position: relative;
-    top: -10px;
-    margin-bottom: -5%;
     display: flex;
     align-items: center; /* Aligne verticalement le texte et la checkbox */
     gap: 10%;
@@ -135,7 +134,7 @@ form button:hover, form input[type="submit"]:hover {
 }
 
 form input[type="checkbox"] {
-    margin-top: 19px;
+    margin-top: 1vh;
 }
 
 .password-container {
@@ -147,8 +146,8 @@ form input[type="checkbox"] {
 
 .password-container .toggle-password {
     position: absolute;
-    right: 10px; /* Positionne à droite à l'intérieur du conteneur */
-    top: -10px;
+    right: 1vh; /* Positionne à droite à l'intérieur du conteneur */
+    top: -1vh;
     background: none;
     border: none;
     cursor: pointer;
@@ -193,10 +192,10 @@ button:focus, .toggle-password:focus, a:focus {
 a, button {
     display: inline-block; /* Pour un style similaire aux boutons */
     text-align: center;
-    margin-top: 15px;
+    margin-top: 1.5vh;
     color: #E6E6E6;
     background-color: #087CA7;
-    padding: 10px 20px; /* Ajuste les dimensions */
+    padding: 1vh 2vh; /* Ajuste les dimensions */
     border-radius: 5px;
     border: none;
     font-size: 0.9rem;
