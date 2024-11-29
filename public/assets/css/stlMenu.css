@@ -279,6 +279,15 @@ label {
     margin-left: 4%;
 }
 
+.conteneur-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.conteneur-btn button {
+    margin: 1% 5%;
+}
+
 .tache {
     display: inline-block; /* Affichage en bloc */
     vertical-align: top; /* Alignement en haut */
@@ -290,6 +299,7 @@ label {
     background-color: #E6E6E6; /* Couleur de fond légère */
     min-width: 26rem;
     width: 26rem;
+    height: 21rem;
 }
 
 
