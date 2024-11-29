@@ -7,12 +7,6 @@ use App\Models\TacheModel;
 
 class EmailNotificationController extends BaseController {
 
-	protected $session;
-	public function __construct() {
-		helper('form');
-		$this->session = session();
-	}
-
 	public function envoyerNotificationParMail()
 	{
 		$utilisateurModel = new UtilisateurModel();

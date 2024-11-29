@@ -1,60 +1,149 @@
-# CodeIgniter 4 Framework
+# SGT
 
-## What is CodeIgniter?
+Ce projet consiste est une **application web de gestion des tâches (SGT)** simple et fonctionnelle, permettant aux utilisateurs de créer, organiser et suivre leurs tâches personnelles. L'application intègre des fonctionnalités telles que la gestion des utilisateurs, l'organisation par priorités et échéances, des rappels par email, ainsi que la gestion des commentaires. 
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+Ce projet utilise **CodeIgniter 4** pour gérer des tâches web de base, y compris l'interaction avec une base de données, des formulaires, et un système de routage. Ce modèle peut être utilisé comme point de départ pour vos projets.
 
-This repository holds the distributable version of the framework.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Prérequis
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+Avant de commencer, assurez-vous d'avoir les éléments suivants installés :
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+- **Linux**
+- **PHP 8.1 ou supérieur**
+- **Base de données PostgreSQL**
 
-## Important Change with index.php
+## Installation
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Suivez les étapes ci-dessous pour installer et configurer le projet localement.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+### 1. Clonez le dépôt
 
-**Please** read the user guide for a better explanation of how CI4 works!
+Clonez ce projet dans le répertoire de votre choix grâce à la commande :
 
-## Repository Management
+```bash
+git clone git@github.com:Biyiv/SGT.git
+```
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+### 2. Ajouter un fichier pour se connecter à la Base de Données
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+Dans le répertoire ``` app/Config/ ``` ajouter un fichier ``` Database.php ``` qui à la structure suivante : 
+```php
+<?php
 
-## Contributing
+namespace Config;
 
-We welcome contributions from the community.
+use CodeIgniter\Database\Config;
 
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
+class Database extends Config
+{
+    public string $filesPath = APPPATH . 'Database' . DIRECTORY_SEPARATOR;
 
-## Server Requirements
+    public string $defaultGroup = 'default';
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+    public array $default = [
+        'DSN'          => 'Postgre://{identifiant}:{mot de passe}@woody.iut.univ-lehavre.fr:5432',
+        'hostname'     => 'woody.iut.univ-lehavre.fr',
+        'username'     => '{identifiant}',
+        'password'     => '{mot de passe}',
+        'database'     => '{nom de la base}',
+        'DBDriver'     => 'Postgre',
+        'DBPrefix'     => '',
+        'pConnect'     => false,
+        'DBDebug'      => true,
+        'charset'      => 'utf8',
+        'DBCollat'     => 'utf8_general_ci',
+        'swapPre'      => '',
+        'encrypt'      => false,
+        'compress'     => false,
+        'strictOn'     => false,
+        'failover'     => [],
+        'port'         => 3306,
+        'numberNative' => false,
+        'dateFormat'   => [
+            'date'     => 'Y-m-d',
+            'datetime' => 'Y-m-d H:i:s',
+            'time'     => 'H:i:s',
+        ],
+    ];
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+    public array $tests = [
+        'DSN'         => '',
+        'hostname'    => '127.0.0.1',
+        'username'    => '',
+        'password'    => '',
+        'database'    => ':memory:',
+        'DBDriver'    => 'SQLite3',
+        'DBPrefix'    => 'db_',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
+        'pConnect'    => false,
+        'DBDebug'     => true,
+        'charset'     => 'utf8',
+        'DBCollat'    => '',
+        'swapPre'     => '',
+        'encrypt'     => false,
+        'compress'    => false,
+        'strictOn'    => false,
+        'failover'    => [],
+        'port'        => 3306,
+        'foreignKeys' => true,
+        'busyTimeout' => 1000,
+        'dateFormat'  => [
+            'date'     => 'Y-m-d',
+            'datetime' => 'Y-m-d H:i:s',
+            'time'     => 'H:i:s',
+        ],
+    ];
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+    public function __construct()
+    {
+        parent::__construct();
+        if (ENVIRONMENT === 'testing') {
+            $this->defaultGroup = 'tests';
+        }
+    }
+}
+```
+Modifiez désormais le ``` $default ``` afin d'avoir vos informations de connexion à la base de données.
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+### 3. Créer la structure de la base de données
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+Pour créer la base de données, mettez vous à la racine du répertoire du projet et écrivez la commande :
+```bash
+php spark migrate
+```
+
+### 4. Initialiser la base de données
+
+Pour insérer des données, mettez vous à la racine du répertoire du projet et écrivez les commandes suivantes dans l'ordre:
+```bash
+php spark db:seed UtilisateurSeeder
+```
+puis : 
+```bash
+php spark db:seed TacheSeeder
+```
+enfin : 
+```bash
+php spark db:seed CommentaireSeeder
+```
+
+### 5. Configurer l'envoi de rappels
+
+Ecrivez la commande : 
+```bash
+crontab -e
+```
+puis dans le fichier qui est ouvert mettez la ligne suivante : 
+```
+0 8 * * * /usr/bin/php /CodeIgniter/SGT/public/index.php EmailNotificationController envoyerNotificationParMail
+```
+ce qui correspond à : 
+```
+(tous les jours à 8h) (emplacement de php) (path pour ce projet)/public/index.php EmailNotificationController envoyerNotificationParMail
+```
+
+## Lancement de l'application
+
+Pour lancer le serveur, mettez vous à la racine du répertoire du projet et écrivez la commande :
+```bash
+php spark serve
+```

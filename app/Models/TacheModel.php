@@ -21,7 +21,7 @@ class TacheModel extends Model
 		if ($keyword) {
 			$this->like('titre', $keyword); // Recherche dans le champ title
 		}
-		return $this->where('statut', 'en retard')->paginate($perPage, 'Tache');
+		return $this->where('statut', 'en retard')->orderBy('echeance', 'asc')->paginate($perPage, 'Tache');
 	}
 
 	public function getPaginatedTaches(int $perPage = 8, string $sortField = 'echeance', string $sortOrder = 'asc', ?string $keyword = null): array
