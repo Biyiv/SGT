@@ -51,7 +51,7 @@ body {
     margin-top: 20vh;
 }
 
-@media (min-height: 41em) {
+@media (min-height: 60em) {
     #register {
         margin: 28vh 0 8vh;
         height: 84vh;
