@@ -346,13 +346,13 @@ textarea {
     cursor: default; /* Change le curseur en flèche normale */
     display: flex;
     flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
-    margin-left: 4%;
+    justify-content: center;
 }
 
 .conteneur-btn {
     position:absolute;
     bottom: 5%;
-    left: 10%;
+    left: 2vh;
     display: flex;
 }
 
