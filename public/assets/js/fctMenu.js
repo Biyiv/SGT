@@ -6,6 +6,10 @@ const modalProfil = document.getElementById('creationProfilModal');
 const openModalBtnProfil = document.getElementById('openModalBtnProfil');
 const closeModalBtnProfil = document.getElementById('closeModalBtnProfil');
 
+const modalFiltres = document.getElementById('creationFiltresModal');
+const openModalBtnFiltres = document.getElementById('openModalBtnFiltres');
+const closeModalBtnFiltres = document.getElementById('closeModalBtnFiltres');
+
 const taches = document.querySelectorAll('.tache');
 const bandeau = document.getElementById('bandeau-droit');
 
@@ -13,18 +17,22 @@ const bandeau = document.getElementById('bandeau-droit');
 openModalBtnTache.addEventListener('click', () => {
 	modalTache.style.display = 'flex';
 });
-// Ouvrir le modal
 openModalBtnProfil.addEventListener('click', () => {
 	modalProfil.style.display = 'flex';
+});
+openModalBtnFiltres.addEventListener('click', () => {
+	modalFiltres.style.display = 'flex';
 });
 
 // Fermer le modal
 closeModalBtnTache.addEventListener('click', () => {
 	modalTache.style.display = 'none';
 });
-// Fermer le modal
 closeModalBtnProfil.addEventListener('click', () => {
 	modalProfil.style.display = 'none';
+});
+closeModalBtnFiltres.addEventListener('click', () => {
+	modalFiltres.style.display = 'none';
 });
 
 // Fermer le modal si l'utilisateur clique en dehors du modal
@@ -34,6 +42,9 @@ window.addEventListener('click', (event) => {
 	}
 	if (event.target === modalProfil) {
 		modalProfil.style.display = 'none';
+	}
+	if (event.target === modalFiltres) {
+		modalFiltres.style.display = 'none';
 	}
 });
 

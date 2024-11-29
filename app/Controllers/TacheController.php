@@ -68,8 +68,14 @@ class TacheController extends BaseController
 			setcookie('nbTache', '', time() - 3600);
 		}
 
-		//var_dump($_COOKIE['nbTache']);
-		//exit;
+		$toutVoir = $this->request->getPost('toutVoir');
+		if ($toutVoir) {
+			setcookie('toutVoir', $toutVoir, time() + 3600 * 24 * 30);
+		}
+		else {
+			setcookie('toutVoir', '', time() - 3600);
+		}
+
 		return redirect()->to('/dashboard');
 	}
 

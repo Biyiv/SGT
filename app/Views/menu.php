@@ -44,7 +44,7 @@
 		<div class="left-section">
 			<div>
 				<!-- Modal Trigger Button -->
-				<button id="openModalBtnFiltres">Filtres</button>
+				<button id="openModalBtnFiltres"><h5>Filtres</h5></button>
 			</div>
 			<div>
 				<hr>
@@ -221,20 +221,8 @@
 				<?= form_label('Nombre de taches par page', 'nbTache') ?>
 				<?= form_input('nbTache', isset($_COOKIE['nbTache']) ? $_COOKIE['nbTache'] : 8, [ 'min' => 1, 'placeholder' => 'Nombre de taches par page', 'required' => 'required'], 'number') ?>
 				<br>
-				<?= form_label('Nom', 'nom') ?>
-				<?= form_input('nom', session()->get('utilisateur')['nom'], ['placeholder' => 'Nom', 'required' => 'required']) ?>
-				<br>
-				<?= form_label('Prénom', 'prenom') ?>
-				<?= form_input('prenom', session()->get('utilisateur')['prenom'], ['placeholder' => 'Prénom', 'required' => 'required']) ?>
-				<br>
-				<?= form_label('Email', 'email') ?>
-				<?= form_input('email', session()->get('utilisateur')['mail'], ['placeholder' => 'Email', 'required' => 'required']) ?>
-				<br>
-				<?= form_label('Mot de passe actuel', 'mdp_actuel') ?>
-				<?= form_password('mdp_actuel', '', ['placeholder' => 'Mot de passe actuel']) ?>
-				<br>
-				<?= form_label('Nouveau mot de passe', 'nouveau_mdp') ?>
-				<?= form_password('nouveau_mdp', '', ['placeholder' => 'Nouveau mot de passe']) ?>
+				<?= form_label('Afficher les tâches de tout le monde', 'toutVoir') ?>
+				<?= form_checkbox('toutVoir', isset($_COOKIE['toutVoir']) ? $_COOKIE['toutVoir'] : 1) ?>
 				<br>
 				<?= form_label('Confirmer le nouveau mot de passe', 'mdp_confirm') ?>
 				<?= form_password('mdp_confirm', '', ['placeholder' => 'Confirmer le nouveau mot de passe']) ?>
