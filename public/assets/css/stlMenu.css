@@ -302,6 +302,24 @@ label {
     height: 21rem;
 }
 
+/* Styles pour troncature du titre */
+.truncate-title {
+    width: 100%; /* Ajustez selon la largeur de votre conteneur */
+    display: -webkit-box; /* Nécessaire pour la troncature en multi-lignes */
+    -webkit-box-orient: vertical; /* Définit l'orientation du texte */
+    -webkit-line-clamp: 2; /* Nombre maximum de lignes visibles */
+    overflow: hidden; /* Masque le contenu qui dépasse */
+}
+
+/* Styles pour troncature de la description */
+.truncate-description {
+    width: 100%; /* Ajustez selon la largeur de votre conteneur */
+    display: -webkit-box; /* Nécessaire pour la troncature en multi-lignes */
+    -webkit-box-orient: vertical; /* Définit l'orientation du texte */
+    -webkit-line-clamp: 1; /* Nombre maximum de lignes visibles */
+    overflow: hidden; /* Masque le contenu qui dépasse */
+}
+
 
 .bandeau h2 {
 	font-size: 1.5em;

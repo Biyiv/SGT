@@ -97,8 +97,8 @@
 		<?php if (!empty($taches) && is_array($taches)): ?>
 			<?php foreach ($taches as $tache): ?>
 				<div class="tache" id="<?= esc($tache['id']) ?>">
-					<h2><?= strlen($tache['titre']) > 20 ? substr($tache['titre'], 0, 20) . ' ...' : $tache['titre']; ?></h2>
-					<p><?= strlen($tache['description']) > 100 ? substr($tache['description'], 0, 100) . ' ...' : $tache['description']; ?></p>
+					<h2 class="truncate-title"><?= $tache['titre']; ?></h2>
+					<p class="truncate-description"><?= $tache['description']; ?></p>
 					<p><strong>Créé par : </strong><?= esc($tache['creepar']) ?></p>
 					<?php 
 						$debut =  new DateTime($tache['debut']);
