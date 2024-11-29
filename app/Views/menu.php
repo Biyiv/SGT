@@ -261,7 +261,7 @@
 					<option value="en attente">En attente</option>
 					<option value="en cours">En cours</option>
 					<option value="en retard">En retard</option>
-					<option value="terminee">Terminée</option>
+					<option value="termine">Terminée</option>
 				</select>
 			</span>
 		</p>
