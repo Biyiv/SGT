@@ -15,19 +15,19 @@ class CommentaireSeeder extends Seeder
             [
                 'commentaire' => 'La réunion est bien planifiée, tout le monde sera informé.',
                 'tache'       => 1,
-                'creepar'     => 'Biyiv',
+                'creepar'     => 'Mathys',
             ],
             [
                 'commentaire' => 'Assurez-vous que tous les participants confirment leur présence.',
                 'tache'       => 1,
-                'creepar'     => 'Frizoks',
+                'creepar'     => 'Antoine',
             ],
 
             // Tâche 2 : 1 commentaire
             [
                 'commentaire' => 'Les mises à jour doivent être effectuées ce week-end.',
                 'tache'       => 2,
-                'creepar'     => 'Biyiv',
+                'creepar'     => 'Mathys',
             ],
 
             // Tâche 3 : Aucun commentaire
@@ -36,24 +36,24 @@ class CommentaireSeeder extends Seeder
             [
                 'commentaire' => 'N’oubliez pas d’envoyer les rapports avant la réunion.',
                 'tache'       => 4,
-                'creepar'     => 'Frizoks',
+                'creepar'     => 'Antoine',
             ],
 
             // Tâche 5 : 3 commentaires
             [
                 'commentaire' => 'Les matériaux nécessaires ont été commandés hier.',
                 'tache'       => 5,
-                'creepar'     => 'Biyiv',
+                'creepar'     => 'Mathys',
             ],
             [
                 'commentaire' => 'Le fournisseur a confirmé la livraison pour demain.',
                 'tache'       => 5,
-                'creepar'     => 'Frizoks',
+                'creepar'     => 'Antoine',
             ],
             [
                 'commentaire' => 'Préparer l’espace de stockage pour les nouveaux équipements.',
                 'tache'       => 5,
-                'creepar'     => 'Biyiv',
+                'creepar'     => 'Mathys',
             ],
 
             // Tâche 6 : Aucun commentaire
@@ -62,12 +62,12 @@ class CommentaireSeeder extends Seeder
             [
                 'commentaire' => 'Un suivi sera nécessaire après la formation.',
                 'tache'       => 7,
-                'creepar'     => 'Frizoks',
+                'creepar'     => 'Antoine',
             ],
             [
                 'commentaire' => 'La session de formation s’est bien déroulée.',
                 'tache'       => 7,
-                'creepar'     => 'Biyiv',
+                'creepar'     => 'Mathys',
             ],
 
             // Tâche 8 : Aucun commentaire
@@ -76,19 +76,19 @@ class CommentaireSeeder extends Seeder
             [
                 'commentaire' => 'La rédaction de la documentation avance bien.',
                 'tache'       => 9,
-                'creepar'     => 'Frizoks',
+                'creepar'     => 'Antoine',
             ],
 
             // Tâche 10 : 2 commentaires
             [
                 'commentaire' => 'Il faut encore valider les spécifications techniques.',
                 'tache'       => 10,
-                'creepar'     => 'Biyiv',
+                'creepar'     => 'Mathys',
             ],
             [
                 'commentaire' => 'La documentation est en cours de finalisation.',
                 'tache'       => 10,
-                'creepar'     => 'Frizoks',
+                'creepar'     => 'Antoine',
             ],
 
             // Tâche 11 : Aucun commentaire
@@ -97,7 +97,7 @@ class CommentaireSeeder extends Seeder
             [
                 'commentaire' => 'Le test utilisateur a révélé des points à améliorer.',
                 'tache'       => 12,
-                'creepar'     => 'Biyiv',
+                'creepar'     => 'Mathys',
             ],
 
             // Tâche 13 : Aucun commentaire
@@ -106,24 +106,24 @@ class CommentaireSeeder extends Seeder
             [
                 'commentaire' => 'Le prototype sera prêt d’ici deux jours.',
                 'tache'       => 14,
-                'creepar'     => 'Frizoks',
+                'creepar'     => 'Antoine',
             ],
             [
                 'commentaire' => 'Les équipes travaillent efficacement sur le design.',
                 'tache'       => 14,
-                'creepar'     => 'Biyiv',
+                'creepar'     => 'Mathys',
             ],
             [
                 'commentaire' => 'Des ajustements mineurs sont nécessaires pour le prototype.',
                 'tache'       => 14,
-                'creepar'     => 'Frizoks',
+                'creepar'     => 'Antoine',
             ],
 
             // Tâche 15 : 1 commentaire
             [
                 'commentaire' => 'Une réunion de suivi est prévue pour demain.',
                 'tache'       => 15,
-                'creepar'     => 'Biyiv',
+                'creepar'     => 'Mathys',
             ],
 
             // Tâche 16 : Aucun commentaire
@@ -132,12 +132,12 @@ class CommentaireSeeder extends Seeder
             [
                 'commentaire' => 'Le rapport d’avancement doit être finalisé ce soir.',
                 'tache'       => 17,
-                'creepar'     => 'Frizoks',
+                'creepar'     => 'Antoine',
             ],
             [
                 'commentaire' => 'Les données collectées semblent complètes.',
                 'tache'       => 17,
-                'creepar'     => 'Biyiv',
+                'creepar'     => 'Mathys',
             ],
 
             // Tâche 18 : Aucun commentaire
@@ -146,14 +146,14 @@ class CommentaireSeeder extends Seeder
             [
                 'commentaire' => 'Une nouvelle échéance a été fixée pour le projet.',
                 'tache'       => 19,
-                'creepar'     => 'Frizoks',
+                'creepar'     => 'Antoine',
             ],
 
             // Tâche 20 : 1 commentaire
             [
                 'commentaire' => 'Le travail collaboratif porte ses fruits.',
                 'tache'       => 20,
-                'creepar'     => 'Biyiv',
+                'creepar'     => 'Mathys',
             ],
         ];
 

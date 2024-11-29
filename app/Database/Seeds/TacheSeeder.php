@@ -8,270 +8,145 @@ class TacheSeeder extends Seeder
 {
     public function run()
     {
-        // Réinitialiser la table `tache`
+        // Vider la table tache avant de la remplir
         $this->db->query('TRUNCATE TABLE tache RESTART IDENTITY CASCADE');
 
-        // Données des tâches
-        $data = [
-				[
-					"titre" => "Réunion d'équipe",
-					"description" => "Réunion hebdomadaire pour discuter des projets en cours.",
-					"creepar" => "Frizoks",
-					"echeance" => "2024-12-05 14:00:00",
-					"priorite" => 3,
-					"statut" => "en retard"
-				],
-				[
-					"titre" => "Mise à jour du site web",
-					"description" => "Apporter des modifications et des mises à jour au site web de l'entreprise.",
-					"creepar" => "Biyiv",
-					"echeance" => "2024-11-30 14:00:00",
-					"priorite" => 2,
-					"statut" => "en cours"
-				],
-				[
-					"titre" => "Correction de bug",
-					"description" => "Réparer les bugs signalés dans l'application.",
-					"creepar" => "Lucifer",
-					"echeance" => "2024-12-01 14:00:00",
-					"priorite" => 1,
-					"statut" => "en attente"
-				],
-				[
-					"titre" => "Formation interne",
-					"description" => "Session de formation sur les nouveaux outils.",
-					"creepar" => "Luck",
-					"echeance" => "2024-12-03 14:00:00",
-					"priorite" => 2,
-					"statut" => "en cours"
-				],
-				[
-					"titre" => "Audit mensuel",
-					"description" => "Vérification des processus internes.",
-					"creepar" => "Frizoks",
-					"echeance" => "2025-01-05 14:00:00",
-					"priorite" => 3,
-					"statut" => "en retard"
-				],
-				[
-					"titre" => "Préparation de la réunion trimestrielle",
-					"description" => "Collecte des données pour la présentation.",
-					"creepar" => "Luck",
-					"echeance" => "2024-12-08 14:00:00",
-					"priorite" => 1,
-					"statut" => "en cours"
-				],
-				[
-					"titre" => "Mise à jour des bases de données",
-					"description" => "Maintenance des données pour éviter les erreurs.",
-					"creepar" => "Lucifer",
-					"echeance" => "2024-12-13 14:00:00",
-					"priorite" => 2,
-					"statut" => "en retard"
-				],
-				[
-					"titre" => "Planification des vacances",
-					"description" => "Créer un calendrier pour les congés des employés.",
-					"creepar" => "Biyiv",
-					"echeance" => "2024-12-18 14:00:00",
-					"priorite" => 1,
-					"statut" => "en cours"
-				],
-				[
-					"titre" => "Validation des factures",
-					"description" => "Vérifier et valider les factures reçues.",
-					"creepar" => "Luck",
-					"echeance" => "2024-12-05 14:00:00",
-					"priorite" => 3,
-					"statut" => "en retard"
-				],
-				[
-					"titre" => "Révision du plan stratégique",
-					"description" => "Analyser et réviser les objectifs stratégiques.",
-					"creepar" => "Frizoks",
-					"echeance" => "2024-12-12 14:00:00",
-					"priorite" => 2,
-					"statut" => "en cours"
-				],
-				[
-					"titre" => "Suivi des partenaires",
-					"description" => "Appeler les partenaires pour discuter des collaborations.",
-					"creepar" => "Lucifer",
-					"echeance" => "2024-12-07 14:00:00",
-					"priorite" => 1,
-					"statut" => "en attente"
-				],
-				[
-					"titre" => "Configuration de nouveaux équipements",
-					"description" => "Installer les nouveaux outils dans les bureaux.",
-					"creepar" => "Luck",
-					"echeance" => "2024-12-04 14:00:00",
-					"priorite" => 3,
-					"statut" => "en cours"
-				],
-				[
-					"titre" => "Campagne publicitaire",
-					"description" => "Créer et lancer une nouvelle campagne marketing.",
-					"creepar" => "Biyiv",
-					"echeance" => "2024-12-06 14:00:00",
-					"priorite" => 2,
-					"statut" => "en retard"
-				],
-				[
-					"titre" => "Recrutement de stagiaires",
-					"description" => "Organiser des entretiens pour les stagiaires.",
-					"creepar" => "Lucifer",
-					"echeance" => "2024-12-10 14:00:00",
-					"priorite" => 1,
-					"statut" => "en cours"
-				],
-				[
-					"titre" => "Test du nouveau logiciel",
-					"description" => "Effectuer des tests pour la nouvelle application.",
-					"creepar" => "Luck",
-					"echeance" => "2024-12-02 14:00:00",
-					"priorite" => 3,
-					"statut" => "en attente"
-				],
-				[
-					"titre" => "Organisation du séminaire annuel",
-					"description" => "Planifier les activités et réserver le lieu.",
-					"creepar" => "Frizoks",
-					"echeance" => "2025-01-10 14:00:00",
-					"priorite" => 3,
-					"statut" => "en retard"
-				],
-				[
-					"titre" => "Suivi des ventes",
-					"description" => "Analyser les chiffres et relancer les clients.",
-					"creepar" => "Biyiv",
-					"echeance" => "2025-01-03 14:00:00",
-					"priorite" => 2,
-					"statut" => "en cours"
-				],
-				[
-					"titre" => "Élaboration du budget annuel",
-					"description" => "Préparer les prévisions budgétaires pour l'année prochaine.",
-					"creepar" => "Luck",
-					"echeance" => "2025-01-25 14:00:00",
-					"priorite" => 1,
-					"statut" => "en attente"
-				],
-				[
-					"titre" => "Mise en place de l'intranet",
-					"description" => "Créer un espace collaboratif pour les employés.",
-					"creepar" => "Lucifer",
-					"echeance" => "2024-12-18 14:00:00",
-					"priorite" => 2,
-					"statut" => "en cours"
-				],
-				[
-					"titre" => "Refonte de la charte graphique",
-					"description" => "Moderniser le logo et le style visuel.",
-					"creepar" => "Luck",
-					"echeance" => "2024-12-16 14:00:00",
-					"priorite" => 1,
-					"statut" => "en retard"
-				],
-				[
-					'titre'       => 'Planification des objectifs 2025',
-					'description' => 'Définir les priorités stratégiques pour l\'année 2025.',
-					'creepar'     => 'Lucifer',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+15 days')),
-					'priorite'    => 3,
-					'statut'      => 'en cours',
-				],
-				[
-					'titre'       => 'Migration des serveurs cloud',
-					'description' => 'Transférer les données et applications vers une infrastructure cloud sécurisée.',
-					'creepar'     => 'Biyiv',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+10 days')),
-					'priorite'    => 2,
-					'statut'      => 'en retard',
-				],
-				[
-					'titre'       => 'Création d\'un comité d\'innovation',
-					'description' => 'Mettre en place un groupe chargé de proposer des idées innovantes.',
-					'creepar'     => 'Luck',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+30 days')),
-					'priorite'    => 1,
-					'statut'      => 'en attente',
-				],
-				[
-					'titre'       => 'Révision du contrat fournisseur',
-					'description' => 'Analyser les termes actuels et négocier un renouvellement avantageux.',
-					'creepar'     => 'Frizoks',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+7 days')),
-					'priorite'    => 2,
-					'statut'      => 'en cours',
-				],
-				[
-					'titre'       => 'Formation sur la gestion de projet',
-					'description' => 'Former les employés aux outils et méthodologies de gestion de projet.',
-					'creepar'     => 'Lucifer',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+20 days')),
-					'priorite'    => 3,
-					'statut'      => 'en retard',
-				],
-				[
-					'titre'       => 'Analyse des retours clients',
-					'description' => 'Collecter et étudier les retours pour améliorer les produits.',
-					'creepar'     => 'Biyiv',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+5 days')),
-					'priorite'    => 1,
-					'statut'      => 'en cours',
-				],
-				[
-					'titre'       => 'Lancement d\'une enquête de satisfaction',
-					'description' => 'Préparer un sondage pour évaluer la satisfaction des clients.',
-					'creepar'     => 'Luck',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+12 days')),
-					'priorite'    => 2,
-					'statut'      => 'en attente',
-				],
-				[
-					'titre'       => 'Sécurisation des données sensibles',
-					'description' => 'Mettre en œuvre des protocoles pour renforcer la sécurité des données.',
-					'creepar'     => 'Frizoks',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+8 days')),
-					'priorite'    => 3,
-					'statut'      => 'en retard',
-				],
-				[
-					'titre'       => 'Déploiement d\'un nouveau logiciel RH',
-					'description' => 'Installer et former les utilisateurs au nouvel outil de gestion RH.',
-					'creepar'     => 'Lucifer',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+18 days')),
-					'priorite'    => 1,
-					'statut'      => 'en cours',
-				],
-				[
-					'titre'       => 'Organisation d\'une réunion inter-départements',
-					'description' => 'Favoriser la collaboration entre différentes équipes.',
-					'creepar'     => 'Luck',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+25 days')),
-					'priorite'    => 2,
-					'statut'      => 'en attente',
-				],
-				[
-					'titre'       => 'Mise en place d\'un programme de mentoring',
-					'description' => 'Créer un système où les employés expérimentés accompagnent les nouveaux arrivants.',
-					'creepar'     => 'Biyiv',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+14 days')),
-					'priorite'    => 3,
-					'statut'      => 'en cours',
-				],
-				[
-					'titre'       => 'Optimisation de la chaîne logistique',
-					'description' => 'Identifier les points faibles et proposer des solutions pour une meilleure gestion des flux.',
-					'creepar'     => 'Frizoks',
-					'echeance'    => date('Y-m-d H:i:s', strtotime('+3 days')),
-					'priorite'    => 1,
-					'statut'      => 'en retard',
-				],
+        // Utilisateurs et leurs IDs respectifs
+        $users = [
+            [1 => 'Antoine'],
+            [2 => 'Mathys'],
+            [3 => 'Baptiste'],
+            [4 => 'Luc'],
         ];
 
-        // Insérer toutes les tâches
-        $this->db->table('tache')->insertBatch($data);
-	}
+        $today = date('Y-m-d');
+
+        // Liste des tâches par domaine
+        $tasks = [
+            "Antoine" => [
+                "Rédaction du rapport d'analyse",
+                "Révision des spécifications techniques",
+                "Mise à jour de la documentation utilisateur",
+                "Planification des réunions de suivi",
+                "Analyse des besoins clients",
+                "Réalisation des maquettes fonctionnelles",
+                "Validation des tests d'intégration",
+                "Rédaction des cahiers de tests",
+                "Préparation des supports de présentation",
+                "Participation à la réunion hebdomadaire",
+                "Recherche sur les outils de gestion de projet",
+                "Création de la roadmap produit",
+                "Élaboration du cahier des charges",
+                "Réalisation du bilan de projet",
+                "Amélioration des processus existants",
+                "Vérification des retours clients",
+                "Analyse de l'expérience utilisateur",
+                "Formation des nouveaux collaborateurs",
+                "Gestion des droits utilisateurs",
+                "Contrôle qualité des livrables",
+            ],
+            "Mathys" => [
+                "Développement de l'interface front-end",
+                "Intégration des maquettes graphiques",
+                "Débogage des problèmes d'affichage",
+                "Optimisation du code CSS et JavaScript",
+                "Mise en place des animations UI/UX",
+                "Création d'un système de design réactif",
+                "Implémentation des API front-end",
+                "Vérification de la compatibilité mobile",
+                "Tests d'accessibilité WCAG",
+                "Documentation du code front-end",
+                "Maintenance des composants front-end",
+                "Mise à jour des dépendances front-end",
+                "Collaboration avec l'équipe design",
+                "Intégration des retours utilisateurs",
+                "Refactoring des modules existants",
+                "Tests de performance sur le front",
+                "Mise en production des changements",
+                "Ajout de nouveaux composants UI",
+                "Configuration des environnements front-end",
+                "Participation aux code reviews front-end",
+            ],
+            "Baptiste" => [
+                "Création de la structure de la base de données",
+                "Optimisation des requêtes SQL",
+                "Réalisation des sauvegardes régulières",
+                "Conception d'une API RESTful",
+                "Documentation des endpoints API",
+                "Ajout de fonctionnalités à l'application",
+                "Développement des modules back-end",
+                "Débogage des erreurs côté serveur",
+                "Mise en place des tests unitaires",
+                "Gestion des migrations de la base de données",
+                "Révision du code pour la sécurité",
+                "Analyse des performances SQL",
+                "Implémentation de la pagination",
+                "Rédaction des scripts de maintenance",
+                "Mise à jour des configurations serveur",
+                "Refactoring du code back-end",
+                "Création des endpoints pour les nouvelles fonctionnalités",
+                "Gestion des logs applicatifs",
+                "Correction des anomalies signalées",
+                "Ajout des validations sur les formulaires",
+            ],
+            "Luc" => [
+                "Création d'un dashboard analytique",
+                "Intégration des graphiques dynamiques",
+                "Automatisation des tâches récurrentes",
+                "Développement des requêtes SQL avancées",
+                "Mise en place des sauvegardes automatisées",
+                "Rédaction de scripts pour les analyses de données",
+                "Ajout des rôles et permissions utilisateurs",
+                "Optimisation de la base de données",
+                "Migration vers une nouvelle version SQL",
+                "Validation des données d'entrée",
+                "Création des rapports mensuels",
+                "Test des fonctionnalités en production",
+                "Gestion des imports/export de données",
+                "Configuration des environnements de test",
+                "Mise à jour des dépendances backend",
+                "Développement des tableaux de bord",
+                "Amélioration des performances SQL",
+                "Gestion des erreurs dans les logs",
+                "Support technique sur les anomalies critiques",
+                "Rédaction des protocoles de sécurité",
+            ],
+        ];
+
+		$cpt = 1;
+		$statut = [0 => 'en attente', 1 => 'en cours', 2 => 'termine', 3 => 'en retard', ];
+		$cptU = 1;
+        foreach ($users as $user) {
+            foreach ($tasks[$user[$cptU]] as $index => $titre) {
+                $startDate = date(
+					'Y-m-d',
+					rand(strtotime("2024-11-01"), strtotime("2026-12-30"))
+				);
+				
+				// Génère une date d'échéance basée sur une probabilité (non en retard ou en retard, mais logique)
+				$endDate = date(
+					'Y-m-d',
+					rand(
+						strtotime($startDate . " +1 day"),  // Minimum : 1 jour après le début
+						strtotime($startDate . " +15 days") // Maximum : 15 jours après le début
+					)
+				);
+
+                $task = [
+                    'titre' => $titre,
+                    'description' => "Cette tâche consiste à {$titre} pour le projet en cours.",
+                    'debut' => $startDate,
+                    'echeance' => $endDate,
+					'priorite' => $cpt%3 + 1,
+                    'statut' => $endDate < $today ? $statut[3] : $statut[rand(0, 2)],
+                    'creepar' => $user[$cptU],
+                ];
+
+                // Insérer la tâche
+                $this->db->table('tache')->insert($task);
+				$cpt++;
+            }
+			$cptU++;
+        }
+    }
 }
