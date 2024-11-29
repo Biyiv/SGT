@@ -30,7 +30,7 @@
 			<div id="resetpwd">
 				<h1>Réinitialisation du mot de passe</h1>
 				<?= form_open('/resetpwd/' .$token) ?>
-					<div class="password-wrapper">
+				<div class="password-wrapper">
 						<?= form_label('Mot de passe', 'mdp') ?>
 						<div class="password-container">
 							<?= form_password('mdp', '', [
@@ -57,6 +57,7 @@
 							</button>
 						</div>
 					</div>
+					<br>
 					<br>
 					<?= form_submit('submit', 'Modifier le mot de passe') ?>
 				<?= form_close() ?>

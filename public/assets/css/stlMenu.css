@@ -22,6 +22,7 @@ body {
     user-select: none; /* Désactive la sélection de texte */
     cursor: default; /* Change le curseur en flèche normale */
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
     margin: 0 10%;
@@ -30,6 +31,20 @@ body {
 
 label {
     color: #0056b3;
+}
+
+.navbar-content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 3rem;
+    cursor: pointer;
+    margin: 2vh 0 0 2vh;
 }
 
 .navbar button {
@@ -86,6 +101,50 @@ label {
 /* Style du titre */
 .right-section h1 {
     margin: 0;
+}
+
+@media (max-width: 65rem) {
+    .navbar-content {
+        display: none; /* Cache la navbar par défaut */
+        flex-direction: column;
+        background-color: #f8f9fa;
+        position: absolute;
+        top: 100%; /* Position sous la barre principale */
+        left: 0;
+        width: 100%;
+        z-index: 10;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-content.active {
+        display: flex; /* Affiche la navbar */
+    }
+
+    .navbar-toggle {
+        display: inline-block; /* Affiche le bouton ☰ */
+    }
+}
+
+@media (max-width: 78rem) {
+    .bandeau-visible .navbar-content {
+        display: none; /* Cache la navbar par défaut */
+        flex-direction: column;
+        background-color: #f8f9fa;
+        position: absolute;
+        top: 100%; /* Position sous la barre principale */
+        left: 0;
+        width: 100%;
+        z-index: 10;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .bandeau-visible .navbar-content.active {
+        display: flex; /* Affiche la navbar */
+    }
+
+    .bandeau-visible .navbar-toggle {
+        display: inline-block; /* Affiche le bouton ☰ */
+    }
 }
 
 /* Contenu du modal */
@@ -362,7 +421,7 @@ textarea {
 
 .bandeau-visible .navbar {
     margin-left: 4%;
-    margin-right: 32%;
+    margin-right: 20lh;
 }
 
 .bandeau-visible #paginationTache {
