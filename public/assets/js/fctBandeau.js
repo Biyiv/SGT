@@ -168,8 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		const mtn = new Date();
 		const statut = document.getElementById('select-statut');
-		statut.removeAttribute('disabled');
-
+		const statutSelected = statut.value;
 		statut.innerHTML = '';
 
 		// Vérifier si la date actuelle est supérieure à la date d'échéance
@@ -190,6 +189,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			option.textContent = optionData.text;
 			statut.appendChild(option);
 		});
+		for (let i = 0; i < statut.options.length; i++) {
+			if (statut.options[i].value.trim() == statutSelected.trim()) {
+				statut.options[i].selected = true;
+			}
+		}
+		statut.removeAttribute('disabled');
 
 
 
