@@ -42,19 +42,42 @@ class TacheController extends BaseController
 
 		$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance";
 		$recherche = $this->session->get('recherche') == null ? "" : $this->session->get('recherche');
-
-		// Récupérer toutes les tâches, triées par échéance
+		$nbTache = isset($_COOKIE['nbTache']) ? $_COOKIE['nbTache'] : 8;
+		$toutVoir = isset($_COOKIE['toutVoir']) ? $_COOKIE['toutVoir'] : 8;
+		
+		// Récupérer toutes les tâches, triées
 		if ($tri == 'retard'){
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedRetardTaches(8) : $data['taches'] = $tacheModel->getPaginatedRetardTaches(8, $recherche);
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedRetardTaches($nbTache) : $data['taches'] = $tacheModel->getPaginatedRetardTaches($nbTache, $recherche);
 		} elseif ($tri == 'priorite') {
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC') : $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'DESC', $recherche);
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'DESC') : $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'DESC', $recherche);
 		} else {
-			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri) : $data['taches'] = $tacheModel->getPaginatedTaches(8, $tri, 'ASC', $recherche);
+			$recherche == "" ? $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri) : $data['taches'] = $tacheModel->getPaginatedTaches($nbTache, $tri, 'ASC', $recherche);
 		}
 		$data['pagerTaches'] = $tacheModel->pager;
 
 		// Charger la vue avec les données
 		return view('menu', $data);
+	}
+
+	public function modifFiltres()
+	{
+		$nbTache = $this->request->getPost('nbTache');
+		if ($nbTache) {
+			setcookie('nbTache', $nbTache, time() + 3600 * 24 * 30);
+		}
+		else {
+			setcookie('nbTache', '', time() - 3600);
+		}
+
+		$toutVoir = $this->request->getPost('toutVoir');
+		if ($toutVoir) {
+			setcookie('toutVoir', $toutVoir, time() + 3600 * 24 * 30);
+		}
+		else {
+			setcookie('toutVoir', '', time() - 3600);
+		}
+
+		return redirect()->to('/dashboard');
 	}
 
 	public function setTriPreference()

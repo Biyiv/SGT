@@ -43,6 +43,13 @@
 	<nav class="navbar">
 		<div class="left-section">
 			<div>
+				<!-- Modal Trigger Button -->
+				<button id="openModalBtnFiltres"><h5>Filtres</h5></button>
+			</div>
+			<div>
+				<hr>
+			</div>
+			<div>
 				<?= form_open('/setTriPreference', ['method' => 'post']); ?>
 					<!-- CSRF Protection -->
 					<?= csrf_field() ?>
@@ -54,7 +61,6 @@
 						[
 							'echeance' => 'Échéance',
 							'priorite' => 'Priorité',
-							'retard' => 'Retard',
 							'creepar' => 'Createur',
 							'titre' => 'Alphabétique'
 						],
@@ -204,6 +210,40 @@
 		</div>
 	</div>
 
+	<!-- Modal -->
+	<div id="creationFiltresModal" class="modal">
+		<div class="modal-content">
+			<span class="close-btn" id="closeModalBtnFiltres">&times;</span>
+			
+			<!-- Formulaire de modification de profil -->
+			<?= form_open("/modifFiltres"); ?>
+				<?= form_label('Nombre de taches par page', 'nbTache') ?>
+				<?= form_input('nbTache', isset($_COOKIE['nbTache']) ? $_COOKIE['nbTache'] : 8, [ 'min' => 1, 'placeholder' => 'Nombre de taches par page', 'required' => 'required'], 'number') ?>
+				<br>
+				<?= form_label('Afficher les tâches de tout le monde', 'toutVoir') ?>
+				<?= form_checkbox('toutVoir', isset($_COOKIE['toutVoir']) ? $_COOKIE['toutVoir'] : 1) ?>
+				<br>
+				<?= form_label('Affichage selon la priorité', 'filtrePriorite'); ?>
+				<?= form_dropdown(
+					'filtrePriorite',
+					['-1' => 'Tout','1' => 'Faible', '2' => 'Moyenne', '3' => 'Importante'],
+					$tri = isset($_COOKIE['filtrePriorite']) ? $_COOKIE['filtrePriorite'] : "-1",
+					['id' => 'filtrePriorite']
+				); ?>
+				<br>
+				<?= form_label('Affichage selon le statut', 'filtreStatut'); ?>
+				<?= form_dropdown(
+					'filtreStatut',
+					['tout' => 'Tout','en attente' => 'En attente', 'en cours' => 'En cours', 'en retard' => 'En retard', 'termine' => 'Terminé'],
+					$tri = isset($_COOKIE['filtreStatut']) ? $_COOKIE['filtreStatut'] : "tout",
+					['id' => 'filtreStatut']
+				); ?>
+				<br>
+				<?= form_submit('submit', 'Sauvegarder') ?>
+			<?= form_close(); ?>
+		</div>
+	</div>
+
 
 	<div id="bandeau-droit">
 		<button id="fermer-bandeau">&times;</button>
@@ -233,7 +273,7 @@
 					<option value="en attente">En attente</option>
 					<option value="en cours">En cours</option>
 					<option value="en retard">En retard</option>
-					<option value="terminee">Terminée</option>
+					<option value="termine">Terminée</option>
 				</select>
 			</span>
 		</p>
