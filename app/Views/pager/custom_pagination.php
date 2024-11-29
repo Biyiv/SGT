@@ -16,11 +16,9 @@ $pager->setSurroundCount(1);
 			</li>
 		<?php endif ?>
 
-		<?php foreach ($pager->links() as $link) : ?>
-			<li <?= $link['active'] ? 'class="active"' : '' ?>>
-				<a href="<?= $link['uri'] ?>">
-					<?= $link['title'] ?>
-				</a>
+		<?php foreach ($pager->links() as $link): ?>
+			<li class="<?= $link['active'] ? 'active' : '' ?>">
+				<a href="<?= $link['uri'] ?>"><?= $link['title'] ?></a>
 			</li>
 		<?php endforeach ?>
 
