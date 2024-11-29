@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		gestionnaireTachesSuppr.style.pointerEvents = 'none';
 
 		supprimerBtn.addEventListener('click', () => {
-			const confirmation = confirm('Voulez-vous vraiment supprimer ce commentaire ?');
+			const confirmation = confirm('Voulez-vous vraiment supprimer cette tache ?');
 
 			if (confirmation) {
 				fetch('/supprimerTache/' + id, {
@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					console.error('Erreur:', error);
 				});
 			} else {
-				alert('Le commentaire n\'a pas été supprimé');
+				alert('La tache n\'a pas été supprimé');
 			}
 		});
 
