@@ -51,9 +51,16 @@ body {
     margin-top: 20vh;
 }
 
+@media (min-height: 41em) {
+    #register {
+        margin: 28vh 0 8vh;
+        height: 84vh;
+    }
+}
+
 #register {
-    margin: 28vh 0 8vh;
-    height: 84vh;
+    margin: 37.5vh 0 10vh;
+    height: 80vh;
     min-height: 41rem;
 }
 
