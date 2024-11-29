@@ -58,6 +58,7 @@
 						</div>
 					</div>
 					<br>
+					<br>
 					<?= form_submit('submit', 'Modifier le mot de passe') ?>
 				<?= form_close() ?>
 				<div class="center-container">
