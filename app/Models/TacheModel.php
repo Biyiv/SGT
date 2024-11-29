@@ -22,7 +22,7 @@ class TacheModel extends Model
 			$this->like('titre', $keyword); // Recherche dans le champ title
 		}
 
-		if($toutVoir) {
+		if(!$toutVoir) {
 			if($priorite != -1 && $statut != "tout") {
 				return $this->where('priorite', $priorite)->where('statut', $statut)->orderBy($sortField, $sortOrder)->paginate($perPage, 'Tache');
 			} else if ($priorite != -1 && $statut == "tout") {
