@@ -31,17 +31,14 @@ $routes->group('', ['filter' => 'authGuard'], function($routes) {
 	$routes->match(['get', 'post'], '/setTriPreference','TacheController::setTriPreference');
 	$routes->match(['get', 'post'], '/recherche','TacheController::setRecherche');
 
-	$routes->post( '/ajouterTache','TacheController::ajouterTache');
 	$routes->post( '/modifProfil/(:any)','LoginController::modifProfil/$1');
-
+	
+	$routes->post( '/ajouterTache','TacheController::ajouterTache');
+	$routes->post('/supprimerTache/(:num)', 'TacheController::supprimerTache/$1');
 	$routes->post('/taches/(:num)', 'TacheController::modifierTache/$1');
 
 	$routes->match(['get', 'post'], '/taches/(:num)/commentaires', 'TacheController::getCommentaires/$1');
-	$routes->match(['get', 'post'], '/taches/(:num)/commentaires', 'TacheController::supprimerCommentaire/$1');
-
-	$routes->post('/supprimerTache/(:num)', 'TacheController::supprimerTache/$1');
-
-	$routes->post('/taches/(:num)/ajouterCommentaire', 'TacheController::ajouterCommentaire/$1');
+	$routes->post('/taches/ajouterCommentaire/(:num)', 'TacheController::ajouterCommentaire/$1');
 	$routes->delete('/taches/supprimerCommentaires/(:num)', 'TacheController::supprimerCommentaire/$1');
 });
 

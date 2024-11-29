@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Login</title>
+	<title>Connexion</title>
+	<!-- Logo d'onglet -->
+	<link rel="icon" type="image/png" href="/assets/images/favico.png" />
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/assets/css/stlConnection.css">
