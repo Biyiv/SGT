@@ -42,3 +42,7 @@ $routes->match(['get', 'post'], '/dmdSupprimerTache/(:num)','TacheController::dm
 
 $routes->post('/taches/(:num)/ajouterCommentaire', 'TacheController::ajouterCommentaire/$1');
 $routes->delete('/taches/supprimerCommentaires/(:num)', 'TacheController::supprimerCommentaire/$1');
+
+
+//Cette route renvoie vers la méthode pour envoyer les notifications par mail des taches en retard
+//$routes->get('/envoyerNotificationParMail', 'EmailNotificationController::envoyerNotificationParMail');
