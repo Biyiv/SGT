@@ -61,6 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		//Récupérer les commentaires de la tâche
 		getCommentaires(id);
 
+		// Afficher les boutons de commentaire
+		document.getElementById('ajouter-commentaire').style.removeProperty('display');
+		document.getElementById('supprimer-commentaire').style.removeProperty('display');
+
 		// Afficher le bandeau
 		bandeau.style.display = 'block';
 	}
@@ -258,9 +262,11 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 
-
-
 		document.getElementById('bandeau-droit').appendChild(supprimerBtn);
+
+		// Cache les boutons de commentaire
+		document.getElementById('ajouter-commentaire').style.display = 'none';
+		document.getElementById('supprimer-commentaire').style.display = 'none';
 	});
 
 	// Fonction pour réinitialiser le bandeau en version non éditable
@@ -457,7 +463,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-	document.getElementById('supprimer-tache').addEventListener('click', () => {
+	document.getElementById('supprimer-commentaire').addEventListener('click', () => {
 		const commentaires = document.querySelectorAll('.commentaire');
 
 		commentaires.forEach(commentaire => {
