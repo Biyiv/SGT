@@ -34,7 +34,7 @@ $routes->post( '/modifProfil/(:any)','LoginController::modifProfil/$1');
 
 $routes->post('/taches/(:num)', 'TacheController::modifierTache/$1');
 
-$routes->match(['get', 'post'], '/taches/(:num)/commentaires', 'TacheController::supprimerCommentaire/$1');
+$routes->match(['get', 'post'], '/taches/(:num)/commentaires', 'TacheController::getCommentaires/$1');
 
 $routes->post('/supprimerTache/(:num)', 'TacheController::supprimerTache/$1');
 

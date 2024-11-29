@@ -195,7 +195,6 @@ class TacheController extends BaseController
 		if ($commentaires) {
 			return $this->response->setJSON($commentaires);
 		} else {
-			// Retourne le string "Pas de commentaire"
 			return $this->response->setJSON([]);
 		}
 	}
