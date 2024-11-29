@@ -227,7 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {
 					statut: document.getElementById('select-statut').value,
 					id: document.getElementById('bandeau-id').textContent,
 				})
-			}).then(() => {
+			}).then((data) => {
+				console.log(data);
 				gestionnaireTaches.style.pointerEvents = 'auto';
 				location.reload();
 			}).catch((error) => {

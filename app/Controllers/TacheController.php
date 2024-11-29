@@ -25,7 +25,7 @@ class TacheController extends BaseController
 
 		$taches = $tacheModel->findAll();
 		foreach ($taches as $tache) {
-			if($tache['statut'] != 'en retard' || $tache['statut'] != 'termine') {
+			if($tache['statut'] != 'en retard' && $tache['statut'] != 'termine') {
 				if($tache['echeance'] < date('Y-m-d H:i:s')) {
 					$this->modifierStatutTache($tache['id'], 'en retard');
 				}
@@ -130,7 +130,7 @@ class TacheController extends BaseController
 			return $this->response->setJSON($data);
 		} else {
 			$this->session->setFlashdata('error', 'Erreur lors de la modification de la tâche');
-			return $this->response->setStatusCode(280)->setJSON(['error' => 'Erreur lors de la modification de la tâche']);
+			return $this->response->setStatusCode(280)->setJSON(['error' => 'Erreur lors de la modification de la tâche', "data" => $data]);
 		}
 	}
 
