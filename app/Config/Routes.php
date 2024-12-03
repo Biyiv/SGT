@@ -44,4 +44,4 @@ $routes->group('', ['filter' => 'authGuard'], function($routes) {
 
 
 //Cette route renvoie vers la méthode pour envoyer les notifications par mail des taches en retard
-//$routes->get('/envoyerNotificationParMail', 'EmailNotificationController::envoyerNotificationParMail');
+//$routes->get('/notifMail', 'EmailNotificationController::envoyerNotificationParMail');

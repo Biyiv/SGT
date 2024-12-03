@@ -91,6 +91,9 @@
 					<!-- Modal Trigger Button -->
 					<button id="openModalBtnTache"><h5>Créer une Tâche</h5></button>
 				</div>
+				<div>
+					<hr>
+				</div>
 			</div>
 			<div class="right-section">
 				<div>
