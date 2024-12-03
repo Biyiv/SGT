@@ -8,39 +8,40 @@ class UtilisateurSeeder extends Seeder
 {
     public function run()
     {
-		$this->db->query('TRUNCATE TABLE utilisateur RESTART IDENTITY CASCADE');
+        // Vider la table utilisateur avant de la remplir
+        $this->db->query('TRUNCATE TABLE utilisateur RESTART IDENTITY CASCADE');
 
         $data = [
             [
-                'username' => 'Frizoks',
-                'nom'      => 'Lecarpentier',
-                'prenom'   => 'Luc',
-                'mail'     => 'luc.lecarpentier5@gmail.com',
-                'mdp'      => password_hash('Motdepasse1', PASSWORD_DEFAULT),
-                'active'   => true, 
+                'username' => 'Antoine',
+                'nom'      => 'Caron',
+                'prenom'   => 'Antoine',
+                'mail'     => 'toivimic.caron@gmail.com',
+                'mdp'      => password_hash('pwdAntoine01', PASSWORD_DEFAULT),
+                'active'   => true,
             ],
             [
-                'username' => 'Biyiv',
+                'username' => 'Mathys',
+                'nom'      => 'Poret',
+                'prenom'   => 'Mathys',
+                'mail'     => 'drmama1243@gmail.com',
+                'mdp'      => password_hash('pwdMathys02', PASSWORD_DEFAULT),
+                'active'   => true,
+            ],
+            [
+                'username' => 'Baptiste',
                 'nom'      => 'Hay',
                 'prenom'   => 'Baptiste',
                 'mail'     => 'baptiste.hay@hotmail.fr',
-                'mdp'      => password_hash('MaisTesPasNet', PASSWORD_DEFAULT),
+                'mdp'      => password_hash('pwdBaptiste03', PASSWORD_DEFAULT),
                 'active'   => true,
             ],
-			[
-                'username' => 'Luck',
-                'nom'      => 'Dupont',
-                'prenom'   => 'Lucas',
-                'mail'     => 'lucas.dupont@sfr.fr',
-                'mdp'      => password_hash('Motdepasse1', PASSWORD_DEFAULT),
-                'active'   => true,
-            ],
-			[
-                'username' => 'Lucifer',
-                'nom'      => 'Fer',
-                'prenom'   => 'Lucie',
-                'mail'     => 'fer.lucie@gmail.com',
-                'mdp'      => password_hash('Motdepasse1', PASSWORD_DEFAULT),
+            [
+                'username' => 'Luc',
+                'nom'      => 'Lecarpentier',
+                'prenom'   => 'Luc',
+                'mail'     => 'luc.lecarpentier5@gmail.com',
+                'mdp'      => password_hash('pwdLuc05', PASSWORD_DEFAULT),
                 'active'   => true,
             ],
         ];
