@@ -64,7 +64,7 @@
 							[
 								'echeance' => 'Échéance',
 								'priorite' => 'Priorité',
-								'creepar' => 'Createur',
+								'creepar' => 'Créateur',
 								'titre' => 'Alphabétique'
 							],
 							$tri = isset($_COOKIE['tri']) ? $_COOKIE['tri'] : "echeance",
