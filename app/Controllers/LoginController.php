@@ -162,7 +162,7 @@ class LoginController extends BaseController {
 
 		$utilisateurModel->update($usernameBase, $nouveauUtilisateur);
 
-		if($this->request->getVar('mdp_actuel') != "" || $this->request->getVar('ancien_mdp') != "" || $this->request->getVar('mdp_confirm') != "")
+		if($this->request->getVar('mdp_actuel') != "" || $this->request->getVar('nouveau_mdp') != "" || $this->request->getVar('mdp_confirm') != "")
 		{
 			if(!password_verify($this->request->getVar('mdp_actuel'), $utilisateurBase['mdp']))
 			{
